@@ -41,3 +41,8 @@ Custom built controllers are used to shortcut common actions
     various controls for all onboard systems
     bind actions to groups in-game using AGX
     send commands to MFD0 to active group based on button pressed
+  MFD Controls
+    Each MFD has a strip of 6 buttons that can be used to directly interact with programs
+    This is done by tying the buttons to action groups
+    kOS has the ability to monitor action groups and react to button presses
+    24 AGX groups are reserved for this feature
