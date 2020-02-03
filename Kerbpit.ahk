@@ -9,7 +9,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;use the controller index to execute commands
 ;Hotkey, %FCID%joy1, ResetMFD1
 
-SetKeyDelay, 1
+SetKeyDelay, -1
 
 myjoy:= 1
 mynumber := 10
@@ -19,12 +19,15 @@ amfd := 4
 
 Hotkey,^NumpadDot,ResetMFDALL
 Hotkey,^NumpadEnter,RelogMFDALL
-Hotkey,^Numpad0,ResetMFD0
-Hotkey,^Numpad1,ResetMFD1
-Hotkey,^Numpad2,ResetMFD2
-Hotkey,^Numpad3,ResetMFD3
-Hotkey,^Numpad4,ResetMFD4
 Hotkey,^Numpad7,ListMFD%amfd%
+Hotkey,^Numpad8,AutopilotNode
+Hotkey,^Numpad9,AutopilotLaunch
+Hotkey,^Numpad5,AutopilotLand
+Hotkey,^Numpad6,AutopilotAircraft
+Hotkey,^Left,AutopilotHeadDown
+Hotkey,^Right,AutopilotHeadUp
+Hotkey,^Up,AutopilotAltUp
+Hotkey,^Down,AutopilotAltDown
 	Return
 
 ;^A::
@@ -51,8 +54,34 @@ Hotkey,^Numpad7,ListMFD%amfd%
 ;	ControlSend,,3,kOS MFD%amfd% ;log into the kOS CPU
 ;	Return
 
-^Numpad9::
+AutopilotNode:
+	ControlSend,,run{Space}F2.{Enter}, kOS MFD2 
+	Return
+
+AutopilotLaunch:
 	ControlSend,,run{Space}F1(100`,25).{Enter}, kOS MFD2 
+	Return
+
+AutopilotLand:
+	Return
+	
+AutopilotAircraft:
+	Return
+	
+AutopilotHeadDown:
+	ControlSend,,run{Space}autopilot_adjust(-1`,0`,0`,0`,0).{Enter}, kOS MFD0 
+	Return
+
+AutopilotHeadUp:
+	ControlSend,,run{Space}autopilot_adjust(1`,0`,0`,0`,0).{Enter}, kOS MFD0 
+	Return
+
+AutopilotAltUp:
+	ControlSend,,run{Space}autopilot_adjust(0`,1`,0`,0`,0).{Enter}, kOS MFD0 
+	Return
+
+AutopilotAltDown:
+	ControlSend,,run{Space}autopilot_adjust(0`,-1`,0`,0`,0).{Enter}, kOS MFD0 
 	Return
 
 ^NumpadAdd::

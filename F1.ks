@@ -1,4 +1,4 @@
-//MFD Autopilot - Launch to Orbit Script
+// MFD Autopilot - Launch to Orbit Script
 // by Jonathan Medders  'EberKain'
 //
 // All we are trying to accomplish with this script is to control 
@@ -46,27 +46,27 @@ set maxaoa to 5. //the max number of degrees to steer off prograde marker
 //setup the screen info fields
 clearscreen.
 print "       LAUNCH TO ORBIT               STATUS".
-print "  Altitude (km)     :            getting params ".
+print "  Altitude     (km) :            getting params ".
 print "  Inclination (deg) : ".
 print " ".
-print "  Landed Latiatude  : ".        
-print "  True Target Incl. : ".                              
+print "  Landed Lat. (deg) : ".        
+print "  Surf Head.  (deg) : ".                              
 print " ".
-print "  Current Altitude  : ". 
-print "  Current Apoaposis : ".
+print "  Curr Altitude (m) : ". 
+print "  Curr Apoaposis(m) : ".
 print "  Curr. Incl. (deg) : ".
-print "  Velocity Pitch    : ".
-print "  Vessel Pitch      : ".
-print "  Target Pitch      : ".
-print "  Real Target Pitch : ".
+print "  Velo. Pitch (deg) : ".
+print "  Vessel Pitch(deg) : ".
+print "  Target Pitch(deg) : ".
+print "  Real Pitch  (deg) : ".
 print " ".
-print "  Current Throttle  : ".                              
-print "  Target Throttle   : ".   
+print "  Curr. Throt (pct) : ".                              
+print "  Target Throt(pct) : ".   
 print " ".
 print "  Max AoA     (deg) :  " + maxaoa.
 print "  Current AoA (deg) :  ".
 print "  Limited AoA (deg) :  ".
-print "  Actual Pressure   :  ".
+print "  Actual Press(atm) :  ".
 print "  Dynamic Pressure  :  ".
 
 //check the parameters, if they were used then populate the vars and flip flags
@@ -161,16 +161,41 @@ print "ready to launch" at(33,4).
 print "steering locked" at(33,5).
 print "throttle locked" at(33,6).
 print ROUND(SHIP:LATITUDE,2) at(23,4).
-print realtarinc + " deg" at(23,5).
+print realtarinc at(23,5).
 
+//write a new lexicon with the starting values
+set lextime to time:seconds.
+set lexflag to false.
+set LEX to lexicon().
+set LEX["heading"] to realtarinc.
+set LEX["altitude"] to taralt.
+set LEX["speed"] to 0.
+set LEX["maxroll"] to 0.
+set LEX["maxvspd"] to 0.
+writejson(LEX,"autopilot.json").
 
 //control steering and throttle until the AP reaches the taralt
 until launchdone {
+
+	//We need to support the autopilot lexicaon tweaking
+	//if once sec has passed since last update then
+	if time:seconds > lextime + 1 {
+		set lextime to time:seconds.
+		//read in the lexicon and update the params
+		set LEX to readjson("autopilot.json").
+		set realtarinc to LEX["heading"].
+		set taralt to LEX["altitude"].
+		if lexflag = false { print "---ap-up---" at(35,7). set lexflag to true. }
+		else { print "===ap=up===" at(35,7). set lexflag to false. }
+		
+	}
+
 	set velpit to 90-VANG(UP:FOREVECTOR, PROGRADE:FOREVECTOR).
 	set shppit to 90-vang(UP:FOREVECTOR, FACING:FOREVECTOR).
 	set curaoa to shppit - realtarpit.
 	set curpress to SHIP:BODY:ATM:altitudepressure(SHIP:ALTITUDE).
 	set limaoa to maxaoa * (1-(curpress/0.25)).
+	
 	
 	//if less than 100m above ground and in thick atmo
 	//then lock steering up 
@@ -223,8 +248,11 @@ until launchdone {
 	}
 	
 	//update the status display 
-	print ROUND(SHIP:ALTITUDE,0)+" m" at(23,7).
-	print ROUND(SHIP:APOAPSIS,0)+" m" at(23,8).
+	print realtarinc at(23,5).
+	print taralt at(23,1).
+
+	print ROUND(SHIP:ALTITUDE,0) at(23,7).
+	print ROUND(SHIP:APOAPSIS,0) at(23,8).
 	print ROUND(SHIP:OBT:INCLINATION,0) at(23,9).
 	
 	print ROUND(velpit+0.001,2) at(23,10).
@@ -232,11 +260,11 @@ until launchdone {
 	print ROUND(tarpit+0.001,2) at(23,12).
 	print ROUND(realtarpit+0.001,2) at(23,13).
 	
-	print ROUND((THROTTLE*100),0)+" %   " at(23,15).
-	print ROUND((tarthr*100),0)+" %   " at(23,16).
+	print ROUND((THROTTLE*100),0) at(23,15).
+	print ROUND((tarthr*100),0) at(23,16).
 
-	print ROUND(curaoa+0.001,2) at(23,19).
-	print ROUND(limaoa+0.001,2) at(23,20).
+	print ROUND(curaoa+0.001,2)+"  " at(23,19).
+	print ROUND(limaoa+0.001,2)+"  " at(23,20).
 	print ROUND(curpress,2) at(23,21).
 	print ROUND(SHIP:DYNAMICPRESSURE,2) at(23,22).
 
