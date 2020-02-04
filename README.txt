@@ -15,28 +15,33 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
   MFD0 is a hidden terminal used to send complex commands via AHk
   
 Custom built controllers are used to shortcut common actions
+each controller can support 32 buttons and 8 analog axis
   Flight Computer is used to interface with MFDS and control what is displayed
-    Select button (4) allows you to choose what MFD to send commands to
-    list button will display a list of programs for that MFD
-    Run button begins a kOS run command
-    letter/number buttons are used to pick a program
-    exec button is used to start the program
-    end button is used to stop a program
-    reset button to reset the mfd window if something goes awry
-  Autopilot controller is used to interact with running programs to adjust params
-    tweak +/- buttons for HDG, ALT, SPD, etc...
-    rate toggles to control how much to add/sub per press
-    Execute shortcuts to launch commonly used autopilot programs directly to MFD3
-    time control buttons to control time warp
-    conf warp-to buttoms for common events
-    aircraft trim dials
+    4 keyswitch-Select button allows you to choose what MFD to send commands to
+    1 keyswitch-list button will display a list of programs for that MFD
+    1 keyswitch-Run button begins a kOS run command
+    17 keyswitch-letter/number buttons are used to pick a program (A-F,0-9,decimal)
+    1 keyswitch-exec button is used to start the program
+    1 keyswitch-end button is used to stop a program
+    1 keyswitch-reset button to reset the mfd terminal window if something goes awry
+    1 keyswitch-master reset to reset all MFD terminal windows
+    1 keyswitch-master reboot to relog into all CPUs without resetting terminals, for switching craft
+    4 thumbstick-RCS axis controls, linear xyz, rotation xyz
+  Autopilot controller is used to interact with running programs to tweak autopilot
+    10 keyswitch-tweak +/- buttons for HDG, ALT, SPD, MAXROLL, MAXVSPD
+    3 3-way toggle-rate adjustment controls how much to add/sub per press
+    4 keyswitch-Execute shortcuts to launch commonly used autopilot programs directly to MFD3
+      Launch, Land, Exec Node, Atmo Autopilot
+    1 keyswitch-kill the current autopilot
+    4 keyswitch-time control buttons to control time warp +/- norm/phys
+    3 keyswitch-change the navball mode
+    3 dials-aircraft trim dials
   Navigation Controller manipulates manuvre nodes
-    +/- buttons for Prograde, Radial, Normal
-    3-way toggle switch for rate of +/-
-    +/- node time control
-    3-way toggle switch for rate of +/- time
-    sas controls for each mode and on/off
-    navball mode switch
+    6 keyswitch-+/- buttons for Prograde, Radial, Normal
+    1 3-way toggle-rate switch for amount to change dev by
+    2 keyswitch-+/- node time control
+    1 3-way toggle-for rate of time change
+    11 keyswitch-sas controls for each mode and on/off
   Overhead Panel
     various controls for all onboard systems
     bind actions to groups in-game using AGX
