@@ -2,9 +2,10 @@
 // by Jonathan Medders  'EberKain'
 //
 // What we are doing here is making a running program interactive
-// We get triggered by a joystick button in AHK that calls this script
-// The script reads in the autopilot json, tweaks it based on the params
-// and rewrites back out the autopilot json
+// without requiring that program to monitor action group activity
+// We get triggered by a joystick button, AHK that calls this script using MFD0
+// The script reads in the autopilot json, tweaks it based on the params passed by the AHK call
+// and rewrites back out the autopilot json which is in-turn read in once a second by the autopilot
 //
 //	autopilot json is a lexicon data struct
 //		heading
