@@ -1,5 +1,6 @@
 list of all the action groups and what they are reserved for
 
+Basic Actions
 ABORT     
 BRAKE     Toggle Landing Gear Brakes
 GEAR      Toggle Landing Gear
@@ -7,6 +8,12 @@ LIGHTS    Toggle Flood Lights
 SAS       Toggle SAS (default action)
 RCS       Toggle RCS (default action)
 STAGE     Activate next stage (default action)
+
+Special Keys
+NextCam   Swich to next camera view
+PrevCam   Switch to prev camera view
+ZoomIn    Control Camera Zoom
+ZoomOut   Control Camera Zoom
 
 AG1
 AG2
@@ -55,10 +62,10 @@ AG38
 AG39
 AG40
 
-
-AG41
-AG42
-AG43
+Power Systems
+AG41    Deploy Solar Panels
+AG42    Retract Solar Panels
+AG43    
 AG44
 AG45
 AG46
