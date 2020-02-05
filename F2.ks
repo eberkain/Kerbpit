@@ -1,6 +1,8 @@
 // MFD Autopilot - Execute Next Node
 // by Jonathan Medders  'EberKain'
 //
+// based on the kOS sample script
+//
 // All we are trying to accomplish with this script is to control 
 // the vessel steering and throttle, all other systems are manual
 //
@@ -29,6 +31,9 @@ print " ".
 print "  Ending Mass       : ".
 print "  Fuel Flow         : ".
 print "  Burn Duration     : ".
+print " ".
+print "  Node VANG         : ".
+print "  Max Stop Time     : ".
 print " ".
 print "  Current Mass      : ".
 print "  Curr. Max Accel.  : ".
@@ -71,13 +76,26 @@ set np to nd:deltav. //points to node, don't care about the roll direction.
 lock steering to np.
 RCS ON.
 SAS OFF.
-//TODO scale max stopping time based on the amount of turn needed to make
-set steeringmanager:maxstoppingtime to 10.
 print "steering locked" at(33,3).
 print "rcs enabled" at(33,4).
 
+//adjust the maxstoptime on the fly relative to how far the steering needs to travel
+set aligned to false.
+until aligned {
+	set fdif to vang(np, ship:facing:vector).
+	set mst to (fdif*0.1)+2.
+	set steeringmanager:maxstoppingtime to mst.
+
+	print round(fdif,0)+"   " at(23,12).
+	print round(mst,0)+"   " at(23,13).
+	
+	if fdif < 0.25 {
+		set aligned to true. 
+	}
+}
+
 //now we need to wait until the burn vector and ship's facing are aligned
-wait until vang(np, ship:facing:vector) < 0.25.
+wait until aligned = true. 
 print "steering aligned" at(33,6).
 print "warping to start" at(33,7).
 
@@ -102,11 +120,11 @@ until done {
     set nvd to vdot(dvv, nd:deltav).
 
 	//update status
-	print round(ship:mass*1000,0) at(23,12).
-	print round(max_acc,2) at(23,13).
-	print round(tset*100,0) at(23,14).
-	print round(nd:deltav:mag,1) at(23,15).
-	print round(nvd,0) at(23,16).
+	print round(ship:mass*1000,0) at(23,15).
+	print round(max_acc,2) at(23,16).
+	print round(tset*100,0) at(23,17).
+	print round(nd:deltav:mag,1) at(23,18).
+	print round(nvd,0) at(23,19).
 
     //throttle is 100% until there is less than 1 second of time left to burn
     //when there is less than 1 second - decrease the throttle linearly

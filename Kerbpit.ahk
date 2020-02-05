@@ -9,7 +9,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;use the controller index to execute commands
 ;Hotkey, %FCID%joy1, ResetMFD1
 
-SetKeyDelay, -1
+SetKeyDelay,1
 
 myjoy:= 1
 mynumber := 10
@@ -17,6 +17,7 @@ mymfd := 3
 mykey := "P"
 amfd := 4
 
+Hotkey,^Numpad0,ResetMFD0
 Hotkey,^NumpadDot,ResetMFDALL
 Hotkey,^NumpadEnter,RelogMFDALL
 Hotkey,^Numpad7,ListMFD%amfd%
@@ -29,6 +30,14 @@ Hotkey,^Right,AutopilotHeadUp
 Hotkey,^Up,AutopilotAltUp
 Hotkey,^Down,AutopilotAltDown
 	Return
+
+;G710 GKEYS 
+;Hotkey,sc002,
+;Hotkey,sc003,
+;Hotkey,sc004,
+;Hotkey,sc005,
+;Hotkey,sc006,
+;Hotkey,sc007,
 
 ;^A::
 ;	ControlSend,,A,kOS MFD%amfd% ;log into the kOS CPU
@@ -63,9 +72,11 @@ AutopilotLaunch:
 	Return
 
 AutopilotLand:
+	ControlSend,,run{Space}F3.{Enter}, kOS MFD2 
 	Return
 	
 AutopilotAircraft:
+	ControlSend,,run{Space}F4.{Enter}, kOS MFD2 
 	Return
 	
 AutopilotHeadDown:
@@ -152,7 +163,7 @@ ResetMFD0:
 	Sleep 100 ;give the window time to terminate
 	Run, C:\Program Files\PuTTY\putty.exe -load ""MFD0"" ;load the saved session
 	Sleep 500 ; give the window time to load and handshake
-	WinMove, kOS MFD0,, -500, -800, 500,500 ;relocated to the proper screen
+	WinMove, kOS MFD0,, -500, -900, 500,500 ;relocated to the proper screen
 	ControlSend,,5{Enter}, kOS MFD0 ;log into the kOS CPU
 	Sleep 100
 	ControlSend,,switch to archive.{Enter}, kOS MFD0 ;log into the kOS CPU

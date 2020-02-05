@@ -1,6 +1,8 @@
 // MFD Autopilot - Launch to Orbit Script
 // by Jonathan Medders  'EberKain'
 //
+// made from scratch to hopefully work on all planets and 'reasonable' launchers
+//
 // All we are trying to accomplish with this script is to control 
 // the vessel steering and throttle, all other systems are manual
 //
@@ -250,6 +252,7 @@ until launchdone {
 	//update the status display 
 	print realtarinc at(23,5).
 	print taralt at(23,1).
+	print realtarinc-90 at(23,2).
 
 	print ROUND(SHIP:ALTITUDE,0) at(23,7).
 	print ROUND(SHIP:APOAPSIS,0) at(23,8).
