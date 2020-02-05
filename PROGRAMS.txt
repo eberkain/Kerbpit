@@ -1,12 +1,5 @@
 List of all the programs with a basic outline of what they do
 
-Autopilot Programs 		
-	F1	Launt to Orbit
-	F2	Execute Next Node
-	F3	Perform Landing 
-	F4	Autopilot
-	F5	Time Warp Controller
-		
 		
 Navigation Programs		
 	A01	Circulize at Ap
@@ -18,7 +11,7 @@ Navigation Programs
 	B01	Intercept Target
 	B02	Fine Tune Closest Approach 
 	B03	Match Velocities at Closest Approach
-		
+	C01     Deorbit at Coordinates
 		
 Vessel Status		
 	D1 	
@@ -27,4 +20,12 @@ Vessel Status
 		
 Orbit Status		
 	E1 	
+		
+
+Autopilot Programs 		
+	F1	Launt to Orbit
+	F2	Execute Next Node
+	F3	Perform Landing 
+	F4	Autopilot
+	F5	Time Warp Controller
 		
