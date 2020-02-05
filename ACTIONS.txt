@@ -59,7 +59,7 @@ AG35    Deploy Emergency Chutes
 AG36    Cut Emergency Chutes
 AG37    Jettison Heat Shield
 AG38    Toggle Landing Legs
-AG39    Toggle Airbrakes
+AG39    
 AG40
 
 Power Systems
@@ -73,9 +73,11 @@ AG47
 AG48
 AG49
 AG50
-AG51
-AG52
-AG53
+
+Aircraft Systems
+AG51    Toggle Airbrakes
+AG52    Toggle Flaps
+AG53    
 AG54
 AG55
 AG56
