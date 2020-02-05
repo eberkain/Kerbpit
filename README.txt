@@ -2,7 +2,7 @@
 
 This is a project to build a KSP simpit 
 
-AutoHotKey is used to interface custom controllers KSP
+Kerbpit.ahk is an AutoHotKey script that is used to interface custom controllers KSP
   Controls can be bound to direct in-game actions
   Controls can send simulated keypresses to ksp
   Controls can send complex commands to kOS
@@ -14,8 +14,7 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
   MFD4 is a flight computer that creates nav nodes
   MFD0 is a hidden terminal used to send complex commands via AHk
   
-Custom built controllers are used to shortcut common actions
-each controller can support 32 buttons and 8 analog axis
+Custom built controllers are used to shortcut common actions, each controller can support 32 buttons and 8 analog axis
   Flight Computer is used to interface with MFDS and control what is displayed
     4 keyswitch-Select button allows you to choose what MFD to send commands to
     1 keyswitch-list button will display a list of programs for that MFD
