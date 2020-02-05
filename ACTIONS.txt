@@ -15,7 +15,7 @@ PrevCam   Switch to prev camera view
 ZoomIn    Control Camera Zoom
 ZoomOut   Control Camera Zoom
 
-AG1
+AG1     Toggle Ladders
 AG2
 AG3
 AG4
@@ -58,8 +58,8 @@ AG34    Cut Main Chutes
 AG35    Deploy Emergency Chutes
 AG36    Cut Emergency Chutes
 AG37    Jettison Heat Shield
-AG38
-AG39
+AG38    Toggle Landing Legs
+AG39    Toggle Airbrakes
 AG40
 
 Power Systems
