@@ -1,6 +1,10 @@
 # Kerbpit
 
-This is a project to build a KSP simpit 
+This is a project to build a KSP desktop simpit 
+  The general idea is to build custom kOS scripts to control throttle and steering
+  All other systems are manually controlled via tactile switches
+  kOS scripts are used to monitor ship systems and generate manuvre nodes
+  The main game window should see minimal use to the point where it can simply display a camera view
 
 Kerbpit.ahk is an AutoHotKey script that is used to interface custom controllers KSP
   Controls can be bound to direct in-game actions
