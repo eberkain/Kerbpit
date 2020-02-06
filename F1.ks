@@ -34,7 +34,7 @@
 //                                 terminating prog
 
 //collect passed params
-parameter passed_alt, passed_inc.
+parameter passed_alt is 0, passed_inc is 0.
 
 //main input vars
 set taralt to "".

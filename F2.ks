@@ -83,7 +83,7 @@ print "rcs enabled" at(33,4).
 set aligned to false.
 until aligned {
 	set fdif to vang(np, ship:facing:vector).
-	set mst to (fdif*0.1)+2.
+	set mst to (fdif*0.1)+4.
 	set steeringmanager:maxstoppingtime to mst.
 
 	print round(fdif,0)+"   " at(23,12).
