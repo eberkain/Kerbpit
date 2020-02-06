@@ -23,7 +23,7 @@ Custom built controllers are used to shortcut common actions, each controller ca
     4 keyswitch-Select button allows you to choose what MFD to send commands to
     1 keyswitch-list button will display a list of programs for that MFD
     1 keyswitch-Run button begins a kOS run command
-    17 keyswitch-letter/number buttons are used to pick a program (A-F,0-9,decimal)
+    18 keyswitch-letter/number buttons are used to pick a program (A-F,0-9,decimal,minus)
     1 keyswitch-exec button is used to start the program
     1 keyswitch-end button is used to stop a program
     1 keyswitch-reset button to reset the mfd terminal window if something goes awry
