@@ -19,7 +19,7 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
   MFD0 is a hidden terminal used to send complex commands via AHk
   
 Custom built controllers are used to shortcut common actions, each controller can support 32 buttons and 8 analog axis
-  Flight Computer is used to interface with MFDS and control what is displayed
+  Flight Computer is the right side console and used to interface with MFDS and provide analog controls
     4 keyswitch-Select button allows you to choose what MFD to send commands to
     1 keyswitch-list button will display a list of programs for that MFD
     1 keyswitch-Run button begins a kOS run command
@@ -29,8 +29,10 @@ Custom built controllers are used to shortcut common actions, each controller ca
     1 keyswitch-reset button to reset the mfd terminal window if something goes awry
     1 keyswitch-master reset to reset all MFD terminal windows
     1 keyswitch-master reboot to relog into all CPUs without resetting terminals, for switching craft
-    4 thumbstick-RCS axis controls, linear xyz, rotation xyz
-  Autopilot controller is used to interact with running programs to tweak autopilot
+    2 thumbstick-RCS axis controls linear (up,down,left,right)(fore,back)
+    2 thumbstick-RCS axis control rotation (pitch,yaw)(roll)
+    4 thumbstick robotics controls, single axis. 
+  Navigation Controller is the left side console and is used to manipulate autopilot programs and manuvre nodes
     10 keyswitch-tweak +/- buttons for HDG, ALT, SPD, MAXROLL, MAXVSPD
     3 3-way toggle-rate adjustment controls how much to add/sub per press
     4 keyswitch-Execute shortcuts to launch commonly used autopilot programs directly to MFD3
@@ -39,7 +41,6 @@ Custom built controllers are used to shortcut common actions, each controller ca
     4 keyswitch-time control buttons to control time warp +/- norm/phys
     3 keyswitch-change the navball mode
     3 dials-aircraft trim dials
-  Navigation Controller manipulates manuvre nodes
     6 keyswitch-+/- buttons for Prograde, Radial, Normal
     1 3-way toggle-rate switch for amount to change dev by
     2 keyswitch-+/- node time control
