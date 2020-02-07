@@ -34,12 +34,12 @@
 //                                 terminating prog
 
 //collect passed params
-parameter passed_alt is 0, passed_inc is 0.
+parameter passed_alt is 9999, passed_inc is 9999.
 
 //main input vars
-set taralt to "".
+set taralt to 9999.
 set hasalt to false.
-set tarinc to "".
+set tarinc to 9999.
 set hasinc to false.
 
 //other control values
@@ -72,74 +72,89 @@ print "  Actual Press(atm) :  ".
 print "  Dynamic Pressure  :  ".
 
 //check the parameters, if they were used then populate the vars and flip flags
-if passed_alt > 0 {
+if passed_alt <> 9999 {
 	set hasalt to true.
 	set taralt to passed_alt.
 	print taralt at(23,1).
 	print "[ALT]" at(34,2).
 }
-if passed_inc > 0 {
+if passed_inc <> 9999 {
 	set hasinc to true.
 	set tarinc to passed_inc.
 	print tarinc at(23,2).
 	print "[INC]" at(42,2).
 }
 
+set inputval to "".
+
 //otherwise we prompt the user to input params 
-on terminal:input:haschar {
-	set char to terminal:input:getchar().
-	set val to char:tonumber(-1).
-	if hasalt = false {
-		if char = terminal:input:ENTER { 
-			terminal:input:clear. 
-			set hasalt to true. 
-			print "[ALT]" at(34,2).
+until hasinc = true AND hasalt = true {
+	if terminal:input:haschar {
+		set char to terminal:input:getchar().
+		set val to char:tonumber(-1).
+		
+		//do second part first to avoid dual execution
+		if hasinc = false AND hasalt = true {
+			if char = terminal:input:ENTER { 
+				terminal:input:clear. 
+				set hasinc to true. 
+				set tarinc to inputval:tonumber(0).
+				print tarinc +" n "at(23,2).
+				print "[INC]" at(42,2).
+			}
+			if char = terminal:input:backspace {
+				set inputval to inputval:remove(inputval:length-1,1).	
+				print inputval + " " at(23,2).
+			}
+			if char = "-" {
+				set inputval to inputval + char. 
+				print inputval at(23,2).
+			}
+			if val >= 0 { // input was a number
+				set inputval to inputval + char. 
+				print inputval at(23,2).
+			} 
+			//if input was a letter then do nothing
 		}
-		if char = terminal:input:backspace {
-			set taralt to taralt:remove(taralt:length-1,1).	
-			print taralt + " " at(23,1).
+
+		if hasalt = false {
+			if char = terminal:input:ENTER { 
+				terminal:input:clear. 
+				set taralt to inputval:tonumber(150).
+				print taralt +" n "at(23,1).
+				set hasalt to true. 
+				set inputval to "".
+				print "[ALT]" at(34,2).
+			}
+			if char = terminal:input:backspace {
+				set inputval to inputval:remove(inputval:length-1,1).	
+				print inputval + " " at(23,1).
+			}
+			if val >= 0 { // input was a number
+				set inputval to inputval + char. 
+				print inputval at(23,1).
+			} 
+			//if input was a letter then do nothing
 		}
-		if val >= 0 { // input was a number
-			set taralt to taralt + char. 
-			print taralt at(23,1).
-		} 
-		//if input was a letter then do nothing
 	}
-	else {
-		if char = terminal:input:ENTER { 
-			terminal:input:clear. 
-			set hasinc to true. 
-			print "[INC]" at(42,2).
-		}
-		if char = terminal:input:backspace {
-			set tarinc to tarinc:remove(tarinc:length-1,1).	
-			print tarinc + " " at(23,2).
-		}
-		if val >= 0 { // input was a number
-			set tarinc to tarinc + char. 
-			print tarinc at(23,2).
-		} 
-		//if input was a letter then do nothing
-	}
-	preserve. 
 }
 
 //halt program until vars are ready to use
 wait until hasalt = true.
 wait until hasinc = true.
 
-//calculate realtarinc which is the larger of tarinc and grounded latitude
+//calculate tarhead which is the larger of tarinc and grounded latitude
 //assume most launches are at equator so the tarinc is fine to use
-set realtarinc to tarinc+90.
+set tarhead to tarinc+90.
 
 //if ship is in northem hemi then use larger of lat vs tarinc
 if SHIP:LATITUDE > 1 {
-	set realtarinc to MAX(tarinc,SHIP:LATITUDE).
+	set tarhead to MAX(tarinc,SHIP:LATITUDE).
 }
 
 //if ship is in souther hemi use smaller of lat vs tarinc
 if SHIP:LATITUDE < -1 {
-	set realtarinc to MIN(tarinc,SHIP:LATITUDE).
+	set tarhead to MIN(tarinc,SHIP:LATITUDE).
 }
 
 //take over control of steering
@@ -150,7 +165,7 @@ set realtarpit to 89.
 set curaoa to 0.
 set pitchstarted to false.
 set pitchstartalt to 0.
-lock steering to heading(realtarinc,realtarpit).
+lock steering to heading(tarhead,realtarpit).
 
 //take over control of throttle
 set tarthr to 1.
@@ -163,18 +178,24 @@ print "ready to launch" at(33,4).
 print "steering locked" at(33,5).
 print "throttle locked" at(33,6).
 print ROUND(SHIP:LATITUDE,2) at(23,4).
-print realtarinc at(23,5).
+print tarhead at(23,5).
 
 //write a new lexicon with the starting values
 set lextime to time:seconds.
 set lexflag to false.
 set LEX to lexicon().
-set LEX["heading"] to realtarinc.
+set LEX["heading"] to tarhead.
+print "h" at(37,7).
 set LEX["altitude"] to taralt.
+print "a" at(38,7).
 set LEX["speed"] to 0.
+print "s" at(39,7).
 set LEX["maxroll"] to 0.
+print "m" at(40,7).
 set LEX["maxvspd"] to 0.
+print "m" at(41,7).
 writejson(LEX,"autopilot.json").
+print "x" at(42,7).
 
 //control steering and throttle until the AP reaches the taralt
 until launchdone {
@@ -185,25 +206,31 @@ until launchdone {
 		set lextime to time:seconds.
 		//read in the lexicon and update the params
 		set LEX to readjson("autopilot.json").
-		set realtarinc to LEX["heading"].
+		set tarhead to LEX["heading"].
 		set taralt to LEX["altitude"].
-		if lexflag = false { print "---ap-up---" at(35,7). set lexflag to true. }
-		else { print "===ap=up===" at(35,7). set lexflag to false. }
+		if lexflag = false { print "-ap-up-" at(37,7). set lexflag to true. }
+		else { print "=ap=up=" at(37,7). set lexflag to false. }
 		
 	}
 
 	set velpit to 90-VANG(UP:FOREVECTOR, PROGRADE:FOREVECTOR).
 	set shppit to 90-vang(UP:FOREVECTOR, FACING:FOREVECTOR).
-	set curaoa to shppit - realtarpit.
+	set curaoa to abs(shppit - velpit).
 	set curpress to SHIP:BODY:ATM:altitudepressure(SHIP:ALTITUDE).
-	set limaoa to maxaoa * (1-(curpress/0.25)).
+	set limaoa to abs(maxaoa * (1-(curpress/0.25))).
 	
 	
 	//if less than 100m above ground and in thick atmo
 	//then lock steering up 
-	if SHIP:ALTITUDE < 1000 OR curpress > 0.25 {
-		set tarpit to 89.
-		set realtarpit to 89.
+	if curpress > 0.25 {
+		if SHIP:ALTITUDE < 1000 {
+			set tarpit to 89.
+			set realtarpit to 89.
+		}
+		else {
+			set tarpit to 88.
+			set realtarpit to 88.
+		}
 	}
 
 	//otherwise we create an angle based on the relationship between the AP and taralt
@@ -250,9 +277,9 @@ until launchdone {
 	}
 	
 	//update the status display 
-	print realtarinc at(23,5).
+	print tarhead at(23,5).
 	print taralt at(23,1).
-	print realtarinc-90 at(23,2).
+	print tarhead-90 at(23,2).
 
 	print ROUND(SHIP:ALTITUDE,0) at(23,7).
 	print ROUND(SHIP:APOAPSIS,0) at(23,8).
@@ -266,8 +293,8 @@ until launchdone {
 	print ROUND((THROTTLE*100),0) at(23,15).
 	print ROUND((tarthr*100),0) at(23,16).
 
-	print ROUND(curaoa+0.001,2)+"  " at(23,19).
-	print ROUND(limaoa+0.001,2)+"  " at(23,20).
+	print ROUND(curaoa+0.001,2)+"    " at(23,19).
+	print ROUND(limaoa+0.001,2)+"    " at(23,20).
 	print ROUND(curpress,2) at(23,21).
 	print ROUND(SHIP:DYNAMICPRESSURE,2) at(23,22).
 
