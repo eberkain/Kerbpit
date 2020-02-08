@@ -2,7 +2,7 @@ list of all the action groups and what they are reserved for
 
 Basic Actions
 ABORT     
-BRAKE     Toggle Landing Gear Brakes
+BRAKE     Wheel Brakes
 GEAR      Toggle Landing Gear
 LIGHTS    Toggle Flood Lights
 SAS       Toggle SAS (default action)
@@ -15,12 +15,13 @@ PrevCam   Switch to prev camera view
 ZoomIn    Control Camera Zoom
 ZoomOut   Control Camera Zoom
 
+Basic Systems
 AG1     Toggle Ladders
-AG2
-AG3
-AG4
-AG5
-AG6
+AG2     Toggle Antennas
+AG3     Toggle Relays
+AG4     Toggle Drill Deployment
+AG5     Toggle Drill Operation
+AG6     Toggle ISRU
 AG7
 AG8
 AG9
@@ -30,7 +31,7 @@ Orbital Manuvreing
 AG11    Toggle Linear RCS
 AG12    Toggle Rotation RCS
 AG13    Toggle OMS
-AG14    
+AG14    Toggle Thrusters
 AG15    
 AG16
 AG17
@@ -38,13 +39,13 @@ AG18
 AG19
 AG20
 
-Engine Control
-AG21    Engage Main Engines
-AG22    Shutdown Main Engines
-AG23    Engage Landing Engines
-AG24    Shutdown Landing Engines
-AG25
-AG26
+Robotics Controls
+AG21    Sequence 1
+AG22    Sequence 2
+AG23    Sequence 3
+AG24    Sequence 4
+AG25    Engage Lock
+AG26    Disenage Lock
 AG27
 AG28
 AG29
@@ -59,14 +60,14 @@ AG35    Deploy Emergency Chutes
 AG36    Cut Emergency Chutes
 AG37    Jettison Heat Shield
 AG38    Toggle Landing Legs
-AG39    
+AG39    Inflate Heat Shield
 AG40
 
 Power Systems
-AG41    Deploy Solar Panels
-AG42    Retract Solar Panels
-AG43    
-AG44
+AG41    Toggle Primary Solar Panels
+AG42    Toggle Secondary Solar Panels
+AG43    Toggle Primary Fuel Cell
+AG44    Toggle Secondary Fuel Cell
 AG45
 AG46
 AG47
@@ -77,75 +78,87 @@ AG50
 Aircraft Systems
 AG51    Toggle Airbrakes
 AG52    Toggle Flaps
-AG53    
-AG54
-AG55
-AG56
-AG57
+AG53    Toggle Intake
+AG54    Toggle Thurst Reverser
+AG55    Hold Engine Brake
+AG56    Toggle Prop Deploy
+AG57    Toggle Wheel Lights
 AG58
 AG59
 AG60
-AG61
-AG62
-AG63
-AG64
+
+Launch Systems
+AG61    Retract Boarding Ramp
+AG62    Retract 
+AG63    Release Launch Clamps
+AG64    
 AG65
 AG66
 AG67
-AG68
-AG69
-AG70
-AG71
-AG72
-AG73
-AG74
-AG75
-AG76
-AG77
-AG78
-AG79
-AG80
-AG81
-AG82
-AG83
-AG84
-AG85
+AG68    
+AG69    Activate LES
+AG70    Decouple LES
+
+Engine Controls
+AG71    Activate Booster
+AG72    Activate STG1 Engine
+AG73    Activate STG2 Engine
+AG74    Activate STG3 Engine
+AG75    Toggle MAIN Engine
+AG76    Toggle LAND Engine
+AG77    Toggle ASCT Engine
+AG78    Toggle DESC Engine
+AG79   
+AG80    
+AG81    Decouple Booster
+AG82    Decouple STG1
+AG83    Decouple STG2
+AG84    Decouple STG3
+AG85    
 AG86
-AG87
+AG87    Toggle Gimbal
 AG88
 AG89
-AG90
-AG91
-AG92
-AG93
-AG94
-AG95
+AG90   
+
+Docking Controls
+AG91    Toggle Airlock
+AG92    Decouple Node
+AG93    Toggle Crossfeed
+AG94    Toggle Shield
+AG95    Toggle Grabber
 AG96
 AG97
 AG98
 AG99
 AG100
-AG101
-AG102
-AG103
-AG104
-AG105
-AG106
+
+Payload Controls
+AG101     Deploy Fairing
+AG102     Toggle Primary Bays
+AG103     Toggle Secondary Bays
+AG104     Jettison Shroud
+AG105     Toggle Loading Ramp
+AG106     Toggle Cargo Bay 
 AG107
 AG108
 AG109
 AG110
-AG111
-AG112
-AG113
-AG114
-AG115
-AG116
-AG117
-AG118
+
+Rover Systems
+AG111     Extend Wheels
+AG112     Front Toggle Motor
+AG113     Mid Toggle Motor
+AG114     Back Toggle Motor
+AG115     Front Toggle Steering
+AG116     Mid Toggle Steering
+AG117     Back Toggle Steering
+AG118     
 AG119
 AG120
-AG121
+
+Thermal Systems
+AG121     Toggle Radiator Deployment
 AG122
 AG123
 AG124
@@ -155,59 +168,65 @@ AG127
 AG128
 AG129
 AG130
-AG131
-AG132
-AG133
-AG134
-AG135
-AG136
-AG137
-AG138
+
+Science Systems
+AG131     Start Experiments
+AG132     Stop Experiments
+AG133     Collect Data
+AG134     System Check
+AG135     Start SCAN
+AG136     Stop SCAN
+AG137     Scan Surface Feature
+AG138     
 AG139
 AG140
-AG141
-AG142
-AG143
+
+
+AG141     
+AG142     
+AG143     
 AG144
 AG145
 AG146
 AG147
 AG148
 AG149
-AG150
-AG151
-AG152
-AG153
-AG154
-AG155
-AG156
-AG157
-AG158
-AG159
-AG160
-AG161
-AG162
-AG163
-AG164
+AG150   
+
+Kerbalism Actions
+AG151     Toggle Active Shield
+AG152     Deploy Habitat Ring
+AG153     Toggle Greenhouse
+AG154     
+AG155     
+AG156     
+AG157     
+AG158     Toggle Water Extraction
+AG159     Toggle Ore Extraction
+AG160     Toggle CO2 Extraction
+AG161     Toggle Oxygen Extraction
+AG162     Toggle Nitrogen Extraction
+AG163     Toggle Ammonia Extraction
+AG164     
 AG165
-AG166
-AG167
-AG168
-AG169
-AG170
+AG166     Toggle Scrubber
+AG167     Toggle Pressure Control
+AG168     Toggle Water Recycler
+AG169     Toggle Waste Processor
+AG170     Toggle Air Pump
 AG171
 AG172
-AG173
-AG174
-AG175
-AG176
-AG177
-AG178
-AG179
-AG180
-AG181
-AG182
-AG183
+AG173     Toggle Water Electrolysis
+AG174     Toggle Sabatier Reactor
+AG175     Toggle Haber Reactor
+AG176     Toggle Waste Incinerator
+AG177     Toggle Waste Compressor
+AG178     Toggle Anthraquinone (OX Prod)
+AG179     Toggle Hydrazine Production
+AG180     Toggle Hydrazone Prod. (N2)
+AG181     Toggle Solid Oxide Electrolysis     
+AG182     Toggle Molten Regolith Olectrolysis
+AG183     Toggle Selective Catalytic Oxidation
 AG184
 AG185
 AG186
@@ -225,6 +244,8 @@ AG197
 AG198
 AG199
 AG200
+
+Ballast Tanks Controls - MOD
 AG201
 AG202
 AG203
@@ -235,21 +256,23 @@ AG207
 AG208
 AG209
 AG210
-AG211
+
+Other Mod Actions
+AG211     kOS - Toggle CPU Power
 AG212
 AG213
 AG214
 AG215
 AG216
-AG217
-AG218
-AG219
-AG220
-AG221
-AG222
-AG223
-AG224
-AG225
+AG217     KAS - Release Cable
+AG218     KAS - Stop Motor
+AG219     KAS - Retract Cable
+AG220     KAS - Extend Cable
+AG221     
+AG222     SP - Start Timer
+AG223     SP - Reset Timer
+AG224     SP - Activate Detector
+AG225     SP - Deactivate Detector
 AG226
 
 Reserved for MFD Control Strips
