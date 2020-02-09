@@ -22,8 +22,8 @@ AG3     Toggle Relays
 AG4     Toggle Drill Deployment
 AG5     Toggle Drill Operation
 AG6     Toggle ISRU
-AG7
-AG8
+AG7     Toggle Radiators
+AG8     Toggle Dump Fuel
 AG9
 AG10
 
@@ -64,10 +64,10 @@ AG39    Inflate Heat Shield
 AG40
 
 Power Systems
-AG41    Toggle Primary Solar Panels
-AG42    Toggle Secondary Solar Panels
-AG43    Toggle Primary Fuel Cell
-AG44    Toggle Secondary Fuel Cell
+AG41    Toggle Solar Panels A
+AG42    Toggle Solar Panels B
+AG43    Toggle Fuel Cell A
+AG44    Toggle Fuel Cell B
 AG45
 AG46
 AG47
@@ -83,7 +83,7 @@ AG54    Toggle Thurst Reverser
 AG55    Hold Engine Brake
 AG56    Toggle Prop Deploy
 AG57    Toggle Wheel Lights
-AG58
+AG58    
 AG59
 AG60
 
@@ -157,8 +157,7 @@ AG118
 AG119
 AG120
 
-Thermal Systems
-AG121     Toggle Radiator Deployment
+AG121    
 AG122
 AG123
 AG124
@@ -273,7 +272,7 @@ AG222     SP - Start Timer
 AG223     SP - Reset Timer
 AG224     SP - Activate Detector
 AG225     SP - Deactivate Detector
-AG226
+AG226     
 
 Reserved for MFD Control Strips
 AG227		MFD1 -1
