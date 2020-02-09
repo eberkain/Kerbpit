@@ -32,6 +32,7 @@ Custom built controllers are used to shortcut common actions, each controller ca
     2 thumbstick-RCS axis controls linear (up,down,left,right)(fore,back)
     2 thumbstick-RCS axis control rotation (pitch,yaw)(roll)
     4 thumbstick robotics controls, single axis. 
+    8 keyswitch-robotics controls
   Navigation Controller is the left side console and is used to manipulate autopilot programs and manuvre nodes
     10 keyswitch-tweak +/- buttons for HDG, ALT, SPD, MAXROLL, MAXVSPD
     3 3-way toggle-rate adjustment controls how much to add/sub per press
