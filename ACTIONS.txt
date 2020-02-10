@@ -89,13 +89,13 @@ AG60
 
 Launch Systems
 AG61    Retract Boarding Ramp
-AG62    Retract 
+AG62    Release Umbilicals 
 AG63    Release Launch Clamps
 AG64    
 AG65
 AG66
 AG67
-AG68    
+AG68    Decouple Crew Pod
 AG69    Activate LES
 AG70    Decouple LES
 
