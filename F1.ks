@@ -1,7 +1,7 @@
 // MFD Autopilot - Launch to Orbit Script
 // by Jonathan Medders  'EberKain'
 //
-// made from scratch to hopefully work on all planets and 'reasonable' launchers
+// made from scratch to hopefully work on all planets and launchers
 //
 // All we are trying to accomplish with this script is to control 
 // the vessel steering and throttle, all other systems are manual
@@ -32,6 +32,19 @@
 //  Target Throttle   : ####       
 //                                 node created
 //                                 terminating prog
+
+// launch sequence begins when engines ignite
+// umbilicals and crew arm are retracted
+// throttle is slowly increased from 0 to 1
+// at full throttle launch clamps are released
+
+// The general idea for execution is... 
+// Throttle to hold a TWR less than 2
+// Hold vertical with sas until past maxq
+// Begin a gentel turn of 1 deg AoA after passing maxq
+// after passing 0.25 pressure increase AoA limiter
+// set angle based on AP versus desired AP 
+
 
 //collect passed params
 parameter passed_alt is 9999, passed_inc is 9999.
@@ -70,6 +83,16 @@ print "  Current AoA (deg) :  ".
 print "  Limited AoA (deg) :  ".
 print "  Actual Press(atm) :  ".
 print "  Dynamic Pressure  :  ".
+
+//find the altitude where pressure drops below 0.25
+set prestest to 1.
+set presalt to 0.
+set presinc to 0.
+until prestest < 0.25 {
+	set prestest to SHIP:BODY:ATM:altitudepressure(presalt).
+	set presalt to presalt + 1000. 
+}
+print "ptest " + presalt + "m" at(5,3).
 
 //check the parameters, if they were used then populate the vars and flip flags
 if passed_alt <> 9999 {
@@ -144,17 +167,16 @@ wait until hasalt = true.
 wait until hasinc = true.
 
 //calculate tarhead which is the larger of tarinc and grounded latitude
-//assume most launches are at equator so the tarinc is fine to use
 set tarhead to tarinc+90.
 
 //if ship is in northem hemi then use larger of lat vs tarinc
 if SHIP:LATITUDE > 1 {
-	set tarhead to MAX(tarinc,SHIP:LATITUDE).
+	set tarhead to MAX(tarinc+90,SHIP:LATITUDE).
 }
 
 //if ship is in souther hemi use smaller of lat vs tarinc
 if SHIP:LATITUDE < -1 {
-	set tarhead to MIN(tarinc,SHIP:LATITUDE).
+	set tarhead to MIN(tarinc+90,SHIP:LATITUDE)+360.
 }
 
 //take over control of steering
@@ -178,7 +200,7 @@ print "ready to launch" at(33,4).
 print "steering locked" at(33,5).
 print "throttle locked" at(33,6).
 print ROUND(SHIP:LATITUDE,2) at(23,4).
-print tarhead at(23,5).
+print round(tarhead,1) at(23,5).
 
 //write a new lexicon with the starting values
 set lextime to time:seconds.
@@ -277,13 +299,12 @@ until launchdone {
 	}
 	
 	//update the status display 
-	print tarhead at(23,5).
-	print taralt at(23,1).
-	print tarhead-90 at(23,2).
+	print round(taralt,1) at(23,1).
+	print round(tarhead,1) + "  " at(23,5).
 
 	print ROUND(SHIP:ALTITUDE,0) at(23,7).
 	print ROUND(SHIP:APOAPSIS,0) at(23,8).
-	print ROUND(SHIP:OBT:INCLINATION,0) at(23,9).
+	print ROUND(SHIP:OBT:INCLINATION,2) + "  " at(23,9).
 	
 	print ROUND(velpit+0.001,2) at(23,10).
 	print ROUND(shppit+0.001,2) at(23,11).
