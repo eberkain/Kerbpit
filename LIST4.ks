@@ -15,7 +15,7 @@ set cur_max to 2.
 set cur to 1.
 
 //react to mfd buttons
-when AG250 = true {
+when AG250 = true then {
 	//remove the cursor character
 	//move the cursor
 	//print a new character
