@@ -1,0 +1,9 @@
+{
+    "entries": [
+        "inc",
+        10,
+        "alt",
+        100000
+    ],
+    "$type": "kOS.Safe.Encapsulation.Lexicon"
+}

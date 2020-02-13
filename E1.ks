@@ -5,7 +5,7 @@
 // state of the vessel orbit, etc...
 
 //load libraries
-run lib_formatting.
+run lib_formating.
 run lib_mfd.
 
 //setup the screen info fields
@@ -58,24 +58,24 @@ until done = true {
 	
 		//print left side values
 		
-		print si_formating(ship:velocity:orbit:mag,"m/s") at (15,4).
+		print (si_formating(ship:velocity:orbit:mag,"m/s")):padright(10) at (15,4).
 
 	
-		print dms_formating(ship:geoposition:lat,"lat") at (16,10).
-		print dms_formating(ship:geoposition:lng,"lng") at (16,11).
+		print (dms_formating(ship:geoposition:lat,"lat")):padright(10) at (16,10).
+		print (dms_formating(ship:geoposition:lng,"lng")):padright(10) at (16,11).
 
 
-		print si_formating(ship:apoapsis,"m") at (15,14).
-		print si_formating(ship:periapsis,"m") at (15,15).
-		print time_formating(eta:apoapsis,5) at (15,16).
-		print time_formating(eta:periapsis,5) at (15,17).
+		print (si_formating(ship:apoapsis,"m")):padright(10) at (15,14).
+		print (si_formating(ship:periapsis,"m")):padright(10) at (15,15).
+		print (time_formating(eta:apoapsis,5)):padright(10) at (15,16).
+		print (time_formating(eta:periapsis,5)):padright(10) at (15,17).
 	
 		//print right side values
-		print si_formating(alt:radar,"m") at (43,3).
-		print si_formating(ship:altitude,"m") at (43,4).
-		print si_formating(ship:airspeed,"m/s") at (43,5).
-		print si_formating(ship:verticalspeed,"m/s") at (43,6).
-		print si_formating(ship:groundspeed,"m/s") at (43,7).
+		print (si_formating(alt:radar,"m")):padright(10) at (43,3).
+		print (si_formating(ship:altitude,"m")):padright(10) at (43,4).
+		print (si_formating(ship:airspeed,"m/s")):padright(10) at (43,5).
+		print (si_formating(ship:verticalspeed,"m/s")):padright(10) at (43,6).
+		print (si_formating(ship:groundspeed,"m/s")):padright(10) at (43,7).
 		print (padding(ship:heading,1,2)+" °"):padright(10) at (44,8).
 		
 		

@@ -14,37 +14,17 @@
 // Alternatively, the user can use the flight computer to switch to MFD3 and run F1
 //  This should prompt the user for a desired altitude and inclination before starting
 //
-
-// ----=----=----=----=----=----=----=----=----=----=
-//       LAUNCH TO ORBIT                STATUS
-//  Altitude (km)     : ####       getting params 
-//  Inclination (deg) : ####        [ALT]  [INC]
-//  
-//  Landed Latiatude  : ####       ready to launch    
-//  True Target Incl. : ####       steering locked
-//                                 throttle locked
-//  Current Altitude  : #### 
-//  Current Apoaposis : ####       pitching over
-//  Current Pitch     : ####       reducing throttle
-//  Current Throttle  : ####
-//                                 controls unlocked
-//  Target Pitch      : ####       waiting for vac
-//  Target Throttle   : ####       
-//                                 node created
-//                                 terminating prog
-
-// launch sequence begins when engines ignite
-// umbilicals and crew arm are retracted
-// throttle is slowly increased from 0 to 1
-// at full throttle launch clamps are released
-
 // The general idea for execution is... 
+// when engines ignite throttle is slowly increased from 0 to 1
 // Throttle to hold a TWR less than 2
 // Hold vertical with sas until past maxq
 // Begin a gentel turn of 1 deg AoA after passing maxq
 // after passing 0.25 pressure increase AoA limiter
 // set angle based on AP versus desired AP 
 
+//load libraries
+run lib_mfd.
+run lib_formating.
 
 //collect passed params
 parameter passed_alt is 9999, passed_inc is 9999.
@@ -55,169 +35,138 @@ set hasalt to false.
 set tarinc to 9999.
 set hasinc to false.
 
-//other control values
-set maxaoa to 5. //the max number of degrees to steer off prograde marker
-
 //setup the screen info fields
 clearscreen.
-print "       LAUNCH TO ORBIT               STATUS".
-print "  Altitude     (km) :            getting params ".
-print "  Inclination (deg) : ".
-print " ".
-print "  Landed Lat. (deg) : ".        
-print "  Surf Head.  (deg) : ".                              
-print " ".
-print "  Curr Altitude (m) : ". 
-print "  Curr Apoaposis(m) : ".
-print "  Curr. Incl. (deg) : ".
-print "  Velo. Pitch (deg) : ".
-print "  Vessel Pitch(deg) : ".
-print "  Target Pitch(deg) : ".
-print "  Real Pitch  (deg) : ".
-print " ".
-print "  Curr. Throt (pct) : ".                              
-print "  Target Throt(pct) : ".   
-print " ".
-print "  Max AoA     (deg) :  " + maxaoa.
-print "  Current AoA (deg) :  ".
-print "  Limited AoA (deg) :  ".
-print "  Actual Press(atm) :  ".
-print "  Dynamic Pressure  :  ".
-
-//find the altitude where pressure drops below 0.25
-set prestest to 1.
-set presalt to 0.
-set presinc to 0.
-until prestest < 0.25 {
-	set prestest to SHIP:BODY:ATM:altitudepressure(presalt).
-	set presalt to presalt + 1000. 
-}
-print "ptest " + presalt + "m" at(5,3).
+//     ----=----=----=----=----=xxxxx----=----=----=----=----=
+print "                    LAUNCH TO ORBIT                    " at(0,0).
+print "═══════════════════════════╤═══════════════════════════" at(0,1).
+print "Target Alt.  :             │                           " at(0,2).
+print "Target Inc.  :             │                           " at(0,3).
+print "Adj. Inc.    :             │                           " at(0,4).
+print "Target Head. :             │                           " at(0,5).                              
+print "———————————————————————————┤                           " at(0,6).   
+print "Orbit Pitch  :             │                           " at(0,7).
+print "Surf. Pitch  :             │                           " at(0,8).
+print "Diff Orb/Surf:             │                           " at(0,9).
+print "Vessel Pitch :             │                           " at(0,10).
+print "Target Pitch :             │                           " at(0,11).
+print "Limit Pitch  :             │                           " at(0,12).                              
+print "———————————————————————————┤                           " at(0,13).
+print "Max AoA      :             │                           " at(0,14).
+print "Current AoA  :             │                           " at(0,15).
+print "Limited AoA  :             │                           " at(0,16).
+print "                           │                           " at(0,17).
+print "                           │                           " at(0,18).
+print " Target Throt              │                           " at(0,19).
+print " Curr. Throt               │                           " at(0,20).
+print "                           │                           " at(0,21).
+print "Low Pres Alt :             │                           " at(0,22).
+print "—————————┬————————┬————————┼————————┬————————┬—————————" at(0,23).
+print "    F1   │   F2   │   F3   │   F4   │   F5   │   F6   " at (0,24).
 
 //check the parameters, if they were used then populate the vars and flip flags
 if passed_alt <> 9999 {
 	set hasalt to true.
 	set taralt to passed_alt.
-	print taralt at(23,1).
-	print "[ALT]" at(34,2).
+	print "p" at(12,2).
 }
 if passed_inc <> 9999 {
 	set hasinc to true.
 	set tarinc to passed_inc.
-	print tarinc at(23,2).
-	print "[INC]" at(42,2).
+	print "p" at(12,3).
 }
 
-set inputval to "".
-
-//otherwise we prompt the user to input params 
-until hasinc = true AND hasalt = true {
-	if terminal:input:haschar {
-		set char to terminal:input:getchar().
-		set val to char:tonumber(-1).
-		
-		//do second part first to avoid dual execution
-		if hasinc = false AND hasalt = true {
-			if char = terminal:input:ENTER { 
-				terminal:input:clear. 
-				set hasinc to true. 
-				set tarinc to inputval:tonumber(0).
-				print tarinc +" n "at(23,2).
-				print "[INC]" at(42,2).
-			}
-			if char = terminal:input:backspace {
-				set inputval to inputval:remove(inputval:length-1,1).	
-				print inputval + " " at(23,2).
-			}
-			if char = "-" {
-				set inputval to inputval + char. 
-				print inputval at(23,2).
-			}
-			if val >= 0 { // input was a number
-				set inputval to inputval + char. 
-				print inputval at(23,2).
-			} 
-			//if input was a letter then do nothing
-		}
-
-		if hasalt = false {
-			if char = terminal:input:ENTER { 
-				terminal:input:clear. 
-				set taralt to inputval:tonumber(150).
-				print taralt +" n "at(23,1).
-				set hasalt to true. 
-				set inputval to "".
-				print "[ALT]" at(34,2).
-			}
-			if char = terminal:input:backspace {
-				set inputval to inputval:remove(inputval:length-1,1).	
-				print inputval + " " at(23,1).
-			}
-			if val >= 0 { // input was a number
-				set inputval to inputval + char. 
-				print inputval at(23,1).
-			} 
-			//if input was a letter then do nothing
-		}
-	}
+//if we did not take a param then we need to take terminal input
+if hasalt = false or hasinc = false {
+	print "waiting for input..." at (28,2).
 }
 
-//halt program until vars are ready to use
+if hasalt = false { 
+	set taralt to mfd_numinput(28,3,false).  
+	set hasalt to true.
+	print "t" at(12,2).
+}
 wait until hasalt = true.
+
+//check other param
+if hasinc = false { 
+	set tarinc to mfd_numinput(40,3,true,-180,180).  
+	set hasinc to true.
+	print "t" at(12,3).
+}
 wait until hasinc = true.
 
-//calculate tarhead which is the larger of tarinc and grounded latitude
-set tarhead to tarinc+90.
+//TODO determine if planet has atmo and skip some steps
 
-//if ship is in northem hemi then use larger of lat vs tarinc
-if SHIP:LATITUDE > 1 {
-	set tarhead to MAX(tarinc+90,SHIP:LATITUDE).
+//find the altitude where pressure drops below 0.25 atm
+//we are going to keep a very limited AoA until this point
+set prestest to 1.
+set presalt to 0.
+set presinc to 0.
+until prestest < 0.25 {
+	set prestest to SHIP:BODY:ATM:altitudepressure(presalt).
+	set presalt to presalt + 100. 
 }
+print si_formating(presalt,"m") at(15,22).
 
-//if ship is in souther hemi use smaller of lat vs tarinc
-if SHIP:LATITUDE < -1 {
-	set tarhead to MIN(tarinc+90,SHIP:LATITUDE)+360.
-}
+//get a target heading to hit the desired incl
+set adjinc to mfd_adjinc(tarinc,ship:latitude).
+set tarhdg to mfd_inctohdg(adjinc).
+print "calculating launch path" at(28,4).
+
+//track pitch variables
+//pitch of the orbit prograde marker
+lock orbpit to 90-vang(up:forevector, ship:prograde:forevector).  
+//pitch of the surface prograde marker
+lock srfpit to 90-vang(up:forevector, ship:srfprograde:forevector).  
+//pitch of the ship currently
+lock shppit to 90-vang(up:forevector, ship:facing:forevector).  
+//pitch difference between two progrades, when this drops <1 we transition 
+lock compit to vang(ship:prograde:forevector, ship:srfprograde:forevector).  
+//targeted pitch to steer to 
+set tarpit to 90.  
+//tergeted pitch under aoa limits << steering lock to this
+set limpit to 90.   
+
+//track aoa variables
+set curaoa to 0. //the current aoa, calc in loop for transition swap
+set maxaoa to 5. //the max number of degrees to steer off prograde marker
+lock limaoa to max(1,abs(maxaoa * (1-(curpress/0.25)))). //limited aoa based on air pressure
+
+//control for what stage of launch we are at
+set progstep to 0.
+//track the point where we started pitching over
+set pitchstartalt to 0.
 
 //take over control of steering
-set velpit to 89.
-set shppit to 89.
-set tarpit to 89.
-set realtarpit to 89. 
-set curaoa to 0.
-set pitchstarted to false.
-set pitchstartalt to 0.
-lock steering to heading(tarhead,realtarpit).
+lock steering to heading(tarhdg,limpit).
 
 //take over control of throttle
 set tarthr to 1.
-set featherstarted to false.
-set launchdone to false.
 lock throttle to tarthr.
 
+
 //update the status
-print "ready to launch" at(33,4).
-print "steering locked" at(33,5).
-print "throttle locked" at(33,6).
-print ROUND(SHIP:LATITUDE,2) at(23,4).
-print round(tarhead,1) at(23,5).
+//print "ready to launch" at(33,4).
+//print "steering locked" at(33,5).
+//print "throttle locked" at(33,6).
+//print ROUND(SHIP:LATITUDE,2) at(23,4).
 
 //write a new lexicon with the starting values
 set lextime to time:seconds.
-set lexflag to false.
 set LEX to lexicon().
-set LEX["heading"] to tarhead.
-print "h" at(37,7).
-set LEX["altitude"] to taralt.
-print "a" at(38,7).
-set LEX["speed"] to 0.
-print "s" at(39,7).
-set LEX["maxroll"] to 0.
-print "m" at(40,7).
-set LEX["maxvspd"] to 0.
-print "m" at(41,7).
-writejson(LEX,"autopilot.json").
-print "x" at(42,7).
+set LEX["hdg"] to tarinc.
+set LEX["alt"] to taralt.
+set LEX["spd"] to 0.
+set LEX["mrl"] to 0.
+set LEX["mvs"] to 0.
+writejson(LEX,"ap.json").
+
+//loop control vars
+set featherstarted to false.
+set launchdone to false.
+set protrans to false.  //which prograde marker is relevant
+set animstep to 0.
 
 //control steering and throttle until the AP reaches the taralt
 until launchdone {
@@ -226,18 +175,54 @@ until launchdone {
 	//if once sec has passed since last update then
 	if time:seconds > lextime + 1 {
 		set lextime to time:seconds.
+		
 		//read in the lexicon and update the params
-		set LEX to readjson("autopilot.json").
-		set tarhead to LEX["heading"].
-		set taralt to LEX["altitude"].
-		if lexflag = false { print "-ap-up-" at(37,7). set lexflag to true. }
-		else { print "=ap=up=" at(37,7). set lexflag to false. }
+		set LEX to readjson("ap.json").
+		set newtarinc to LEX["hdg"].
+		set newtaralt to LEX["alt"].
+		
+		//if the value has changed, then update. 
+		if newtarinc <> tarinc {
+			set tarinc to newtarinc. 
+			set tarhead to mfd_inctohdg(tarinc).
+			print "a" at(12,3).
+		}
+		if newtaralt <> taralt {
+			set taralt to newtaralt.
+			print "a" at(12,2).
+		}
+
+		//print a character to animate to indicate script is running and healty
+		if animstep = 0 { print "/" at (0,0). }
+		if animstep = 1 OR animstep = 3 { print "|" at (0,0). }
+		if animstep = 2 { print "\" at (0,0). }
+		set animstep to animstep + 1.
+		if animstep = 4 { set animstep to 0. }
 		
 	}
 
-	set velpit to 90-VANG(UP:FOREVECTOR, PROGRADE:FOREVECTOR).
-	set shppit to 90-vang(UP:FOREVECTOR, FACING:FOREVECTOR).
-	set curaoa to abs(shppit - velpit).
+	//we want to transition from looking at the surface prograde marker 
+	//to the orbit marker when they line up
+	if protrans = false {
+		if abs(orbpit - srfpit) < 1 {
+			set protrans to true.
+		}
+	}
+
+	//calculate the current AoA vs the correct prograde marker
+	if protrans = false {
+		set curaoa to abs(shppit - srfpit).
+	}
+	else {
+		set curaoa to abs(shppit - orbpit).
+	}
+	
+	//things we need to calc in loop 
+	//tarpit
+	//limpit 
+	
+	
+	
 	set curpress to SHIP:BODY:ATM:altitudepressure(SHIP:ALTITUDE).
 	set limaoa to abs(maxaoa * (1-(curpress/0.25))).
 	
@@ -298,26 +283,31 @@ until launchdone {
 		set tarthr to 1.
 	}
 	
+	//new status data
+	print (si_formating(taralt,"m")):padright(10) at(15,2).
+	print (padding(tarinc,1,2)+" °"):padright(10) at(15,3).
+	print (padding(adjinc,1,2)+" °"):padright(10) at(15,4).
+	print (padding(tarhdg,1,2)+" °"):padright(10) at(15,5).
+	
+
 	//update the status display 
-	print round(taralt,1) at(23,1).
-	print round(tarhead,1) + "  " at(23,5).
 
-	print ROUND(SHIP:ALTITUDE,0) at(23,7).
-	print ROUND(SHIP:APOAPSIS,0) at(23,8).
-	print ROUND(SHIP:OBT:INCLINATION,2) + "  " at(23,9).
+	//print ROUND(SHIP:ALTITUDE,0) at(23,7).
+	//print ROUND(SHIP:APOAPSIS,0) at(23,8).
+	//print ROUND(SHIP:OBT:INCLINATION,2) + "  " at(23,9).
 	
-	print ROUND(velpit+0.001,2) at(23,10).
-	print ROUND(shppit+0.001,2) at(23,11).
-	print ROUND(tarpit+0.001,2) at(23,12).
-	print ROUND(realtarpit+0.001,2) at(23,13).
+	//print ROUND(velpit+0.001,2) at(23,10).
+	//print ROUND(shppit+0.001,2) at(23,11).
+	//print ROUND(tarpit+0.001,2) at(23,12).
+	//print ROUND(realtarpit+0.001,2) at(23,13).
 	
-	print ROUND((THROTTLE*100),0) at(23,15).
-	print ROUND((tarthr*100),0) at(23,16).
+	//print ROUND((THROTTLE*100),0) at(23,15).
+	//print ROUND((tarthr*100),0) at(23,16).
 
-	print ROUND(curaoa+0.001,2)+"    " at(23,19).
-	print ROUND(limaoa+0.001,2)+"    " at(23,20).
-	print ROUND(curpress,2) at(23,21).
-	print ROUND(SHIP:DYNAMICPRESSURE,2) at(23,22).
+	//print ROUND(curaoa+0.001,2)+"    " at(23,19).
+	//print ROUND(limaoa+0.001,2)+"    " at(23,20).
+	//print ROUND(curpress,2) at(23,21).
+	//print ROUND(SHIP:DYNAMICPRESSURE,2) at(23,22).
 
 }
 

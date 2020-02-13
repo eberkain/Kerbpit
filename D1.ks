@@ -6,7 +6,7 @@
 
 //load libs
 run lib_mfd.
-run lib_formatting.
+run lib_formating.
 
 //setup the screen info fields
 clearscreen.
@@ -15,28 +15,28 @@ clearscreen.
 print "    F1   │   F2   │   F3   │   F4   │   F5   │   F6   " at (0,0).
 print "—————————┴————————┴————————┴————————┴————————┴————————" at (0,1).
 print "  RESOURCES               " at (0,2).
-print "Electric   :              " at (0,3).
-print "Liq. Fuel  :              " at (0,4).
-print "Oxidizer   :              " at (0,5).
-print "Monoprop   :              " at (0,6).
+print "Electric   :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,3).
+print "Liq. Fuel  :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,4).
+print "Oxidizer   :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,5).
+print "Monoprop   :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,6).
 print "——————————————————————————————————————————————————————" at (0,7).
-print "Ablator    :              " at (0,8).
-print "Shielding  :              " at (0,9).
+print "Ablator    :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,8).
+print "Shielding  :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,9).
 print "——————————————————————————————————————————————————————" at (0,10).
-print "Oxygen     :              " at (0,11).
-print "Nitrogen   :              " at (0,12).
-print "Food       :              " at (0,13).
-print "Water      :              " at (0,14).
+print "Oxygen     :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,11).
+print "Nitrogen   :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,12).
+print "Food       :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,13).
+print "Water      :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,14).
 print "——————————————————————————————————————————————————————" at (0,15).
-print "Hydrogen   :              " at (0,16).
-print "WasteWater :              " at (0,17).
-print "xxx        :              " at (0,18).
-print "xxx        :              " at (0,19).
-print "xxx        :              " at (0,20).
-print "xxx        :              " at (0,21).
-print "xxx        :              " at (0,22).
-print "xxx        :              " at (0,23).
-print "xxx        :              " at (0,24).
+print "Hydrogen   :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,16).
+print "WasteWater :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,17).
+print "Waste      :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,18).
+print "CO2        :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,19).
+print "xxx        :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,20).
+print "xxx        :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,21).
+print "xxx        :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,22).
+print "xxx        :   0%   0/0               ░░░░░░░░░░░░░░░ " at (0,23).
+print "xxx        :   0%   0/0               ░░░░░░░░░░░░░░░" at (0,24).
 
 //to track the time and throttle the script execution
 set looptime to time:seconds.
@@ -56,7 +56,9 @@ set lex to lexicon(
 	"Food",13,
 	"Water",14,
 	"Hydrogen",16,
-	"WasteWater",17 ).
+	"WasteWater",17,
+	"Waste",18,
+	"CarbonDioxide",19 ).
 
 
 until done = true {
@@ -80,9 +82,17 @@ until done = true {
 		
 			// if this is one we want to display
 			if lex:haskey(mres:name) { 
-				print round(mres:amount,0) + "/" + round(mres:capacity,0) at (20,lex[mres:name]).
+			
+				//print the percentage first
 				print round(mres:amount/mres:capacity*100,0):tostring():padleft(3)+"%" at (13,lex[mres:name]).
-				mfd_progress(38,lex[mres:name],15,mres:amount/mres:capacity).
+
+				//print the mass
+				print round(mres:amount,0) + "/" + round(mres:capacity,0) at (20,lex[mres:name]).
+				
+				//print an eta till depleted
+				
+				//print a progress bar for pct
+				print mfd_progress(15,mres:amount/mres:capacity) at(38,lex[mres:name]).
 			}
 		}
 		
