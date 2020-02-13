@@ -4,6 +4,10 @@
 // The general idea here is to make a program that can display the current 
 // state of the vessel orbit, etc...
 
+//load libraries
+run lib_formatting.
+run lib_mfd.
+
 //setup the screen info fields
 clearscreen.
 //     ----=----=----=----=----=xxxxx----=----=----=----=----=
@@ -15,17 +19,17 @@ print "Velocity     :             │ASL Alt.     : " at (0,4).
 print "xxx          :             │Airspeed     : " at (0,5).
 print "xxx          :             │Vert. Speed  : " at (0,6).
 print "xxx          :             │Ground Speed : " at (0,7).
-print "xxx          :             │Air Press.   : " at (0,8).
-print "xxx          :             │Dyn. Press.  : " at (0,9).
-print "xxx          :             │xxx          : " at (0,10).
-print "xxx          :             │xxx          : " at (0,11).
+print "xxx          :             │Heading      : " at (0,8).
+print "xxx          :             │             : " at (0,9).
+print "Latitude     :             │xxx          : " at (0,10).
+print "Longitude    :             │xxx          : " at (0,11).
 print "———————————————————————————┤xxx          : " at (0,12).
 print "  ORBIT                    │xxx          : " at (0,13).
 print "Apoapsis     :             │xxx          : " at (0,14).
 print "Periapsis    :             │xxx          : " at (0,15).
 print "Time to Ap   :             │xxx          : " at (0,16).
-print "Time to Pe   :             │xxx          : " at (0,17).
-print "Inclination  :             │xxx          : " at (0,18).
+print "Time to Pe   :             │Air Press.   : " at (0,17).
+print "Inclination  :             │Dyn. Press.  : " at (0,18).
 print "Eccentricity :             │xxx          : " at (0,19).
 print "xxx          :             │xxx          : " at (0,20).
 print "xxx          :             │xxx          : " at (0,21).
@@ -54,22 +58,29 @@ until done = true {
 	
 		//print left side values
 		
-		print (round(ship:velocity:orbit:mag,2) + " m/s"):padright(10) at (15,4).
+		print si_formating(ship:velocity:orbit:mag,"m/s") at (15,4).
+
+	
+		print dms_formating(ship:geoposition:lat,"lat") at (16,10).
+		print dms_formating(ship:geoposition:lng,"lng") at (16,11).
 
 
-		print (round(ship:apoapsis/1000,2) + " km"):padright(10) at (15,14).
-		print (round(ship:periapsis/1000,2) + " km"):padright(10) at (15,15).
-		print time(eta:apoapsis):clock at (15,16).
-		print time(eta:periapsis):clock at (15,17).
+		print si_formating(ship:apoapsis,"m") at (15,14).
+		print si_formating(ship:periapsis,"m") at (15,15).
+		print time_formating(eta:apoapsis,5) at (15,16).
+		print time_formating(eta:periapsis,5) at (15,17).
 	
 		//print right side values
-		print (round(alt:radar/1000,max(4-(round(alt:radar/1000,0):tostring():length),0)) + " km"):padright(10) at (43,3).
-		print (round(ship:altitude/1000,2) + " km"):padright(10) at (43,4).
-		print (round(ship:airspeed,2) + " m/s"):padright(10) at (43,5).
-		print (round(ship:verticalspeed,2) + " m/s"):padright(10) at (43,6).
-		print (round(ship:groundspeed,2) + " m/s"):padright(10) at (43,7).
-		print (round(ship:body:atm:altitudepressure(ship:altitude),2) + " atm"):padright(10) at (43,8).
-		print (round(ship:dynamicpressure*constant:ATMtokPa,2) + " kPa"):padright(10) at (43,9).
+		print si_formating(alt:radar,"m") at (43,3).
+		print si_formating(ship:altitude,"m") at (43,4).
+		print si_formating(ship:airspeed,"m/s") at (43,5).
+		print si_formating(ship:verticalspeed,"m/s") at (43,6).
+		print si_formating(ship:groundspeed,"m/s") at (43,7).
+		print (padding(ship:heading,1,2)+" °"):padright(10) at (44,8).
+		
+		
+		print (padding(ship:body:atm:altitudepressure(ship:altitude),1,2)+" atm"):padright(10) at (44,17).
+		print (padding(ship:dynamicpressure*constant:ATMtokPa,1,2)+" kPa"):padright(10) at (44,18).
 	
 	}
 	

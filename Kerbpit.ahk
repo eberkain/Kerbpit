@@ -88,19 +88,20 @@ Hotkey,^Down,AutopilotAltDown
 ;	Return
 
 AutopilotNode:
-	ControlSend,,run{Space}F2.{Enter}, kOS MFD2 
+	ControlSend,,{Ctrl Down}c{Ctrl Up}, kOS MFD3
+	ControlSend,,run{Space}F2.{Enter}, kOS MFD3 
 	Return
 
 AutopilotLaunch:
-	ControlSend,,run{Space}F1(100`,0).{Enter}, kOS MFD2 
+	ControlSend,,run{Space}F1(100`,0).{Enter}, kOS MFD3 
 	Return
 
 AutopilotLand:
-	ControlSend,,run{Space}F3.{Enter}, kOS MFD2 
+	ControlSend,,run{Space}F3.{Enter}, kOS MFD3 
 	Return
 	
 AutopilotAircraft:
-	ControlSend,,run{Space}F4.{Enter}, kOS MFD2 
+	ControlSend,,run{Space}F4.{Enter}, kOS MFD3 
 	Return
 	
 AutopilotHeadDown:
