@@ -17,7 +17,7 @@
 parameter pHdg, pAlt, pSpd, pMrl, pMsp.
 
 //first read in the data
-set LEX TO READJSON("autopilot.json").
+set LEX TO READJSON("ap.json").
 
 //then apply adjustmens from params
 set LEX["hdg"] to LEX["hdg"] + pHdg.
@@ -27,4 +27,4 @@ set LEX["mrl"] to LEX["mrl"] + pMrl.
 set LEX["mvs"] to LEX["mvs"] + pMsp.
 
 //then write the lexicon back to a json
-writejson(LEX,"autopilot.json").
+writejson(LEX,"ap.json").

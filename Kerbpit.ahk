@@ -9,13 +9,13 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;use the controller index to execute commands
 ;Hotkey, %FCID%joy1, ResetMFD1
 
-SetKeyDelay,1
+SetKeyDelay,1,-1
 
 myjoy:= 1
 mynumber := 10
 mymfd := 3
 mykey := "P"
-amfd := 4
+amfd := 3
 
 mfd1w := 788			
 mfd1h := 730
@@ -45,6 +45,7 @@ Hotkey,^Numpad8,AutopilotNode
 Hotkey,^Numpad9,AutopilotLaunch
 Hotkey,^Numpad5,AutopilotLand
 Hotkey,^Numpad6,AutopilotAircraft
+Hotkey,^NumpadAdd,AutopilotStop
 Hotkey,^Numpad1,ResetMFD1
 Hotkey,^Numpad2,ResetMFD2
 Hotkey,^Numpad3,ResetMFD3
@@ -53,12 +54,27 @@ Hotkey,^Left,AutopilotHeadDown
 Hotkey,^Right,AutopilotHeadUp
 Hotkey,^Up,AutopilotAltUp
 Hotkey,^Down,AutopilotAltDown
+
+;alt to test remote numpad
+Hotkey,!Numpad0,FCSEND0
+Hotkey,!Numpad1,FCSEND1
+Hotkey,!Numpad2,FCSEND2
+Hotkey,!Numpad3,FCSEND3
+Hotkey,!Numpad4,FCSEND4
+Hotkey,!Numpad5,FCSEND5
+Hotkey,!Numpad6,FCSEND6
+Hotkey,!Numpad7,FCSEND7
+Hotkey,!Numpad8,FCSEND8
+Hotkey,!Numpad9,FCSEND9
+Hotkey,!NumpadEnter,FCSENDENTER
+
+
 	Return
 
 ;G710 GKEYS 
-;Hotkey,sc002,
-;Hotkey,sc003,
-;Hotkey,sc004,
+Hotkey,sc002,FCSEND0
+;Hotkey,sc003,25
+;Hotkey,sc004,5432113456654321
 ;Hotkey,sc005,
 ;Hotkey,sc006,
 ;Hotkey,sc007,
@@ -88,45 +104,83 @@ Hotkey,^Down,AutopilotAltDown
 ;	Return
 
 AutopilotNode:
-	ControlSend,,{Ctrl Down}c{Ctrl Up}, kOS MFD3
-	ControlSend,,run{Space}F2.{Enter}, kOS MFD3 
+	ControlSend,,run{Space}F2.{Enter},kOS MFD3 
 	Return
 
 AutopilotLaunch:
-	ControlSend,,run{Space}F1(100`,0).{Enter}, kOS MFD3 
+	ControlSend,,run{Space}F1(100000`,0`).{Enter},kOS MFD3 
 	Return
 
 AutopilotLand:
-	ControlSend,,run{Space}F3.{Enter}, kOS MFD3 
+	ControlSend,,run{Space}F3.{Enter},kOS MFD3 
 	Return
 	
 AutopilotAircraft:
-	ControlSend,,run{Space}F4.{Enter}, kOS MFD3 
+	ControlSend,,run{Space}F4.{Enter},kOS MFD3 
 	Return
 	
+AutopilotStop:
+	ControlSend,,^c,kOS MFD3
+	Return 
+	
 AutopilotHeadDown:
-	ControlSend,,run{Space}autopilot_adjust(-1`,0`,0`,0`,0).{Enter}, kOS MFD0 
+	ControlSend,,run{Space}ap_adj(-1`,0`,0`,0`,0`).{Enter}, kOS MFD0 
 	Return
 
 AutopilotHeadUp:
-	ControlSend,,run{Space}autopilot_adjust(1`,0`,0`,0`,0).{Enter}, kOS MFD0 
+	ControlSend,,run{Space}ap_adj(1`,0`,0`,0`,0`).{Enter}, kOS MFD0 
 	Return
 
 AutopilotAltUp:
-	ControlSend,,run{Space}autopilot_adjust(0`,1`,0`,0`,0).{Enter}, kOS MFD0 
+	ControlSend,,run{Space}ap_adj(0`,1000`,0`,0`,0`).{Enter}, kOS MFD0 
 	Return
 
 AutopilotAltDown:
-	ControlSend,,run{Space}autopilot_adjust(0`,-1`,0`,0`,0).{Enter}, kOS MFD0 
+	ControlSend,,run{Space}ap_adj(0`,-1`,0`,0`,0`).{Enter}, kOS MFD0 
 	Return
 
-^NumpadAdd::
-	ControlSend,,run{Space},kOS MFD%amfd% 
+;Flight Computer Buttons
+FCSEND0:
+	ControlSend,,0,kOS MFD%amfd% 
+	Return
+FCSEND1:
+	ControlSend,,1,kOS MFD%amfd% 
+	Return
+FCSEND2:
+	ControlSend,,2,kOS MFD%amfd% 
+	Return
+FCSEND3:
+	ControlSend,,3,kOS MFD%amfd% 
+	Return
+FCSEND4:
+	ControlSend,,4,kOS MFD%amfd% 
+	Return
+FCSEND5:
+	ControlSend,,5,kOS MFD%amfd% 
+	Return
+FCSEND6:
+	ControlSend,,6,kOS MFD%amfd% 
+	Return
+FCSEND7:
+	ControlSend,,7,kOS MFD%amfd% 
+	Return
+FCSEND8:
+	ControlSend,,8,kOS MFD%amfd% 
+	Return
+FCSEND9:
+	ControlSend,,9,kOS MFD%amfd% 
+	Return
+FCSENDENTER:
+	ControlSend,,{Enter},kOS MFD%amfd% 
 	Return
 
-^NumpadEnter::
-	ControlSend,,.{Enter},kOS MFD%amfd% 
-	Return
+;^NumpadAdd::
+;	ControlSend,,run{Space},kOS MFD%amfd% 
+;	Return
+
+;^NumpadEnter::
+;	ControlSend,,.{Enter},kOS MFD%amfd% 
+;	Return
 
 1joy2::
         WinActivate, Kerbal Space Program
@@ -185,13 +239,13 @@ ResetMFDALL:
 	ControlSend,,4{Enter}, kOS MFD4 ;log into the kOS CPU
 	ControlSend,,1{Enter}, kOS MFD1 ;log into the kOS CPU
 	ControlSend,,2{Enter}, kOS MFD2 ;log into the kOS CPU
-	Sleep 100
+	Sleep 500
 	ControlSend,,switch to archive.{Enter}, kOS MFD0 ;log into the kOS CPU
 	ControlSend,,switch to archive.{Enter}, kOS MFD3 ;log into the kOS CPU
 	ControlSend,,switch to archive.{Enter}, kOS MFD4 ;log into the kOS CPU
 	ControlSend,,switch to archive.{Enter}, kOS MFD1 ;log into the kOS CPU
 	ControlSend,,switch to archive.{Enter}, kOS MFD2 ;log into the kOS CPU
-	Sleep 100
+	Sleep 500
 	ControlSend,,run list3.{enter}, kOS MFD3 ;run the list script
 	ControlSend,,run list4.{enter}, kOS MFD4 ;run the list script
 	ControlSend,,run e1.{enter}, kOS MFD1 ;run the status script
@@ -222,7 +276,7 @@ ResetMFD0:
 	Sleep 100 ;give the window time to terminate
 	Run, C:\Program Files\PuTTY\putty.exe -load ""MFD0"" ;load the saved session
 	Sleep 500 ; give the window time to load and handshake
-	WinMove, kOS MFD0,, -500, -900, 500,500 ;relocated to the proper screen
+	WinMove, kOS MFD0,, 0, 0, 500,500 ;relocated to the proper screen
 	ControlSend,,5{Enter}, kOS MFD0 ;log into the kOS CPU
 	Return
 
@@ -262,8 +316,10 @@ ResetMFD4:
 	ControlSend,,4{Enter}, kOS MFD4 ;log into the kOS CPU
 	Return
 
+ListMFD3:
+	ControlSend,,run list3.{Enter},kOS MFD3 
+	Return
 ListMFD4:
 	ControlSend,,run list4.{Enter},kOS MFD4 
-	ControlSend,,run list3.{Enter},kOS MFD3 
 	Return
 	

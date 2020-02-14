@@ -44,24 +44,24 @@ print "Target Alt.  :             │                           " at(0,2).
 print "Target Inc.  :             │                           " at(0,3).
 print "Adj. Inc.    :             │                           " at(0,4).
 print "Target Head. :             │                           " at(0,5).                              
-print "———————————————————————————┤                           " at(0,6).   
+print "───────────────────────────┤                          " at(0,6).   
 print "Orbit Pitch  :             │                           " at(0,7).
 print "Surf. Pitch  :             │                           " at(0,8).
 print "Diff Orb/Surf:             │                           " at(0,9).
 print "Vessel Pitch :             │                           " at(0,10).
 print "Target Pitch :             │                           " at(0,11).
 print "Limit Pitch  :             │                           " at(0,12).                              
-print "———————————————————————————┤                           " at(0,13).
+print "───────────────────────────┤                          " at(0,13).
 print "Max AoA      :             │                           " at(0,14).
 print "Current AoA  :             │                           " at(0,15).
-print "Limited AoA  :             │                           " at(0,16).
-print "                           │                           " at(0,17).
-print "                           │                           " at(0,18).
-print " Target Throt              │                           " at(0,19).
-print " Curr. Throt               │                           " at(0,20).
-print "                           │                           " at(0,21).
+print "                           │                           " at(0,16).
+print "Curr. TWR    :             │                           " at(0,17).
+print "Curr. Throt  :             │                           " at(0,18).
+print "                           │                           " at(0,19).
+print "MaxQ         :             │                           " at(0,20).
+print "MaxQ Alt     :             │                           " at(0,21).
 print "Low Pres Alt :             │                           " at(0,22).
-print "—————————┬————————┬————————┼————————┬————————┬—————————" at(0,23).
+print "─────────┬────────┬────────┼────────┬────────┬─────────" at(0,23).
 print "    F1   │   F2   │   F3   │   F4   │   F5   │   F6   " at (0,24).
 
 //check the parameters, if they were used then populate the vars and flip flags
@@ -79,6 +79,10 @@ if passed_inc <> 9999 {
 //if we did not take a param then we need to take terminal input
 if hasalt = false or hasinc = false {
 	print "waiting for input..." at (28,2).
+}
+else {
+	print "initilizing with parameters" at (28,2).
+	print "    " + taralt + "       " + tarinc at (28,3).
 }
 
 if hasalt = false { 
@@ -103,7 +107,7 @@ wait until hasinc = true.
 set prestest to 1.
 set presalt to 0.
 set presinc to 0.
-until prestest < 0.25 {
+until prestest < 0.05 {
 	set prestest to SHIP:BODY:ATM:altitudepressure(presalt).
 	set presalt to presalt + 100. 
 }
@@ -119,10 +123,10 @@ print "calculating launch path" at(28,4).
 lock orbpit to 90-vang(up:forevector, ship:prograde:forevector).  
 //pitch of the surface prograde marker
 lock srfpit to 90-vang(up:forevector, ship:srfprograde:forevector).  
-//pitch of the ship currently
-lock shppit to 90-vang(up:forevector, ship:facing:forevector).  
 //pitch difference between two progrades, when this drops <1 we transition 
 lock compit to vang(ship:prograde:forevector, ship:srfprograde:forevector).  
+//pitch of the ship currently
+lock shppit to 90-vang(up:forevector, ship:facing:forevector).  
 //targeted pitch to steer to 
 set tarpit to 90.  
 //tergeted pitch under aoa limits << steering lock to this
@@ -131,26 +135,16 @@ set limpit to 90.
 //track aoa variables
 set curaoa to 0. //the current aoa, calc in loop for transition swap
 set maxaoa to 5. //the max number of degrees to steer off prograde marker
-lock limaoa to max(1,abs(maxaoa * (1-(curpress/0.25)))). //limited aoa based on air pressure
-
-//control for what stage of launch we are at
-set progstep to 0.
-//track the point where we started pitching over
-set pitchstartalt to 0.
 
 //take over control of steering
 lock steering to heading(tarhdg,limpit).
+print "steering locked" at(28,5).
 
 //take over control of throttle
-set tarthr to 1.
-lock throttle to tarthr.
-
-
-//update the status
-//print "ready to launch" at(33,4).
-//print "steering locked" at(33,5).
-//print "throttle locked" at(33,6).
-//print ROUND(SHIP:LATITUDE,2) at(23,4).
+set curthr to 1.
+lock curtwr to ship:availablethrust/(ship:mass*constant:g0).
+lock throttle to curthr.
+print "throttle locked" at(28,6).
 
 //write a new lexicon with the starting values
 set lextime to time:seconds.
@@ -161,12 +155,22 @@ set LEX["spd"] to 0.
 set LEX["mrl"] to 0.
 set LEX["mvs"] to 0.
 writejson(LEX,"ap.json").
+print "trim system initilizaed" at(28,7).
 
 //loop control vars
 set featherstarted to false.
-set launchdone to false.
+set launchdone to false. //flag to kill the main launch loop 
 set protrans to false.  //which prograde marker is relevant
-set animstep to 0.
+set animstep to 0. //animation for showing program is runnnig
+set progstep to 0. //control for what stage of launch we are at
+set progtime to 0. //timer the program can use 
+set pitchstartap to 0. //track the point where we started pitching over
+
+//for tracking maxq transition
+set maxq to 0. 
+set maxqpassed to false.
+set maxqalt to 0.
+set maxqpit to 0.
 
 //control steering and throttle until the AP reaches the taralt
 until launchdone {
@@ -192,20 +196,16 @@ until launchdone {
 			print "a" at(12,2).
 		}
 
-		//print a character to animate to indicate script is running and healty
-		if animstep = 0 { print "/" at (0,0). }
-		if animstep = 1 OR animstep = 3 { print "|" at (0,0). }
-		if animstep = 2 { print "\" at (0,0). }
-		set animstep to animstep + 1.
-		if animstep = 4 { set animstep to 0. }
-		
+		//print an animated icon to show the script is running
+		set animstep to mfd_animicon(0,0,animstep).
 	}
 
 	//we want to transition from looking at the surface prograde marker 
 	//to the orbit marker when they line up
 	if protrans = false {
-		if abs(orbpit - srfpit) < 1 {
+		if compit < maxaoa and ship:verticalspeed > 100 {
 			set protrans to true.
+			print "reference transition" at(28,10).
 		}
 	}
 
@@ -216,99 +216,125 @@ until launchdone {
 	else {
 		set curaoa to abs(shppit - orbpit).
 	}
-	
-	//things we need to calc in loop 
-	//tarpit
-	//limpit 
-	
-	
-	
+
+	//skip maxq monitor if no atmo
+	if ship:body:atm:exists = false { set maxqpassed to true. }
+
+	//we need to monitor the dynamic pressure and once it starts to go down
+	//we can start to relax the limiter 
+	if maxqpassed = false { 
+		//if the pressure is going up then save the new max
+		if ship:dynamicpressure > maxq { 
+			set maxq to ship:dynamicpressure.
+			set maxqalt to ship:altitude.
+			set maxqpit to tarpit.
+		}
+		
+		//if the pressure has dropped 10% then assume we have passed maxq
+		if ship:dynamicpressure < maxq*0.95 and ship:verticalspeed > 100 {
+			set maxqpassed to true. 
+			print "passing maxq" at(28,9).
+		}
+	}
+
+	//get the current air pressure for use later
 	set curpress to SHIP:BODY:ATM:altitudepressure(SHIP:ALTITUDE).
-	set limaoa to abs(maxaoa * (1-(curpress/0.25))).
-	
-	
-	//if less than 100m above ground and in thick atmo
-	//then lock steering up 
-	if curpress > 0.25 {
-		if SHIP:ALTITUDE < 1000 {
-			set tarpit to 89.
-			set realtarpit to 89.
-		}
-		else {
-			set tarpit to 88.
-			set realtarpit to 88.
-		}
+
+	//calculate the maximum angle of attack
+	//	we have a limit until past maxq
+	//  we then scale the aoa out based on current air pressure
+	if maxqpassed = false {  
+		set maxaoa to 5. 
+	}
+	else { 
+		set maxaoa to max(5,abs(15 * (1-(curpress/ship:body:atm:altitudepressure(maxqalt))))). 
 	}
 
-	//otherwise we create an angle based on the relationship between the AP and taralt
+	//calculate the target pitch based on the current ap vs target alt
+	//	for the first segment in thick atmo we go a small turn
+	//  after passing maxq we go from to 0 relative to ap
+	if maxqpassed = false {
+		//set the target pitch as a linear scale based on altitude
+		set tarpit to mfd_convert(ship:altitude,1000,presalt,90,65).
+		set pitchstartap to ship:apoapsis.
+	}
 	else {
-		//save alt for start of curve
-		if pitchstarted = false {
-			set pitchstartalt to SHIP:ALTITUDE.
-			set pitchstarted to true.
-			print "pitching over" at(33,8).
-		}
-	
-		//at the start alt the angle is close to 90
-		//when the ap is 80% of the goal the angle should be 0
-		set tarpit to 90-((SHIP:APOAPSIS-pitchstartalt)/((taralt*1000)-pitchstartalt)*120).
-		if tarpit < 0 { set tarpit to 0. }
-
-		//if the tarpit is more than maxaoa deg ahead of the ship:pitch the clamp
-		//limit the aoa to a percent of the atmo density, at 0.25atm, 0 deg, at 0atm, maxaoa
-		if ABS(shppit-tarpit) > limaoa { 
-			set realtarpit to shppit - limaoa. 
-		}
-		else { set realtarpit to tarpit. }
+		//set the target pitch based on ap value
+		set tarpit to mfd_convert(ship:apoapsis,pitchstartap,taralt,maxqpit,0).
 	}
-
+	
+	//calculate the limited pitch, the thing steering is locked to.  
+	//must be withing the maxaoa range of the current prograde reference
+	if ship:verticalspeed < 100 and ship:altitude < 1000 {
+		set limpit to 90.
+	}
+	else if protrans = false { //compare vs surface
+		//if within range
+		if tarpit < srfpit + maxaoa and tarpit > srfpit - maxaoa { 
+			set limpit to tarpit. 
+		}
+		else { //outside of aoa
+			if tarpit > srfpit { set limpit to srfpit+maxaoa. }
+			else { set limpit to srfpit-maxaoa. }
+		} 
+	}
+	else { //compare vs orbit
+		//if within range
+		if tarpit < orbpit + maxaoa and tarpit > orbpit - maxaoa { 
+			set limpit to tarpit. 
+		}
+		else { //outside of aoa
+			if tarpit > orbpit { set limpit to orbpit+maxaoa. }
+			else { set limpit to orbpit-maxaoa. }
+		} 
+	
+	}
+	
+	
 	//after the AP is 95% there start lowering the throttle
-	if SHIP:APOAPSIS/(taralt*1000) > 0.95 {
-		set tarthr to 1 - (((SHIP:APOAPSIS/(taralt*1000))-0.95)/0.05).
+	if SHIP:APOAPSIS/taralt > 0.95 {
+		set curthr to 1 - (((SHIP:APOAPSIS/taralt)-0.95)/0.05).
 		
 		//update status
 		if featherstarted = false {
-			print "reducing throttle" at(33,9).
+			print "reducing throttle" at(28,11).
 			set featherstarted to true.
 		}
 		
 		//if feather is done then end the loop
-		if tarthr < 0.01 {
+		if curthr < 0.01 {
 			set launchdone to true.
 		}
 	}
 	
 	// else we just keep the throttle at max
 	else {
-		set tarthr to 1.
+		set curthr to 1.
 	}
 	
 	//new status data
-	print (si_formating(taralt,"m")):padright(10) at(15,2).
+	print si_formating(taralt,"m"):padright(10) at(15,2).
 	print (padding(tarinc,1,2)+" °"):padright(10) at(15,3).
 	print (padding(adjinc,1,2)+" °"):padright(10) at(15,4).
 	print (padding(tarhdg,1,2)+" °"):padright(10) at(15,5).
-	
 
-	//update the status display 
+	print (padding(orbpit,1,2)+" °"):padright(10) at(15,7).
+	print (padding(srfpit,1,2)+" °"):padright(10) at(15,8).
+	print (padding(compit,1,2)+" °"):padright(10) at(15,9).
+	print (padding(shppit,1,2)+" °"):padright(10) at(15,10).
+	print (padding(tarpit,1,2)+" °"):padright(10) at(15,11).
+	print (padding(limpit,1,2)+" °"):padright(10) at(15,12).
 
-	//print ROUND(SHIP:ALTITUDE,0) at(23,7).
-	//print ROUND(SHIP:APOAPSIS,0) at(23,8).
-	//print ROUND(SHIP:OBT:INCLINATION,2) + "  " at(23,9).
-	
-	//print ROUND(velpit+0.001,2) at(23,10).
-	//print ROUND(shppit+0.001,2) at(23,11).
-	//print ROUND(tarpit+0.001,2) at(23,12).
-	//print ROUND(realtarpit+0.001,2) at(23,13).
-	
-	//print ROUND((THROTTLE*100),0) at(23,15).
-	//print ROUND((tarthr*100),0) at(23,16).
+	print (padding(maxaoa,1,2)+" °"):padright(10) at(15,14).
+	print (padding(curaoa,1,2)+" °"):padright(10) at(15,15).
 
-	//print ROUND(curaoa+0.001,2)+"    " at(23,19).
-	//print ROUND(limaoa+0.001,2)+"    " at(23,20).
-	//print ROUND(curpress,2) at(23,21).
-	//print ROUND(SHIP:DYNAMICPRESSURE,2) at(23,22).
+	print (padding(curtwr,1,3)):padright(10) at(15,17).
+	print (padding(curthr*100,3,0)+" %"):padright(10) at(15,18).
 
+	print si_formating(maxqalt,"m"):padright(10) at(15,21).
+	print si_formating(maxq*constant:atmtokpa*1000,"Pa"):padright(10) at(15,20).
+
+	//wait 0.001.
 }
 
 //once we have achieved AP then release controls
@@ -317,11 +343,9 @@ unlock throttle.
 set throttle to 0. 
 unlock steering.
 SAS ON.
-print "steering released" at(33,11).
-print "throttle released" at(33,12).
-print "stability assist on" at(33,13).
-print "waiting for vac" at(33,14).
-
+print "control released" at(28,13).
+print "stability assist on" at(28,14).
+print "waiting for vac" at(28,15).
 
 //Once the vessel is out of the atmo  
 wait until SHIP:BODY:ATM:altitudepressure(SHIP:ALTITUDE) = 0.
@@ -331,11 +355,8 @@ set ndvel to (SHIP:BODY:MU / (SHIP:BODY:RADIUS + SHIP:APOAPSIS))^0.5.
 set apvel to VELOCITYAT(SHIP, time:seconds + eta:apoapsis):ORBIT:MAG.
 set newnode to node(time:seconds + eta:apoapsis,0,0,ndvel-apvel).
 add newnode.
-print "circ node created" at(33,16).
-print "ndvel = " + ROUND(ndvel,0) at(33,17).
-print "apvel = " + ROUND(apvel,0) at(33,18).
-
-print "terminating autopilot" at(33,20).
+print "circ node @ "+(ndvel-apvel)+" m/s" at(33,16).
+print "terminating autopilot" at(33,18).
 
 //terminate the autopilot
 //clear screen and run list program if possible
