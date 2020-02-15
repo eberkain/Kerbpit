@@ -15,12 +15,10 @@
 //  This should prompt the user for a desired altitude and inclination before starting
 //
 // The general idea for execution is... 
-// when engines ignite throttle is slowly increased from 0 to 1
 // Throttle to hold a TWR less than 2
-// Hold vertical with sas until past maxq
-// Begin a gentel turn of 1 deg AoA after passing maxq
-// after passing 0.25 pressure increase AoA limiter
-// set angle based on AP versus desired AP 
+// doa gentel turn until after passing maxq
+// switch aoa reference to orbital 
+// take pitch down to 0 after maxq based on ap vs taralt 
 
 //load libraries
 run lib_mfd.
@@ -54,7 +52,7 @@ print "Limit Pitch  :             │                           " at(0,12).
 print "───────────────────────────┤                          " at(0,13).
 print "Max AoA      :             │                           " at(0,14).
 print "Current AoA  :             │                           " at(0,15).
-print "                           │                           " at(0,16).
+print "Max TWR      :             │                           " at(0,16).
 print "Curr. TWR    :             │                           " at(0,17).
 print "Curr. Throt  :             │                           " at(0,18).
 print "                           │                           " at(0,19).
@@ -137,12 +135,14 @@ set curaoa to 0. //the current aoa, calc in loop for transition swap
 set maxaoa to 5. //the max number of degrees to steer off prograde marker
 
 //take over control of steering
-lock steering to heading(tarhdg,limpit).
-print "steering locked" at(28,5).
+lock steering to up. //heading(tarhdg,limpit).
+set steerhead to false.  //is steering locked to heading
+print "steering locked : up" at(28,5).
 
 //take over control of throttle
 set curthr to 1.
-lock curtwr to ship:availablethrust/(ship:mass*constant:g0).
+lock maxtwr to ship:availablethrust/(ship:mass*constant:g0).
+lock curtwr to (ship:availablethrust*curthr)/(ship:mass*constant:g0).
 lock throttle to curthr.
 print "throttle locked" at(28,6).
 
@@ -205,6 +205,7 @@ until launchdone {
 	if protrans = false {
 		if compit < maxaoa and ship:verticalspeed > 100 {
 			set protrans to true.
+			set NAVMODE to "ORBIT".
 			print "reference transition" at(28,10).
 		}
 	}
@@ -226,13 +227,13 @@ until launchdone {
 		//if the pressure is going up then save the new max
 		if ship:dynamicpressure > maxq { 
 			set maxq to ship:dynamicpressure.
-			set maxqalt to ship:altitude.
-			set maxqpit to tarpit.
 		}
 		
 		//if the pressure has dropped 10% then assume we have passed maxq
 		if ship:dynamicpressure < maxq*0.95 and ship:verticalspeed > 100 {
 			set maxqpassed to true. 
+			set maxqalt to ship:altitude.
+			set maxqpit to tarpit.
 			print "passing maxq" at(28,9).
 		}
 	}
@@ -260,7 +261,7 @@ until launchdone {
 	}
 	else {
 		//set the target pitch based on ap value
-		set tarpit to mfd_convert(ship:apoapsis,pitchstartap,taralt,maxqpit,0).
+		set tarpit to max(0,mfd_convert(ship:apoapsis,pitchstartap,taralt*.95,maxqpit,0)).
 	}
 	
 	//calculate the limited pitch, the thing steering is locked to.  
@@ -269,6 +270,12 @@ until launchdone {
 		set limpit to 90.
 	}
 	else if protrans = false { //compare vs surface
+		if steerhead = false {
+			set steerhead to true.
+			lock steering to heading(tarhdg,limpit).
+			print "steering locked : head" at(28,5).
+		}
+		
 		//if within range
 		if tarpit < srfpit + maxaoa and tarpit > srfpit - maxaoa { 
 			set limpit to tarpit. 
@@ -307,11 +314,17 @@ until launchdone {
 		}
 	}
 	
-	// else we just keep the throttle at max
+	// else we just keep the throttle under 2 twr
 	else {
-		set curthr to 1.
+		if ship:availablethrust > 0 { 
+			set curthr to ship:mass*constant:g0*2/ship:availablethrust.
+			if curthr > 1 { set curthr to 1. }
+		}
+		else {
+			set curthr to 0.
+		}
 	}
-	
+
 	//new status data
 	print si_formating(taralt,"m"):padright(10) at(15,2).
 	print (padding(tarinc,1,2)+" °"):padright(10) at(15,3).
@@ -328,6 +341,7 @@ until launchdone {
 	print (padding(maxaoa,1,2)+" °"):padright(10) at(15,14).
 	print (padding(curaoa,1,2)+" °"):padright(10) at(15,15).
 
+	print (padding(maxtwr,1,3)):padright(10) at(15,16).
 	print (padding(curtwr,1,3)):padright(10) at(15,17).
 	print (padding(curthr*100,3,0)+" %"):padright(10) at(15,18).
 
