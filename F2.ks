@@ -9,7 +9,6 @@
 // The program is launched by a shortcut on the autopilot controller 
 // no parameters or special setup is involved
 
-// ----=----=----=----=----=----=----=----=----=----=
 //    EXECUTE MANUVRE NODE            STATUS
 //  Node ETA    (sec) : ####       
 //  Node DeltaV (m/s) : ####        
@@ -20,10 +19,12 @@ set nd to nextnode.
 
 //print out the mfd screen
 clearscreen.
-print "    EXECUTE MANUVRE NODE            STATUS ".
+//     ----=----=----=----=----=xxxxx----=----=----=----=----=
+print "                 EXECUTE MANUVRE NODE                  " at(0,0).
+print "═══════════════════════════╤═══════════════════════════" at(0,1).
 print "  Node ETA     (sec): " + round(nd:eta,0).
 print "  Node DeltaV  (m/s): " + round(nd:deltav:mag).
-print " ".
+print "───────────────────────────┤                          " at(0,6).   
 print "  Starting Mass     : ".
 print "  Engine ISP        : ".
 print "  Engine Thrust     : ".

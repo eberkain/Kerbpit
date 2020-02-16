@@ -19,7 +19,7 @@ print "Velocity     :             │             :            " at (0,4).
 print "xxx          :             │Airspeed     :            " at (0,5).
 print "xxx          :             │Vert. Speed  :            " at (0,6).
 print "xxx          :             │Ground Speed :            " at (0,7).
-print "xxx          :             │Bearing      :            " at (0,8).
+print "xxx          :             │Heading      :            " at (0,8).
 print "xxx          :             │             :            " at (0,9).
 print "Latitude     :             │xxx          :            " at (0,10).
 print "Longitude    :             │xxx          :            " at (0,11).
@@ -73,7 +73,8 @@ until done = true {
 		print (si_formating(ship:airspeed,"m/s")):padright(10) at (43,5).
 		print (si_formating(ship:verticalspeed,"m/s")):padright(10) at (43,6).
 		print (si_formating(ship:groundspeed,"m/s")):padright(10) at (43,7).
-		print (padding(ship:bearing,1,2)+" °"):padright(10) at (44,8).
+		print (padding(mod(360 - latlng(90,0):bearing,360),1,2)+" °"):padright(10) at (44,8).
+
 		
 		
 		print (padding(ship:body:atm:altitudepressure(ship:altitude),1,2)+" atm"):padright(10) at (44,17).

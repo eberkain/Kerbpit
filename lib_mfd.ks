@@ -8,7 +8,7 @@
 
 //print a progress bar at the location with the number of segments that represents the value
 local minstrmas to "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░".
-local maxstrmas to "████████████████████████████████████████████████████████████████████".
+local maxstrmas to "▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓".
 function mfd_progress {
 
 	//get the params
@@ -134,36 +134,189 @@ function mfd_clamp {
 	return max(min(val,maxv),minv).
 }
 
-//convert desired inc to heading for launches
-function mfd_inctohdg {
-	parameter inc.
-	//TODO calculate target heading for the launch to hit the desired incl.
-	//also skew heading so 90 deg hits the latitude inclination
-	return inc+90.
-}
-
-//limit the target inclination based on latitude
-function mfd_adjinc {
+//calcualte a launch direction to hit a desired inclination
+function mfd_calcazimuth {
 	parameter inc, lat.
 	//if not on the equator then we have to set bounds on the target incl. 
 	//you cannot have a final inclination lower than the starting latitude
 	//assume input is from -180 to 180
 	//three regions require adjustment 
+	return 90.
+}
 
-	//if we are close to equator, no restrictions
-	if abs(lat) < 1 {
+
+//limit the target inclination based on latitude
+function mfd_adjinc {
+	parameter inc, lat.
+	//if not on the equator then we have to set bounds on the target incl. 
+
+	//no adj near equator
+	if lat > -0.5 and lat < 0.5 { 
 		return inc.
 	}
-
-	//if we are in the north hemi 
-	if lat > 1 { 
-		if inc < lat { return lat. }
-		else { return inc. }
+	//inc is lower than the lat
+	else if abs(inc) < abs(lat) {
+        return lat.
+    }
+	//everywhere else
+	else {
+		return inc.
 	}
-	//else we are in south hemi
-	else { 
-		if inc > lat { return lat. }
-		else { return inc. }
+}
+
+//display an animated icon at the specificed location
+function mfd_animicon {
+
+		parameter px,py,st.
+		
+		//print a character to animate to indicate script is running and healty
+		if st = 0 { print "▖" at (px,py). }
+		if st = 1 { print "▘" at (px,py). }
+		if st = 2 { print "▝" at (px,py). }
+		if st = 3 { print "▗" at (px,py). }
+
+		set st to st + 1.
+		if st = 4 { set st to 0. }
+	
+		return st.
+}
+
+//print a grid of characters to display a 2d array
+function mfd_quadmap {
+	//top left start pos, size, data 
+	parameter gx,gy,gw,gh,gdata.
+
+	//single dots ▖▗▘▝
+	//double dots ▚▞▄▀▌▐
+	//tri dots ▙▟▛▜
+	//full dots █
+	//shade blocks ░▒▓
+	
+	//loop through the character range x/y
+	//comare the corrisponding data values 
+	//pick the character to print to match data
+
+//              ▄▄▄▀▀▀▀▀▀
+//          ▗▞▀
+//       ▗▞▘
+//     ▗▘
+//   ▗▘
+//  ▞
+// ▌
+}
+
+//create a 2d array of the size
+function mfd_createarray {
+	parameter mw, mh, tx, ty.
+	
+	set map to list().
+	
+	from {local i is 0.} until i = mw step {set i to i+1.} do {
+		map:add (list()). 
+		from {local t is 0.} until t = mh step {set t to t+1.} do {
+			print i + ":" + t + " "at(tx,ty).
+			map[i]:add(t).
+			set map[i][t] to "0000".
+		}
 	}
 
+	return map. 
+}
+
+//print an image using half filled squares  ▄▀█
+function mfdmap_halfmapdraw {
+	parameter mx, my, mw, mh, map, print_empty to false. 
+	
+	//each character represents two pixels, 4 possible characters. 
+	//loop through character area
+	from {local i is 0.} until i = mw step {set i to i+1.} do {
+		from {local t is 0.} until t = mh/2 step {set t to t+1.} do {
+			//get the two pixels we are going to display with this character
+			set va to map[i][2*t].
+			set vb to map[i][2*t+1].
+
+			//pick the character display based on the data 
+			if va = 0 and vb = 0 and print_empty = true { print " " at(mx+i,my+t). }
+			if va = 0 and vb = 1 { print "▄" at(mx+i,my+t). }
+			if va = 1 and vb = 0 { print "▀" at(mx+i,my+t). }
+			if va = 1 and vb = 1 { print "█" at(mx+i,my+t). }
+		}
+	}
+}
+
+//change the value of the pixels to render image
+//called repeadatly so just draw the current point
+function mfdmap_drawpixel {
+	//map pos, map size, point pos pct
+	parameter mx,my,mw,mh,map,vx,vy,print_empty to false.
+	
+	//value numbers must be on the map
+	if vx > 0 and vx < 1 and vy > 0 and vy < 1 {
+		
+		//find x,y value for the character to change
+		set cx to round(vx*(mw-1)).
+		set cy to round(vy*(mh-1)).
+		
+		//find the x,y of the pixel to change
+		set px to mfd_clamp(round(vx*((mw*2)-1)) - (cx*2),0,1).
+		set py to mfd_clamp(round(vy*((mh*2)-1)) - (cy*2),0,1).
+		
+		//find the binary index of the new pixel
+		// 0001  =  3      px=0   py=0
+		// 0010  =  2      px=1   py=0
+		// 0100  =  1      px=0   py=1
+		// 1000  =  0      px=1   py=1
+		set pix to (1-px)+((1-py)*2).
+
+		//check and set the current map value of that index
+		set maps to map[cx][cy]. 
+		if maps[pix] = "0" {
+			//build a new string
+			set map[cx][cy] to maps:substring(0,pix)+"1"+maps:substring(pix+1,3-pix).
+		}
+		
+		//print debug data
+		//print "x:"+round(vx,2)+":"+cx+":"+px+"  " at(mx,my).
+		//print "y:"+round(vy,2)+":"+cy+":"+py+"  " at(mx,my+1).
+		//print "p:"+pix+":"+map[cx][cy]+"   " at(mx,my+2).
+		
+		//print the pixel
+		//single dots ▖▗▘▝
+		//double dots ▚▞▄▀▌▐
+		//tri dots ▙▟▛▜
+		//full dots █
+		if map[cx][cy] = "0000" { print " " at(mx+cx,my+cy). }
+		else if map[cx][cy] = "0001" { print "▘" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "0010" { print "▝" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "0011" { print "▀" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "0100" { print "▖" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "0101" { print "▌" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "0110" { print "▞" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "0111" { print "▛" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "1000" { print "▗" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "1001" { print "▚" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "1010" { print "▐" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "1011" { print "▜" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "1100" { print "▄" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "1101" { print "▙" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "1110" { print "▟" at(mx+cx,my+cy). }
+		else if map[cx][cy] = "1111" { print "█" at(mx+cx,my+cy). }
+	
+		//return the character that was changed
+		return (mx+cx)+":"+(my+cy).
+	}
+	else { return "0:0". }
+}
+
+//convert from one range to another
+function mfd_convert {
+	parameter OldValue, OldMin, OldMax, NewMin, NewMax.
+	
+	return (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin.
+}
+
+//clamp a value to a range
+function mfd_clamp {
+	parameter num, nmin, nmax.
+	return min(max(num, nmin), nmax).
 }
