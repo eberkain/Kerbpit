@@ -68,11 +68,17 @@ Hotkey,!Numpad8,FCSEND8
 Hotkey,!Numpad9,FCSEND9
 Hotkey,!NumpadEnter,FCSENDENTER
 
+Hotkey,^1,MFD3B1
+Hotkey,^2,MFD3B2
+Hotkey,^3,MFD3B3
+Hotkey,^4,MFD3B4
+Hotkey,^5,MFD3B5
+Hotkey,^6,MFD3B6
 
 	Return
 
 ;G710 GKEYS 
-Hotkey,sc002,FCSEND0
+;Hotkey,^sc002,MFD3B1
 ;Hotkey,sc003,25
 ;Hotkey,sc004,5432113456654321
 ;Hotkey,sc005,
@@ -102,6 +108,25 @@ Hotkey,sc002,FCSEND0
 ;^3::
 ;	ControlSend,,3,kOS MFD%amfd% ;log into the kOS CPU
 ;	Return
+
+MFD3B1:
+	ControlSend,,toggle{Space}ag239.{Enter},kOS MFD0 
+	Return
+MFD3B2:
+	ControlSend,,toggle{Space}ag240.{Enter},kOS MFD0 
+	Return
+MFD3B3:
+	ControlSend,,toggle{Space}ag241.{Enter},kOS MFD0 
+	Return
+MFD3B4:
+	ControlSend,,toggle{Space}ag242.{Enter},kOS MFD0 
+	Return
+MFD3B5:
+	ControlSend,,toggle{Space}ag243.{Enter},kOS MFD0 
+	Return
+MFD3B6:
+	ControlSend,,toggle{Space}ag244.{Enter},kOS MFD0 
+	Return
 
 AutopilotNode:
 	ControlSend,,run{Space}F2.{Enter},kOS MFD3 
