@@ -21,18 +21,23 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 Custom built controllers are used to shortcut common actions, each controller can support 32 buttons and 8 analog axis
   Flight Computer is the right side console and used to interface with MFDS and provide analog controls
     4 keyswitch-Select button allows you to choose what MFD to send commands to
+    1 keyswitch-master to send to all MFD terminal windows
+    1 keyswitch-input to send to hidden input term
+    18 keyswitch-letter/number buttons are used to pick a program (A-F,0-9,decimal,minus)
     1 keyswitch-list button will display a list of programs for that MFD
     1 keyswitch-Run button begins a kOS run command
-    18 keyswitch-letter/number buttons are used to pick a program (A-F,0-9,decimal,minus)
     1 keyswitch-exec button is used to start the program
     1 keyswitch-end button is used to stop a program
     1 keyswitch-reset button to reset the mfd terminal window if something goes awry
-    1 keyswitch-master reset to reset all MFD terminal windows
-    1 keyswitch-master reboot to relog into all CPUs without resetting terminals, for switching craft
+    1 keyswitch-reboot button to relog the terminals without chanigng windows
+    1 keyswitch-local button to switch to local drive
+    1 keyswitch-archive button to switch to archive
+    1 keyswitch-copy button to copy a program to local
     2 thumbstick-RCS axis controls linear (up,down,left,right)(fore,back)
     2 thumbstick-RCS axis control rotation (pitch,yaw)(roll)
-    4 thumbstick robotics controls, single axis. 
+    4 slide pot robotics controls, single axis. 
     8 keyswitch-robotics controls
+    12 keyswitch-mfd interface extentions
   Navigation Controller is the left side console and is used to manipulate autopilot programs and manuvre nodes
     10 keyswitch-tweak +/- buttons for HDG, ALT, SPD, MAXROLL, MAXVSPD
     3 3-way toggle-rate adjustment controls how much to add/sub per press
