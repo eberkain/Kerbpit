@@ -14,7 +14,9 @@ Navigation Programs
 	C01     Deorbit at Coordinates
 		
 Vessel Status		
-	D1 	
+	D1	resources 	
+	D2	stage resources
+	D3	cameras
 		
 		
 		
