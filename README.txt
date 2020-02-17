@@ -37,7 +37,7 @@ Custom built controllers are used to shortcut common actions, each controller ca
     2 thumbstick-RCS axis control rotation (pitch,yaw)(roll)
     4 slide pot robotics controls, single axis. 
     8 keyswitch-robotics controls
-    12 keyswitch-mfd interface extentions
+    12 mini buttons-mfd interface extentions
   Navigation Controller is the left side console and is used to manipulate autopilot programs and manuvre nodes
     10 keyswitch-tweak +/- buttons for HDG, ALT, SPD, MAXROLL, MAXVSPD
     3 3-way toggle-rate adjustment controls how much to add/sub per press
@@ -52,12 +52,7 @@ Custom built controllers are used to shortcut common actions, each controller ca
     2 keyswitch-+/- node time control
     1 3-way toggle-for rate of time change
     11 keyswitch-sas controls for each mode and on/off
+    12 mini buttons-mfd interface extentions
   Overhead Panel
-    various controls for all onboard systems
-    bind actions to groups in-game using AGX
-    send commands to MFD0 to active group based on button pressed
-  MFD Controls
-    Each MFD has a strip of 6 buttons that can be used to directly interact with programs
-    This is done by tying the buttons to action groups
-    kOS has the ability to monitor action groups and react to button presses
-    24 AGX groups are reserved for this feature
+    various controls for all onboard systems, see controls.txt
+    send commands to MFD0 to activate in-game action based on button pressed
