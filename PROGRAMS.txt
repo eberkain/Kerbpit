@@ -1,33 +1,34 @@
 List of all the programs with a basic outline of what they do
+		
+Navigation Program Features - MFD4
+	Circulize at Ap
+	Circulize at Pe
+	Circulize at ALT
+	Change Ap
+	Change Pe
+	Change Inclnaction 
+	Intercept Target
+	Fine Tune Closest Approach 
+	Match Velocities at Closest Approach
+	Deorbit at Coordinates
+		
+Vessel Status Program Features	- MFD2	
+	Complete Vessel Resource Summary 	
+	Active Stage Resource Summary
+	List of all cameras - Allow selection and switching views
+		
+Situation Status Program Features - MFD1		
+	Show summary of vessel info, orbit, alt, speed, etc...
+	
+Launh to Orbit Program Features - MFD3
 
-		
-Navigation Programs		
-	A01	Circulize at Ap
-	A02	Circulize at Pe
-	A03	Circulize at ALT
-	A11	Change Ap
-	A12	Change Pe
-	A21	Change Inclnaction 
-	B01	Intercept Target
-	B02	Fine Tune Closest Approach 
-	B03	Match Velocities at Closest Approach
-	C01     Deorbit at Coordinates
-		
-Vessel Status		
-	D1	resources 	
-	D2	stage resources
-	D3	cameras
-		
-		
-		
-Orbit Status		
-	E1 	
-		
 
-Autopilot Programs 		
-	F1	Launt to Orbit
-	F2	Execute Next Node
-	F3	Perform Landing 
-	F4	Autopilot
-	F5	Time Warp Controller
-		
+Execute Next Node Program Features - MFD3
+
+
+Perform Landing Program Features - MFD3
+
+
+Aircraft Autopilot Program Features - MFD3
+
+
