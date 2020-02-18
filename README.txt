@@ -22,11 +22,11 @@ Custom built controllers are used to shortcut common actions, each controller ca
   Flight Computer is the right side console and used to interface with MFDS and provide analog controls
     6 keyswitch-Select button allows you to choose what MFD to send commands to (#, master, input for 5)
           controls an interal AHK value that is used to direct send commands
-    6 keyswitch-launch program buttons (situation, vessel status, navigation, copy, list, ?)
+    3 keyswitch-launch program buttons (situation, vessel status, navigation)
           sends a run script command to the selected mfd
     15 keyswitch-number buttons are used to send parameters to programs (A-C,0-9,decimal,minus)
           each sends a single character to the selected mfd
-    7 keyswitch-function buttons
+    9 keyswitch-function buttons
           stop-is used to stop a program
           reset-to reset the mfd terminal window if something goes awry
           reboot-to relog the terminals without chanigng windows
@@ -34,12 +34,15 @@ Custom built controllers are used to shortcut common actions, each controller ca
           archive-to switch to archive
           run-start a kos run command
           exec-finish a run command
+          copy-runs batch prog to copy files around
+          list-runs batch to show programs for specific mfd
     A-2 thumbstick-RCS axis controls linear (up,down,left,right)(fore,back)
     A-2 thumbstick-RCS axis control rotation (pitch,yaw)(roll)
     A-4 slide pot robotics controls, single axis. 
-    6 keyswitch-robotics controls
+    6 mini stem switch-robotics controls
+          generic numbered actions that can be bound to robotics commands
     24 mini buttons-mfd interface strips, rj45 extenders
-        send actions to mfd5 to toggle reserved action groups which are monitored by programs
+          send actions to mfd5 to toggle reserved action groups which are monitored by programs
   Navigation Controller is the left side console and is used to manipulate autopilot programs and manuvre nodes
     10 keyswitch-tweak +/- buttons for HDG, ALT, SPD, MAXROLL, MAXVSPD
     9b  3 3pos rot switch-rate adjustment controls how much to add/sub per press, hdg, alt, spd
