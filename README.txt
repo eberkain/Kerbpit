@@ -35,6 +35,8 @@ Custom built controllers are used to shortcut common actions, each controller ca
           archive-to switch to archive
           run-start a kos run command
           exec-finish a run command
+          back-backspace button
+          ???
     A-2 thumbstick-RCS axis controls linear (up,down,left,right)(fore,back)
     A-2 thumbstick-RCS axis control rotation (pitch,yaw)(roll)
     A-4 slide pot robotics controls, single axis. 
