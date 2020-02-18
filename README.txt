@@ -26,6 +26,7 @@ Custom built controllers are used to shortcut common actions, each controller ca
           sends a run script command to the selected mfd
     15 keyswitch-number buttons are used to send parameters to programs (A-C,0-9,decimal,minus)
           each sends a single character to the selected mfd
+          A - autopilot prog, B - main prog, C - Utility prog
     9 keyswitch-function buttons
           stop-is used to stop a program
           reset-to reset the mfd terminal window if something goes awry
@@ -34,8 +35,6 @@ Custom built controllers are used to shortcut common actions, each controller ca
           archive-to switch to archive
           run-start a kos run command
           exec-finish a run command
-          copy-runs batch prog to copy files around
-          list-runs batch to show programs for specific mfd
     A-2 thumbstick-RCS axis controls linear (up,down,left,right)(fore,back)
     A-2 thumbstick-RCS axis control rotation (pitch,yaw)(roll)
     A-4 slide pot robotics controls, single axis. 
