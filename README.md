@@ -18,8 +18,8 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
   * MFD4 is a flight computer that creates nav nodes
   * MFD0 is a hidden terminal used to send complex commands via AHk
   
-Custom built controllers are used to shortcut common actions, each control board can support 32 buttons and 8 analog axis
-  * Flight Computer is the right side console and used to interface with MFDS and provide analog controls, 2 boards
+Custom built controllers, each control board can support 32 buttons and 8 analog axis
+  * Flight Computer is the right side console and used to operate mfds, 2 boards
     * 6 keyswitch-Select button allows you to choose what MFD to send commands to (#, master, input for 5)
        * controls an interal AHK value that is used to direct send commands
     * 4 keyswitch-launch program buttons (situation, vessel status, navigation, list)
@@ -45,7 +45,7 @@ Custom built controllers are used to shortcut common actions, each control board
     * A-3 2xthumbstick-movement control rotation (pitch,yaw)(roll)
     * A-4 slide pot robotics controls, single axis. 
     * D-1  toggle switch for backlight
-  * Navigation Controller is the left side console and is used to manipulate autopilot programs and manuvre nodes, 2 boards
+  * Navigation Controller is the left side console and is used to manipulate autopilot, 2 boards
     * 10 mini stem switch-trim buttons +/- for HDG, ALT, SPD, MAXROLL, MAXVSPD
        * run adjust script on mfd0 to change var, which is then read in by autopilot script later
     * 9  3x3pos rot switch-rate adjustment controls how much to add/sub per press, hdg, alt, spd
