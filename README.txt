@@ -22,7 +22,7 @@ Custom built controllers are used to shortcut common actions, each controller ca
   Flight Computer is the right side console and used to interface with MFDS and provide analog controls
     6 keyswitch-Select button allows you to choose what MFD to send commands to (#, master, input for 5)
           controls an interal AHK value that is used to direct send commands
-    3 keyswitch-launch program buttons (situation, vessel status, navigation)
+    4 keyswitch-launch program buttons (situation, vessel status, navigation, list)
           sends a run script command to the selected mfd
     15 keyswitch-number buttons are used to send parameters to programs (A-C,0-9,decimal,minus)
           each sends a single character to the selected mfd
