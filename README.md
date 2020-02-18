@@ -44,7 +44,7 @@ Custom built controllers, each control board can support 32 buttons and 8 analog
     * A-3 2xthumbstick-movement controls linear (up,down,left,right)(fore,back)
     * A-3 2xthumbstick-movement control rotation (pitch,yaw)(roll)
     * A-4 slide pot robotics controls, single axis. 
-    * D-1  toggle switch for backlight
+    * D-2  rocker switch for backlight (console, mfds)
   * Navigation Controller is the left side console and is used to manipulate autopilot, 2 boards
     * 10 mini stem switch-trim buttons +/- for HDG, ALT, SPD, MAXROLL, MAXVSPD
        * run adjust script on mfd0 to change var, which is then read in by autopilot script later
