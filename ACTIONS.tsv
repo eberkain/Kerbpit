@@ -6,7 +6,6 @@ BRAKE     Wheel Brakes
 GEAR      Toggle Landing Gear
 LIGHTS    Toggle Flood Lights
 SAS       Toggle SAS (default action)
-RCS       Toggle RCS (default action)
 STAGE     Activate next stage (default action)
 
 Special Keys
@@ -16,8 +15,8 @@ ZoomIn    Control Camera Zoom
 ZoomOut   Control Camera Zoom
 
 Basic Systems
-AG1     Toggle Ladders
-AG2     Toggle Antennas
+AG1     Deploy Ladders
+AG2     Retract Ladders
 AG3     Toggle Relays
 AG4     Toggle Drill Deployment
 AG5     Toggle Drill Operation
@@ -28,12 +27,15 @@ AG9
 AG10
 
 Orbital Manuvreing
-AG11    Toggle Linear RCS
-AG12    Toggle Rotation RCS
-AG13    Toggle OMS
-AG14    Toggle Thrusters
-AG15    
-AG16
+RCS     RCS ON 
+AG11    RCS OFF
+AG12    OMS ON
+AG13    OMS OFF
+AG14    VRCS ON
+AG15    VRCS OFF
+
+Communication Systems
+AG16    Deploy Relays
 AG17
 AG18
 AG19
