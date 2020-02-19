@@ -246,7 +246,7 @@ AG198
 AG199
 AG200
 
-Ballast Tanks Controls - MOD
+Ballast Tanks Controls-MOD
 AG201
 AG202
 AG203
@@ -259,45 +259,45 @@ AG209
 AG210
 
 Other Mod Actions
-AG211     kOS - Toggle CPU Power
+AG211     kOS-Toggle CPU Power
 AG212
 AG213
 AG214
 AG215
 AG216
-AG217     KAS - Release Cable
-AG218     KAS - Stop Motor
-AG219     KAS - Retract Cable
-AG220     KAS - Extend Cable
+AG217     KAS-Release Cable
+AG218     KAS-Stop Motor
+AG219     KAS-Retract Cable
+AG220     KAS-Extend Cable
 AG221     
-AG222     SP - Start Timer
-AG223     SP - Reset Timer
-AG224     SP - Activate Detector
-AG225     SP - Deactivate Detector
+AG222     SP-Start Timer
+AG223     SP-Reset Timer
+AG224     SP-Activate Detector
+AG225     SP-Deactivate Detector
 AG226     
 
 Reserved for MFD Control Strips
-AG227		MFD1 -1
-AG228		MFD1 -2
-AG229		MFD1 -3
-AG230		MFD1 -4
-AG231		MFD1 -5
-AG232		MFD1 -6
-AG233		MFD2 -1
-AG234		MFD2 -2
-AG235		MFD2 -3
-AG236		MFD2 -4
-AG237		MFD2 -5
-AG238		MFD2 -6
-AG239		MFD3 -1
-AG240		MFD3 -2
-AG241		MFD3 -3
-AG242		MFD3 -4
-AG243		MFD3 -5
-AG244		MFD3 -6
-AG245		MFD4 -1
-AG246		MFD4 -2
-AG247		MFD4 -3
-AG248		MFD4 -4
-AG249		MFD4 -5
-AG250		MFD4 -6	  
+AG227		MFD1-1
+AG228		MFD1-2
+AG229		MFD1-3
+AG230		MFD1-4
+AG231		MFD1-5
+AG232		MFD1-6
+AG233		MFD2-1
+AG234		MFD2-2
+AG235		MFD2-3
+AG236		MFD2-4
+AG237		MFD2-5
+AG238		MFD2-6
+AG239		MFD3-1
+AG240		MFD3-2
+AG241		MFD3-3
+AG242		MFD3-4
+AG243		MFD3-5
+AG244		MFD3-6
+AG245		MFD4-1
+AG246		MFD4-2
+AG247		MFD4-3
+AG248		MFD4-4
+AG249		MFD4-5
+AG250		MFD4-6	  
