@@ -18,7 +18,10 @@ Vessel Status Program Features	- MFD2
 	List of all cameras - Allow selection and switching views
 		
 Situation Status Program Features - MFD1		
-	Show summary of vessel info, orbit, alt, speed, etc...
+	Orbit Summary - Show summary of vessel info, orbit, alt, speed, etc...
+	Surface Summary - 
+	Target Selection - provide a list of targets and allow user to make selection
+	
 	
 Launh to Orbit Program Features - MFD3
 
