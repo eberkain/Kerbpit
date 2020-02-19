@@ -51,9 +51,9 @@ Custom built controllers, each control board can support 32 buttons and 8 analog
        * run adjust script on mfd0 to change var, which is then read in by autopilot script later
     * 9  3x3pos rot switch-rate adjustment controls how much to add/sub per press, hdg, alt, spd
        * change var in AHK which is used by trim buttons 
-    * 6 keyswitch-Execute shortcuts to launch prog (Launch, Land, Node, Atmo, stop, ???)
+    * 4 keyswitch-Execute shortcuts to launch prog (Launch, Land, Node, Atmo)
        * run program directly on mfd3
-    * 4 keyswitch-time control buttons to control time warp +/- norm/phys
+    * 4 pushbutton-time control buttons to control time warp +/- norm/phys
        * simulate keypresses sent to KSP window
     * 3 keyswitch-change the navball mode
        * send command to mfd0 to change mode
