@@ -38,7 +38,7 @@ Custom built controllers, each control board can support 32 buttons and 8 analog
        * exec-finish a run command
        * back-backspace button
        * ???
-    * 6 mini stem switch-robotics controls
+    * 6 pushbutton-robotics controls
        * generic numbered actions that can be bound to robotics commands
     * 24 mini buttons-mfd interface strips, rj45 extenders
        * send actions to mfd5 to toggle reserved action groups which are monitored by programs
@@ -47,7 +47,7 @@ Custom built controllers, each control board can support 32 buttons and 8 analog
     * A-4 slide pot robotics controls, single axis. 
     * D-2  rocker switch for backlight (console, mfds)
   * Navigation Controller is the left side console and is used to manipulate autopilot, 2 boards
-    * 10 mini stem switch-trim buttons +/- for HDG, ALT, SPD, MAXROLL, MAXVSPD
+    * 10 pushbutton-trim buttons +/- for HDG, ALT, SPD, MAXROLL, MAXVSPD
        * run adjust script on mfd0 to change var, which is then read in by autopilot script later
     * 9  3x3pos rot switch-rate adjustment controls how much to add/sub per press, hdg, alt, spd
        * change var in AHK which is used by trim buttons 
@@ -59,7 +59,7 @@ Custom built controllers, each control board can support 32 buttons and 8 analog
        * simulate keypresses sent to KSP window
     * 3 keyswitch-change the navball mode
        * send command to mfd0 to change mode
-    * 8 switch-+/- buttons for Prograde, Radial, Normal, time
+    * 8 pushbutton-+/- buttons for Prograde, Radial, Normal, time
        * send command to mfd0 to tweak next man node
     * 6  2x3pos rot switch-rate switch for amount to change (node, 0.01, 0.1, 1)(node time, 1s, 10s, 1m)
        * change the rate of the value that is tweaked by node buttons
