@@ -1,64 +1,48 @@
-AG1,     Deploy Ladders
-AG2,     Retract Ladders
-AG3,     Toggle Relays
-AG4,     Toggle Drill Deployment
-AG5,     Toggle Drill Operation
-AG6,     Toggle ISRU
-AG7,     Toggle Radiators
-AG8,     Toggle Dump Fuel
-
-Basic Actions
-ABORT     
-BRAKE     Wheel Brakes
-GEAR      Toggle Landing Gear
-LIGHTS    Toggle Flood Lights
-SAS       Toggle SAS (default action)
-STAGE     Activate next stage (default action)
-
-Special Keys
-NextCam   Swich to next camera view
-PrevCam   Switch to prev camera view
-ZoomIn    Control Camera Zoom
-ZoomOut   Control Camera Zoom
-
-Basic Systems
-AG1     Deploy Ladders
-AG2     Retract Ladders
-AG3     Toggle Relays
-AG4     Toggle Drill Deployment
-AG5     Toggle Drill Operation
-AG6     Toggle ISRU
-AG7     Toggle Radiators
-AG8     Toggle Dump Fuel
-AG9
-AG10
-
-Orbital Manuvreing
-RCS     RCS ON 
-AG11    RCS OFF
-AG12    OMS ON
-AG13    OMS OFF
-AG14    VRCS ON
-AG15    VRCS OFF
-
-Communication Systems
-AG16    Deploy Relays
-AG17
-AG18
-AG19
-AG20
-
-Robotics Controls
-AG21    Sequence 1
-AG22    Sequence 2
-AG23    Sequence 3
-AG24    Sequence 4
-AG25    Engage Lock
-AG26    Disenage Lock
+ACTION GROUP, GAME ACTION, CONTROL TYPE
+AG1,     Deploy Ladders,      Toggle UP ON-OFF-ON momentary
+AG2,     Retract Ladders,     Toggle Down ON-OFF-ON momentary
+GEAR,    Deploy Landing Gear,  Toggle up ON-OFF-ON momentary
+AG3,     Retract Landing Gear,  Toggle Down ON-OFF-ON momentary
+ABORT,   Abort Launch,        Covered Toggle ON-OFF momentary
+AG4,     Release Abort Sys,   Covered Toggle ON-OFF momentary
+AG5,     
+AG6,      
+AG7, 
+AG8, 
+AG9, 
+AG10,
+Orbital Manuvreing,, 
+RCS,     RCS ON ,       Toggle Up ON-OFF-ON momentary
+AG11,    RCS OFF,       Toggle Down ON-OFF-ON momentary
+AG12,    OMS ON,        Toggle Up ON-OFF-ON momentary
+AG13,    OMS OFF,       Toggle Down ON-OFF-ON momentary
+AG14,    VRCS ON,       Toggle Up ON-OFF-ON momentary
+AG15,    VRCS OFF,      Toggle Down ON-OFF-ON  momentary
+Communication Systems, ,
+AG16,    Deploy Omni Antenna,     Toggle UP ON-OFF-ON momentary
+AG17,    Retract Omni Antenna,    Toggle Down ON-OFF-ON momentary
+AG18,    Deploy Relay Antenna,    Toggle Up ON-OFF-ON momentary
+AG19,    Retract Relay Antenna,   Toggle Down ON-OFF-ON momentary
+Power Systems, , 
+AG20,     Deploy Solar A,     Toggle UP ON-OFF-ON momentary
+AG21,     Retract Solar A,    Toggle Down ON-OFF-ON momentary
+AG22,     Deploy Solar B,     Toggle UP ON-OFF-ON momentary
+AG23,     Retract Solar B,    Toggle Down ON-OFF-ON momentary
+AG24 
+AG25 
+AG26 
 AG27
 AG28
 AG29
 AG30
+
+Robotics Controls
+    Sequence 1
+    Sequence 2
+    Sequence 3
+    Sequence 4
+    Engage Lock
+    Disenage Lock
 
 Landing Systems
 AG31    Deploy Drogue Chutes
@@ -83,6 +67,11 @@ AG47
 AG48
 AG49
 AG50
+,     Toggle Drill Deployment
+,     Toggle Drill Operation
+,     Toggle ISRU
+,     Toggle Radiators
+,     Toggle Dump Fuel
 
 Aircraft Systems
 AG51    Toggle Airbrakes
