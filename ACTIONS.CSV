@@ -7,3 +7,304 @@ AG6,     Toggle ISRU
 AG7,     Toggle Radiators
 AG8,     Toggle Dump Fuel
 
+Basic Actions
+ABORT     
+BRAKE     Wheel Brakes
+GEAR      Toggle Landing Gear
+LIGHTS    Toggle Flood Lights
+SAS       Toggle SAS (default action)
+STAGE     Activate next stage (default action)
+
+Special Keys
+NextCam   Swich to next camera view
+PrevCam   Switch to prev camera view
+ZoomIn    Control Camera Zoom
+ZoomOut   Control Camera Zoom
+
+Basic Systems
+AG1     Deploy Ladders
+AG2     Retract Ladders
+AG3     Toggle Relays
+AG4     Toggle Drill Deployment
+AG5     Toggle Drill Operation
+AG6     Toggle ISRU
+AG7     Toggle Radiators
+AG8     Toggle Dump Fuel
+AG9
+AG10
+
+Orbital Manuvreing
+RCS     RCS ON 
+AG11    RCS OFF
+AG12    OMS ON
+AG13    OMS OFF
+AG14    VRCS ON
+AG15    VRCS OFF
+
+Communication Systems
+AG16    Deploy Relays
+AG17
+AG18
+AG19
+AG20
+
+Robotics Controls
+AG21    Sequence 1
+AG22    Sequence 2
+AG23    Sequence 3
+AG24    Sequence 4
+AG25    Engage Lock
+AG26    Disenage Lock
+AG27
+AG28
+AG29
+AG30
+
+Landing Systems
+AG31    Deploy Drogue Chutes
+AG32    Cut Droge Chutes
+AG33    Deploy Main Chutes
+AG34    Cut Main Chutes
+AG35    Deploy Emergency Chutes
+AG36    Cut Emergency Chutes
+AG37    Jettison Heat Shield
+AG38    Toggle Landing Legs
+AG39    Inflate Heat Shield
+AG40
+
+Power Systems
+AG41    Toggle Solar Panels A
+AG42    Toggle Solar Panels B
+AG43    Toggle Fuel Cell A
+AG44    Toggle Fuel Cell B
+AG45
+AG46
+AG47
+AG48
+AG49
+AG50
+
+Aircraft Systems
+AG51    Toggle Airbrakes
+AG52    Toggle Flaps
+AG53    Toggle Intake
+AG54    Toggle Thurst Reverser
+AG55    Hold Engine Brake
+AG56    Toggle Prop Deploy
+AG57    Toggle Wheel Lights
+AG58    
+AG59
+AG60
+
+Launch Systems
+AG61    Retract Boarding Ramp
+AG62    Release Umbilicals 
+AG63    Release Launch Clamps
+AG64    
+AG65
+AG66
+AG67
+AG68    Decouple Crew Pod
+AG69    Activate LES
+AG70    Decouple LES
+
+Engine Controls
+AG71    Activate Booster
+AG72    Activate STG1 Engine
+AG73    Activate STG2 Engine
+AG74    Activate STG3 Engine
+AG75    Toggle MAIN Engine
+AG76    Toggle LAND Engine
+AG77    Toggle ASCT Engine
+AG78    Toggle DESC Engine
+AG79   
+AG80    
+AG81    Decouple Booster
+AG82    Decouple STG1
+AG83    Decouple STG2
+AG84    Decouple STG3
+AG85    
+AG86
+AG87    Toggle Gimbal
+AG88
+AG89
+AG90   
+
+Docking Controls
+AG91    Toggle Airlock
+AG92    Decouple Node
+AG93    Toggle Crossfeed
+AG94    Toggle Shield
+AG95    Toggle Grabber
+AG96
+AG97
+AG98
+AG99
+AG100
+
+Payload Controls
+AG101     Deploy Fairing
+AG102     Toggle Primary Bays
+AG103     Toggle Secondary Bays
+AG104     Jettison Shroud
+AG105     Toggle Loading Ramp
+AG106     Toggle Cargo Bay 
+AG107
+AG108
+AG109
+AG110
+
+Rover Systems
+AG111     Extend Wheels
+AG112     Front Toggle Motor
+AG113     Mid Toggle Motor
+AG114     Back Toggle Motor
+AG115     Front Toggle Steering
+AG116     Mid Toggle Steering
+AG117     Back Toggle Steering
+AG118     
+AG119
+AG120
+
+AG121    
+AG122
+AG123
+AG124
+AG125
+AG126
+AG127
+AG128
+AG129
+AG130
+
+Science Systems
+AG131     Start Experiments
+AG132     Stop Experiments
+AG133     Collect Data
+AG134     System Check
+AG135     Start SCAN
+AG136     Stop SCAN
+AG137     Scan Surface Feature
+AG138     
+AG139
+AG140
+
+
+AG141     
+AG142     
+AG143     
+AG144
+AG145
+AG146
+AG147
+AG148
+AG149
+AG150   
+
+Kerbalism Actions
+AG151     Toggle Active Shield
+AG152     Deploy Habitat Ring
+AG153     Toggle Greenhouse
+AG154     
+AG155     
+AG156     
+AG157     
+AG158     Toggle Water Extraction
+AG159     Toggle Ore Extraction
+AG160     Toggle CO2 Extraction
+AG161     Toggle Oxygen Extraction
+AG162     Toggle Nitrogen Extraction
+AG163     Toggle Ammonia Extraction
+AG164     
+AG165
+AG166     Toggle Scrubber
+AG167     Toggle Pressure Control
+AG168     Toggle Water Recycler
+AG169     Toggle Waste Processor
+AG170     Toggle Air Pump
+AG171
+AG172
+AG173     Toggle Water Electrolysis
+AG174     Toggle Sabatier Reactor
+AG175     Toggle Haber Reactor
+AG176     Toggle Waste Incinerator
+AG177     Toggle Waste Compressor
+AG178     Toggle Anthraquinone (OX Prod)
+AG179     Toggle Hydrazine Production
+AG180     Toggle Hydrazone Prod. (N2)
+AG181     Toggle Solid Oxide Electrolysis     
+AG182     Toggle Molten Regolith Olectrolysis
+AG183     Toggle Selective Catalytic Oxidation
+AG184
+AG185
+AG186
+AG187
+AG188
+AG189
+AG190
+AG191
+AG192
+AG193
+AG194
+AG195
+AG196
+AG197
+AG198
+AG199
+AG200
+
+Ballast Tanks Controls-MOD
+AG201
+AG202
+AG203
+AG204
+AG205
+AG206
+AG207
+AG208
+AG209
+AG210
+
+Other Mod Actions
+AG211     kOS-Toggle CPU Power
+AG212
+AG213
+AG214
+AG215
+AG216
+AG217     KAS-Release Cable
+AG218     KAS-Stop Motor
+AG219     KAS-Retract Cable
+AG220     KAS-Extend Cable
+AG221     
+AG222     SP-Start Timer
+AG223     SP-Reset Timer
+AG224     SP-Activate Detector
+AG225     SP-Deactivate Detector
+AG226     
+
+Reserved for MFD Control Strips
+AG227		MFD1-1
+AG228		MFD1-2
+AG229		MFD1-3
+AG230		MFD1-4
+AG231		MFD1-5
+AG232		MFD1-6
+AG233		MFD2-1
+AG234		MFD2-2
+AG235		MFD2-3
+AG236		MFD2-4
+AG237		MFD2-5
+AG238		MFD2-6
+AG239		MFD3-1
+AG240		MFD3-2
+AG241		MFD3-3
+AG242		MFD3-4
+AG243		MFD3-5
+AG244		MFD3-6
+AG245		MFD4-1
+AG246		MFD4-2
+AG247		MFD4-3
+AG248		MFD4-4
+AG249		MFD4-5
+AG250		MFD4-6	  
