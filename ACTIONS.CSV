@@ -1,9 +1,9 @@
-AG1     Deploy Ladders
-AG2     Retract Ladders
-AG3     Toggle Relays
-AG4     Toggle Drill Deployment
-AG5     Toggle Drill Operation
-AG6     Toggle ISRU
-AG7     Toggle Radiators
-AG8     Toggle Dump Fuel
+AG1,     Deploy Ladders
+AG2,     Retract Ladders
+AG3,     Toggle Relays
+AG4,     Toggle Drill Deployment
+AG5,     Toggle Drill Operation
+AG6,     Toggle ISRU
+AG7,     Toggle Radiators
+AG8,     Toggle Dump Fuel
 
