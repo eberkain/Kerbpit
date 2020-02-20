@@ -16,6 +16,7 @@ Vessel Status Program Features	- MFD2
 	Complete Vessel Resource Summary 	
 	Active Stage Resource Summary
 	List of all cameras - Allow selection and switching views
+	System Controller - activate/deactivate systems like fuel cells, isru, drills, 
 		
 Situation Status Program Features - MFD1		
 	Orbit Summary - Show summary of vessel info, orbit, alt, speed, etc...
