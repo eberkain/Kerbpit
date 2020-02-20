@@ -24,22 +24,22 @@ Custom built controllers, each control board can support 32 buttons and 8 analog
 ### Flight Computer 
 the right side console and used to operate mfds, 2 boards
 * 6 keyswitch-Select button allows you to choose what MFD to send commands to (#, master, input for 5)
- - controls an interal AHK value that is used to direct send commands
+    - controls an interal AHK value that is used to direct send commands
 * 4 keyswitch-launch program buttons (situation, vessel status, navigation, list)
- - sends a run script command to the selected mfd
+    - sends a run script command to the selected mfd
 * 15 keyswitch-number buttons are used to send parameters to programs (A-C,0-9,decimal,minus)
- - each sends a single character to the selected mfd
- - A - autopilot prog, B - main prog, C - Utility prog
+    - each sends a single character to the selected mfd
+    - A - autopilot prog, B - main prog, C - Utility prog
 * 9 keyswitch-function buttons
- - stop-is used to stop a program
- - reset-to reset the mfd terminal window if something goes awry
- - reboot-to relog the terminals without chanigng windows
- - local-to switch to local drive
- - archive-to switch to archive
- - run-start a kos run command
- - exec-finish a run command
- - back-backspace button
- - ???
+    - stop-is used to stop a program
+    - reset-to reset the mfd terminal window if something goes awry
+    - reboot-to relog the terminals without chanigng windows
+    - local-to switch to local drive
+    - archive-to switch to archive
+    - run-start a kos run command
+    - exec-finish a run command
+    - back-backspace button
+    - ???
 * 6 mini pushbutton-robotics controls
  * generic numbered actions that can be bound to robotics commands
 * 24 mini buttons-mfd interface strips, rj45 extenders
