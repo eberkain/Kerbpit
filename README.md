@@ -71,7 +71,8 @@ the left side console and is used to manipulate autopilot, 2 boards
     - send action to mfd0 to turn sas on/off
     - power leds for mode select only in on position
 * 10 keyswitch-sas controls for each mode
-    - send command to mfd0 to select mode          
+    - send command to mfd0 to select mode     
+* A-2 thumbstick-camera control (horiz, vert)
 * A-3 rotary pots-aircraft trim dials
 * A-2 slide pots-engine throttle axis with locking lever
 * D-1  toggle switch for backlight
