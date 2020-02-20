@@ -11,7 +11,7 @@ Navigation Program Features - MFD4
 	Fine Tune Closest Approach 
 	Match Velocities at Closest Approach
 	Deorbit at Coordinates
-		
+	
 Vessel Status Program Features	- MFD2	
 	Complete Vessel Resource Summary 	
 	Active Stage Resource Summary
