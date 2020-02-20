@@ -19,7 +19,9 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
   * MFD0 is a hidden terminal used to send complex commands via AHk
   
 Custom built controllers, each control board can support 32 buttons and 8 analog axis
+
 ![](https://i.imgur.com/1uO12jf.png)
+
   * Flight Computer is the right side console and used to operate mfds, 2 boards
     * 6 keyswitch-Select button allows you to choose what MFD to send commands to (#, master, input for 5)
        * controls an interal AHK value that is used to direct send commands
@@ -46,7 +48,9 @@ Custom built controllers, each control board can support 32 buttons and 8 analog
     * A-3 2xthumbstick-movement control rotation (pitch,yaw)(roll)
     * A-4 slide pot robotics controls, single axis. 
     * D-2  rocker switch for backlight (console, mfds)
+    
 ![](https://i.imgur.com/Vyx5rws.png)
+
   * Navigation Controller is the left side console and is used to manipulate autopilot, 2 boards
     * 6 pushbutton-trim buttons +/- for HDG, ALT, SPD
        * run adjust script on mfd0 to change var, which is then read in by autopilot script later
