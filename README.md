@@ -77,3 +77,13 @@ Custom built controllers, each control board can support 32 buttons and 8 analog
   * Overhead Panel
     * various controls for all onboard systems, see controls.txt
         * send commands to MFD0 to activate in-game action based on button pressed
+
+# SETUP
+You will need a monospace font that supports line drawing, boxes and arrows.  I use [Unifont](http://www.unifoundry.com/unifont/index.html) in all screenshots.  
+
+### Kerbal Operating System
+You need to install the mod and any dependencies. 
+place all the kOS scripts into the archive folder for your install.  KSP/Saves/Scripts typically
+
+### Auto Hot Key
+You have to install the AutoHotKey program to use the scripts.  
