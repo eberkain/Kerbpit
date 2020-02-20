@@ -55,7 +55,7 @@ the right side console and used to operate mfds, 2 boards
 the left side console and is used to manipulate autopilot, 2 boards
 * 6 pushbutton-trim buttons +/- for HDG, ALT, SPD
     - run adjust script on mfd0 to change var, which is then read in by autopilot script later
-* 9  3x3pos rot switch-rate adjustment controls how much to add/sub per press, hdg, alt, spd
+* 10  3xrot switch-rate adjustment controls how much to add/sub per press, hdg, alt, spd
     - change var in AHK which is used by trim buttons 
 * 4 keyswitch-Execute shortcuts to launch prog (Launch, Land, Node, Atmo)
     - run program directly on mfd3
@@ -65,7 +65,7 @@ the left side console and is used to manipulate autopilot, 2 boards
     - send command to mfd0 to change mode
 * 8 pushbutton-+/- buttons for Prograde, Radial, Normal, time
     - send command to mfd0 to tweak next man node
-* 6  2x3pos rot switch-rate switch for amount to change (node, 0.01, 0.1, 1)(node time, 1s, 10s, 1m)
+* 8  2xrot switch-rate switch for amount to change (node, 0.01, 0.1, 1)(node time, 1s, 10s, 1m)
     - change the rate of the value that is tweaked by node buttons
 * 2  1xtoggle switch(ON-OFF-ON)-sas on/off
     - send action to mfd0 to turn sas on/off
