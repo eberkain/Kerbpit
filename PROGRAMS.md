@@ -12,7 +12,8 @@ Navigation Program Features - MFD4
 * Match Velocities at Closest Approach
 * Deorbit at Coordinates
 
-![](https://i.imgur.com/W4GcO7fb.png)![](https://i.imgur.com/OdGHPVgb.png)
+![](https://i.imgur.com/W4GcO7fb.png)  ![](https://i.imgur.com/OdGHPVgb.png)
+
 Vessel Status Program Features	- MFD2	
 * Complete Vessel Resource Summary 	
 * Active Stage Resource Summary
@@ -20,12 +21,14 @@ Vessel Status Program Features	- MFD2
 * System Controller - activate/deactivate systems like fuel cells, isru, drills, 
 		
 ![](https://i.imgur.com/h5i7wb1b.png)
+
 Situation Status Program Features - MFD1		
 * Orbit Summary - Show summary of vessel info, orbit, alt, speed, etc...
 * Surface Summary - 
 * Target Selection - provide a list of targets and allow user to make selection
 	
 ![](https://i.imgur.com/15DyPmCb.png)
+
 Autopilot Programs - MFD3
 * Launh to Orbit Program 
 * Execute Next Node Program
