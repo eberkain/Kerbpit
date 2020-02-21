@@ -156,7 +156,11 @@ on AG238 { 	set btn6 to true. preserve.  }
 set camlistdone to false. 
 set clist to list().  //a list to save camera parts in
 set camsel to 1.
+set prevcamsel to 0.
 set actcam to 0.	
+set actcamprt to ship:rootpart.
+set shippartcount to 0.
+set change_camsel to false. 
 
 //define the resource structure
 set reslist to list().
@@ -177,10 +181,37 @@ until done = true {
 		set btn3 to false.
 		set curr_page to 3.
 		set camlistdone to false. 
-		print_page(curr_page).
+	}
+	//move the selector up
+	if btn4 = true {
+		set btn4 to false.
+
+		//check if its safe to decrement
+		if camsel > 1 {
+			//remove old pointer
+			print " " at(2, 3+camsel).
+			//increment counter
+			set camsel to camsel - 1.
+		}
+	}
+	//move the selector down
+	if btn5 = true {
+		set btn5 to false.
+		//check if its safe to increment
+		if camsel < clist:length {
+			//remove old pointer
+			print " " at(2, 3+camsel).
+			//increment counter
+			set camsel to camsel + 1.
+		}
+	}
+	//select the item
+	if btn6 = true {
+		set btn6 to false.
+	
+		set change_camsel to true. 
 	}
 
-	set printres to false. 
 	
 	//run the main loop every x sec
 	if time:seconds > looptime {
@@ -190,6 +221,7 @@ until done = true {
 		set animstep to mfd_animicon(0,2,animstep).
 
 		//print the overall resources page
+		set printres to false. 
 		if curr_page = 1 { 
 			set reslist to ship:resources.
 			set printres to true. 
@@ -241,8 +273,119 @@ until done = true {
 				}
 			}
 		}
+	
+		//print the cameras page
+		if curr_page = 3 {
+		
+			//if the active camera is not on the ship anymore, then print an error message
+			if actcam > 0 and actcamprt:ship <> ship {
+				print "████████████████████████" at(10,10). 
+				print "██                    ██" at(10,11). 
+				print "██   PROGRAM ERROR    ██" at(10,12). 
+				print "██   RESTART SYSTEM   ██" at(10,13). 
+				print "██                    ██" at(10,14). 
+				print "████████████████████████" at(10,15). 
+			}
+			else {	
+				//check for conditions that require us to redo the list
+				if camlistdone = true {
+				
+					//if the parts on the ship have changed, then redo the list
+					if shippartcount <> ship:parts:length { 
+						set camlistdone to false. 
+						set actcam to 0. 
+						set camsel to 1.
+					}
+				}
+			
+				//if list has not been printed yet then 
+				if camlistdone = false {
+					
+					//print the background
+					print_page(3).
+
+					//create a fresh list to work with 
+					set clist to list().
+					
+					//get all the parts
+					set plist to ship:parts.
+					set shippartcount to plist:length.
+					
+					//check if the part has the camera module 
+					for prt in plist {
+						if prt:hasmodule("MuMechModuleHullCameraZoom") {
+							//save the part to the list
+							clist:add(prt).
+							print clist:length at (52,2).
+						}
+						
+					}
+					
+					//list one on each line 
+					set camline to 4.
+					for cam in clist {
+						
+						//check if the active cam is on the list 
+						if actcamprt = cam {
+							set actcam to camline - 3.
+						}
+					
+						print cam:tag:padright(10) at (5,camline).
+						print cam:title:padright(20) at (18,camline). 
+						set camline to camline + 1.
+					}
+					
+					set camlistdone to true.
+				}
+				
+				//if a new selection was requested then try to change
+				if change_camsel = true { 
+					set change_camsel to false. 
+					
+					//first disable the current cam and have a short wait
+					if actcam > 0 {
+						print " " at(0,3+actcam).
+						set actcammod to actcamprt:getmodule("MuMechModuleHullCameraZoom").
+						if actcammod:hasevent("Deactivate Camera") { actcammod:doevent("Deactivate Camera"). }
+						if actcammod:hasevent("deactivate camera") { actcammod:doevent("deactivate camera"). }
+						wait 0.1.
+					}
+					
+					//if we are activating an already active camera, then just disable it
+					if actcam = camsel {
+						set actcam to 0. //back to default setting
+					}
+					
+					//else we want to enable the new camera
+					else {
+						//save the index of the active cam
+						set actcam to camsel. 
+
+						//find the camera module and actiate the event
+						set cmod to clist[camsel-1]:getmodule("MuMechModuleHullCameraZoom").
+						if cmod:hasevent("Activate Camera") { cmod:doevent("Activate Camera"). }
+						if cmod:hasevent("activate camera") { cmod:doevent("activate camera"). }
+						set actcamprt to clist[camsel-1].
+					}
+				
+				}
+
+				//show an arrow for the current selection
+				print "⮞" at(2, 3+camsel).
+				
+				//show a marker for the currently active camera 
+				if actcam > 0 {
+					print "▐" at(0,3+actcam).
+				}
+				
+				//debug
+				print actcam + ":" + camsel at(4,2).
+			}
+		}
 	}
 
+
+	//calculate resource change over time 
 	if curr_page = 1 or curr_page = 2 {
 		//every x seconds check all resources and update eta based on diff from last time
 		if time:seconds > prevtime + prevdelay { 
@@ -282,96 +425,4 @@ until done = true {
 			}
 		}
 	}
-	
-	//print the cameras page
-	if curr_page = 3 {
-	
-		//if list has not been printed yet then 
-		if camlistdone = false {
-			
-			//create a fresh list to work with 
-			set clist to list().
-			
-			//get all the parts
-			set plist to ship:parts.
-
-			//check if the part has the camera module 
-			for prt in plist {
-				if prt:hasmodule("MuMechModuleHullCameraZoom") {
-					//save the part to the list
-					clist:add(prt).
-					print clist:length at (52,2).
-				}
-				
-			}
-			
-			//list one on each line 
-			set camline to 4.
-			for cam in clist {
-				print cam:tag:padright(10) at (5,camline).
-				print cam:title:padright(20) at (18,camline). 
-				set camline to camline + 1.
-			}
-			
-			set camlistdone to true.
-		}
-		
-		//move the selector up
-		if btn4 = true {
-			set btn4 to false.
-
-			//check if its safe to decrement
-			if camsel > 1 {
-				//remove old pointer
-				print " " at(2, 3+camsel).
-				//increment counter
-				set camsel to camsel - 1.
-			}
-		}
-		//move the selector down
-		if btn5 = true {
-			set btn5 to false.
-			//check if its safe to increment
-			if camsel < clist:length {
-				//remove old pointer
-				print " " at(2, 3+camsel).
-				//increment counter
-				set camsel to camsel + 1.
-			}
-		}
-		//select
-		if btn6 = true {
-			set btn6 to false.
-			//remove the prev active camera marker and deactivate camera
-			if actcam > 0 {
-				print " " at(0,3+actcam).
-				set cmod to clist[actcam-1]:getmodule("MuMechModuleHullCameraZoom").
-				if cmod:hasevent("Deactivate Camera") { cmod:doevent("Deactivate Camera"). }
-				if cmod:hasevent("deactivate camera") { cmod:doevent("deactivate camera"). }
-			}
-			
-			//activate the camera
-			set actcam to camsel. 
-
-			//find the camera module and actiate the event
-			set cmod to clist[camsel-1]:getmodule("MuMechModuleHullCameraZoom").
-			if cmod:hasevent("Activate Camera") { cmod:doevent("Activate Camera"). }
-			if cmod:hasevent("activate camera") { cmod:doevent("activate camera"). }
-		}
-
-		
-		//show an arrow for the current selection
-		print "⮞" at(2, 3+camsel).
-		
-		//show a marker for the currently active camera 
-		if actcam > 0 {
-			print "▐" at(0,3+actcam).
-		}
-	
-		//
-
-	}
-	
-	wait 0.001.
-
 }

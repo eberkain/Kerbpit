@@ -242,11 +242,13 @@ function azimuth {
     parameter orbit_alt.
     parameter auto_switch is false.
 
-    if abs(inclination) < abs(ship:latitude) {
-        set inclination to abs(ship:latitude).
+    local localLatitude is ship:latitude.
+    if abs(inclination) < abs(localLatitude) {
+        set inclination to localLatitude.
     }
 
-    local head is arcsin(cos(inclination) / cos(ship:latitude)).
+    local head is arcsin(cos(inclination) / cos(localLatitude)).
+	
     if auto_switch {
         if angleToBodyDescendingNode(ship) < angleToBodyAscendingNode(ship) {
             set head to 180 - head.

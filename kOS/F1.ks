@@ -124,7 +124,7 @@ print si_formating(presalt,"m") at(15,22).
 set aztime to time:seconds.
 set azstep to 0.
 set adjinc to mfd_adjinc(tarinc,ship:latitude).
-set tarhdg to azimuth(adjinc,ship:latitude).
+set tarhdg to azimuth(adjinc,taralt).
 print "calc-path-0" at(28,3).
 
 //track pitch variables
@@ -241,7 +241,7 @@ until launchdone {
 
 		//recalculate
 		set adjinc to mfd_adjinc(tarinc,ship:latitude).
-		set tarhdg to azimuth(adjinc,ship:latitude).
+		set tarhdg to azimuth(adjinc,taralt).
 	}
 	
 	//We need to support the autopilot lexicaon tweaking
@@ -288,7 +288,7 @@ until launchdone {
 			set protrans to true.
 			set NAVMODE to "ORBIT".
 			print "ref-trans" at(28,5).
-			print "🡴rt" at(mx+1,my+1).
+			print "🡴rt" at(mx+2,my).
 		}
 	}
 
@@ -317,7 +317,7 @@ until launchdone {
 			set maxqalt to ship:altitude.
 			set maxqpit to tarpit.
 			print "maxq-pass" at(43,5).
-			print "🡴mq" at(mx+1,my+1).
+			print "🡴mq" at(mx+2,my).
 		}
 	}
 
@@ -331,7 +331,7 @@ until launchdone {
 		set maxaoa to 5. 
 	}
 	else { 
-		set maxaoa to max(5,abs(15 * (1-(curpress/ship:body:atm:altitudepressure(maxqalt))))). 
+		set maxaoa to max(5,abs(15 * (1-(curpress/(ship:body:atm:altitudepressure(maxqalt)+0.000001))))). 
 	}
 
 	//calculate the target pitch based on the current ap vs target alt
@@ -413,7 +413,7 @@ until launchdone {
 			
 			//mark flameout event
 			if ship:altitude > 1000 {
-				print "🡴fo" at(mx+1,my+1).
+				print "🡴fo" at(mx+2,my).
 			}
 		}
 	}
