@@ -49,7 +49,7 @@ the right side console and used to operate mfds, 2 boards
 * A-4 slide pot robotics controls, single axis. 
 * D-2  rocker switch for backlight (console, mfds)
     
-![](https://i.imgur.com/Vyx5rws.png)
+![](https://i.imgur.com/GbYlhNH.png)
 
 ### Navigation Controller 
 the left side console and is used to manipulate autopilot, 2 boards
