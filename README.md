@@ -2,8 +2,8 @@
 
 This is a project to build a KSP desktop simpit 
   * The general idea is to build custom kOS scripts to control throttle and steering
-  * All other systems are manually controlled via tactile switches
-  * kOS scripts are used to monitor ship systems and generate manuvre nodes
+  * Most systems are manually controlled via tactile switches that send kOS commands via AHK keybinds
+  * kOS scripts are used to monitor ship systems and generate manuvre nodes using MFDS
   * The main game window should see minimal use to the point where it can simply display a camera view
 
 Kerbpit.ahk is an AutoHotKey script that is used to interface custom controllers KSP
