@@ -26,7 +26,54 @@ run lib_formating.
 run lib_navigation.
 
 //collect passed params
-parameter passed_alt is 9999, passed_inc is 9999.
+parameter mfdid, mfdtop, passed_alt is 9999, passed_inc is 9999.
+
+//adjust print offset for the control bar
+set poff to 0.
+if mfdtop = true { set poff to 2. }
+
+clearscreen. 
+//print the button labels at top or bottom
+if mfdtop = true { 
+	print "  FC-TRAN│ FC-MAXQ│ THR-OVR│CTRL-OVR│   F5   │   F6    " at(0,0).
+	print "─────────┴────────┴────────┴────────┴────────┴─────────" at(0,1). }
+else {
+	print "─────────┬────────┬────────┼────────┬────────┬─────────" at(0,23).
+	print "  FC-TRAN│ FC-MAXQ│ THR-OVR│CTRL-OVR│   F5   │   F6   " at(0,24). }
+
+//monitor reserved action groups for button activity
+set btn1 to false. 
+set btn2 to false. 
+set btn3 to false. 
+set btn4 to false. 
+set btn5 to false. 
+set btn6 to false.
+
+//flag button press based on MFDID 
+on AG227 { if mfdid = 1 { set btn1 to true. } preserve. }
+on AG228 { if mfdid = 1 { set btn2 to true. } preserve. }
+on AG229 { if mfdid = 1 { set btn3 to true. } preserve. }
+on AG230 { if nfdud = 1 { set btn4 to true. } preserve. }
+on AG231 { if mfdid = 1 { set btn5 to true. } preserve. }
+on AG232 { if mfdid = 1 { set btn6 to true. } preserve. }
+on AG233 { if mfdid = 2 { set btn1 to true. } preserve. }
+on AG234 { if mfdid = 2 { set btn2 to true. } preserve. }
+on AG235 { if mfdid = 2 { set btn3 to true. } preserve. }
+on AG236 { if nfdud = 2 { set btn4 to true. } preserve. }
+on AG237 { if mfdid = 2 { set btn5 to true. } preserve. }
+on AG238 { if mfdid = 2 { set btn6 to true. } preserve. }
+on AG239 { if mfdid = 3 { set btn1 to true. } preserve. }
+on AG240 { if mfdid = 3 { set btn2 to true. } preserve. }
+on AG241 { if mfdid = 3 { set btn3 to true. } preserve. }
+on AG242 { if nfdud = 3 { set btn4 to true. } preserve. }
+on AG243 { if mfdid = 3 { set btn5 to true. } preserve. }
+on AG244 { if mfdid = 3 { set btn6 to true. } preserve. }
+on AG245 { if mfdid = 4 { set btn1 to true. } preserve. }
+on AG246 { if mfdid = 4 { set btn2 to true. } preserve. }
+on AG247 { if mfdid = 4 { set btn3 to true. } preserve. }
+on AG248 { if nfdud = 4 { set btn4 to true. } preserve. }
+on AG249 { if mfdid = 4 { set btn5 to true. } preserve. }
+on AG250 { if mfdid = 4 { set btn6 to true. } preserve. }
 
 //main input vars
 set taralt to 9999.
@@ -35,75 +82,64 @@ set tarinc to 9999.
 set hasinc to false.
 
 //setup the screen info fields
-clearscreen.
 //     ----=----=----=----=----=xxxxx----=----=----=----=----=
-print "                    LAUNCH TO ORBIT                    " at(0,0).
-print "═══════════════════════════╤═══════════════════════════" at(0,1).
-print "Target Alt.  :             │                           " at(0,2).
-print "Target Inc.  :             │                           " at(0,3).
-print "Adj. Inc.    :             │                           " at(0,4).
-print "Target Head. :             │                           " at(0,5).                              
-print "───────────────────────────┤                           " at(0,6).   
-print "Orbit Pitch  :             │                           " at(0,7).
-print "Surf. Pitch  :             │                           " at(0,8).
-print "Diff Orb/Surf:             │                           " at(0,9).
-print "Vessel Pitch :             ├───────────────────────────" at(0,10).
-print "Target Pitch :             │  Launch Graph             " at(0,11).
-print "Limit Pitch  :             │                           " at(0,12).                              
-print "───────────────────────────┤  🢁                        " at(0,13).
-print "Max AoA      :             │ talt                      " at(0,14).
-print "Current AoA  :             │  🢃                        " at(0,15).
-print "Max TWR      :             │                           " at(0,16).
-print "Curr. TWR    :             │                           " at(0,17).
-print "Curr. Throt  :             │                           " at(0,18).
-print "Downrange    :             │                           " at(0,19).
-print "MaxQ         :             │                           " at(0,20).
-print "MaxQ Alt     :             │                2xtalt     " at(0,21).
-print "Low Pres Alt :             │              🢀 range 🢂   " at(0,22).
-print "─────────┬────────┬────────┼────────┬────────┬─────────" at(0,23).
-print "  FC-TRAN│ FC-MAXQ│ THR-OVR│CTRL-OVR│   F5   │   F6   " at (0,24).
-
-//monitor reserved action groups for button activity
-set btn1 to AG239. 
-set btn2 to AG240. 
-set btn3 to AG241. 
-set btn4 to AG242. 
-set btn5 to AG243. 
-set btn6 to AG244. 
+print "                    LAUNCH TO ORBIT                    " at(0,0+poff).
+print "═══════════════════════════╤═══════════════════════════" at(0,1+poff).
+print "Target Alt.  :             │                           " at(0,2+poff).
+print "Target Inc.  :             │                           " at(0,3+poff).
+print "Adj. Inc.    :             │                           " at(0,4+poff).
+print "Target Head. :             │                           " at(0,5+poff).                              
+print "───────────────────────────┤                           " at(0,6+poff).   
+print "Orbit Pitch  :             │                           " at(0,7+poff).
+print "Surf. Pitch  :             │                           " at(0,8+poff).
+print "Diff Orb/Surf:             │                           " at(0,9+poff).
+print "Vessel Pitch :             ├───────────────────────────" at(0,10+poff).
+print "Target Pitch :             │  Launch Graph             " at(0,11+poff).
+print "Limit Pitch  :             │                           " at(0,12+poff).                              
+print "───────────────────────────┤  🢁                        " at(0,13+poff).
+print "Max AoA      :             │ talt                      " at(0,14+poff).
+print "Current AoA  :             │  🢃                        " at(0,15+poff).
+print "Max TWR      :             │                           " at(0,16+poff).
+print "Curr. TWR    :             │                           " at(0,17+poff).
+print "Curr. Throt  :             │                           " at(0,18+poff).
+print "Downrange    :             │                           " at(0,19+poff).
+print "MaxQ         :             │                           " at(0,20+poff).
+print "MaxQ Alt     :             │                2xtalt     " at(0,21+poff).
+print "Low Pres Alt :             │              🢀 range 🢂 " at(0,22+poff).
 
 //check the parameters, if they were used then populate the vars and flip flags
 if passed_alt <> 9999 {
 	set hasalt to true.
 	set taralt to passed_alt.
-	print "p" at(12,2).
+	print "p" at(12,2+poff).
 }
 if passed_inc <> 9999 {
 	set hasinc to true.
 	set tarinc to passed_inc.
-	print "p" at(12,3).
+	print "p" at(12,3+poff).
 }
 
 //if we did not take a param then we need to take terminal input
 if hasalt = false or hasinc = false {
-	print "term-input:         " at (28,2).
+	print "term-input:         " at (28,2+poff).
 }
 else {
-	print "init-param"+si_formating(taralt,"")+"  "+padding(tarinc,1,2)+" °" at(28,2).
+	print "init-param"+si_formating(taralt,"")+"  "+padding(tarinc,1,2)+" °" at(28,2+poff).
 }
 
 if hasalt = false { 
 	set taralt to mfd_numinput(40,2,false).  
 	set hasalt to true.
-	print "t" at(12,2).
+	print "t" at(12,2+poff).
 }
 wait until hasalt = true.
 
 //check other param
 if hasinc = false { 
-	print "             " at (40,2).
+	print "             " at (40,2+poff).
 	set tarinc to mfd_numinput(40,2,false,0,180).  
 	set hasinc to true.
-	print "t" at(12,3).
+	print "t" at(12,3+poff).
 }
 wait until hasinc = true.
 
@@ -118,14 +154,14 @@ until prestest < 0.05 {
 	set prestest to SHIP:BODY:ATM:altitudepressure(presalt).
 	set presalt to presalt + 100. 
 }
-print si_formating(presalt,"m") at(15,22).
+print si_formating(presalt,"m") at(15,22+poff).
 
 //get a target heading to hit the desired incl
 set aztime to time:seconds.
 set azstep to 0.
 set adjinc to mfd_adjinc(tarinc,ship:latitude).
 set tarhdg to azimuth(adjinc,taralt).
-print "calc-path-0" at(28,3).
+print "calc-path-0" at(28,3+poff).
 
 //track pitch variables
 //pitch of the orbit prograde marker
@@ -149,7 +185,7 @@ set maxaoa to 5. //the max number of degrees to steer off prograde marker
 //take over control of steering
 lock steering to up. //heading(tarhdg,limpit).
 set steerhead to false.  //is steering locked to heading
-print "ctrl-lock:up  " at(28,4).
+print "ctrl-lock:up  " at(28,4+poff).
 
 //take over control of throttle
 set curthr to 1.
@@ -164,10 +200,8 @@ set LEX to lexicon().
 set LEX["hdg"] to tarinc.
 set LEX["alt"] to taralt.
 set LEX["spd"] to 0.
-set LEX["mrl"] to 0.
-set LEX["mvs"] to 0.
 writejson(LEX,"ap.json").
-print "trim-init" at(43,4).
+print "trim-init" at(43,4+poff).
 
 //loop control vars
 set featherstarted to false.
@@ -188,11 +222,11 @@ set maxqpit to 0.
 set forcemaxq to false.
 
 //display map 
-print "map:" at(43,3).
+print "map:" at(43,3+poff).
 //instead of an array for data, make it an array for characters
 set mapw to 26.
 set maph to 12.
-set map to mfd_createarray(mapw,maph,47,3).
+set map to mfd_createarray(mapw,maph,47,3+poff).
 set maptime to time:seconds.
 set lgpos to latlng(ship:latitude,ship:longitude).
 lock drange to (ship:geoposition:position-lgpos:position):mag.
@@ -203,30 +237,30 @@ set my to 0.
 until launchdone {
 	
 	//force navball transition
-	if btn1 <> AG239 {
-		set btn1 to AG239.
-		print "F" at(25,9).
+	if btn1 = true {
+		set btn1 to false.
+		print "F" at(25,9+poff).
 		set protrans to true.
 	}
 	
 	//override maxq monitor
-	if btn2 <> AG240 { 
-		set btn2 to AG240.
-		print "F" at (25,21).
+	if btn2 = true { 
+		set btn2 to false.
+		print "F" at (25,21+poff).
 		set forcemaxq to true. 
 	}
 	
 	//override throttle limiter
-	if btn3 <> AG241 {
-		set btn3 to AG241.
-		print "F" at (25,18).
+	if btn3 = true {
+		set btn3 to false.
+		print "F" at (25,18+poff).
 		set forcethrottle to true. 
 	}
 
 	//override tarpit to match orbit prograde
-	if btn4 <> AG242 {
-		set btn4 to AG242.
-		print "F" at (25,11).
+	if btn4 = true {
+		set btn4 to false.
+		print "F" at (25,11+poff).
 		lock steering to ship:prograde.
 	}
 	
@@ -237,7 +271,7 @@ until launchdone {
 		//print something so we know its updating
 		set azstep to azstep + 1.
 		if azstep = 10 { set azstep to 0. }
-		print azstep at (38,3).
+		print azstep at (38,3+poff).
 
 		//recalculate
 		set adjinc to mfd_adjinc(tarinc,ship:latitude).
@@ -259,25 +293,25 @@ until launchdone {
 			set tarinc to newtarinc. 
 			set adjinc to mfd_adjinc(tarinc,ship:latitude).
 			set tarhdg to azimuth(adjinc,ship:latitude).
-			print "a" at(12,3).
+			print "a" at(12,3+poff).
 		}
 		if newtaralt <> taralt {
 			set taralt to newtaralt.
-			print "a" at(12,2).
+			print "a" at(12,2+poff).
 		}
 	}
 
 	//once a second update the launch path graphic 
-	if time:seconds > maptime + 2 { 
+	if time:seconds > maptime + 1 { 
 	
 		// the map area is 12x24 characters, 38x24 pixels
 		// loc of map, size of map, data, xpct, ypct
-		set retv to mfdmap_drawpixel(28,11,mapw,maph,map,drange/(taralt*2),1-ship:altitude/taralt).
+		mfdmap_drawpixel(28,11+poff,mapw,maph,map,drange/(taralt*2),1-ship:altitude/taralt).
 
-		//parse the return value
-		set slist to retv:split(":").
-		set mx to slist[0]:tonumber(0).
-		set my to slist[1]:tonumber(0).
+		//parse the return value, droppped ret value for performance
+		//set slist to retv:split(":").
+		//set mx to slist[0]:tonumber(0).
+		//set my to slist[1]:tonumber(0).
 		//print retv+"  "+mx+"/"+my at (2,0).
 	}
 
@@ -287,8 +321,8 @@ until launchdone {
 		if (compit < maxaoa and ship:verticalspeed > 100) or forceprotrans = true {
 			set protrans to true.
 			set NAVMODE to "ORBIT".
-			print "ref-trans" at(28,5).
-			print "🡴rt" at(mx+2,my).
+			print "ref-trans" at(28,5+poff).
+			print "🡴rt" at(mx+2,my+poff).
 		}
 	}
 
@@ -316,8 +350,8 @@ until launchdone {
 			set maxqpassed to true. 
 			set maxqalt to ship:altitude.
 			set maxqpit to tarpit.
-			print "maxq-pass" at(43,5).
-			print "🡴mq" at(mx+2,my).
+			print "maxq-pass" at(43,5+poff).
+			print "🡴mq" at(mx+2,my+poff).
 		}
 	}
 
@@ -356,7 +390,7 @@ until launchdone {
 		if steerhead = false {
 			set steerhead to true.
 			lock steering to heading(tarhdg,limpit).
-			print "ctrl-lock:hd" at(28,4).
+			print "ctrl-lock:hd" at(28,4+poff).
 		}
 		
 		//if within range
@@ -386,13 +420,13 @@ until launchdone {
 		
 		//update status
 		if featherstarted = false {
-			print "throt-down" at(28,6).
+			print "throt-down" at(28,6+poff).
 			set featherstarted to true.
 		}
 		
 		//if feather is done then end the loop
 		if curthr < 0.01 {
-			print "throt-off" at(43,6).
+			print "throt-off" at(43,6+poff).
 			set launchdone to true.
 		}
 	}
@@ -413,39 +447,39 @@ until launchdone {
 			
 			//mark flameout event
 			if ship:altitude > 1000 {
-				print "🡴fo" at(mx+2,my).
+				print "🡴fo" at(mx+2,my+poff).
 			}
 		}
 	}
 
 	//only update the status display a few times a second to save CPU
-	if time:seconds > distim + 0.2 {
+	if time:seconds > distim + 0.1 {
 		set distim to time:seconds.
 
 		//new status data
-		print si_formating(taralt,"m"):padright(10) at(15,2).
-		print (padding(tarinc,1,2)+" °"):padright(10) at(15,3).
-		print (padding(adjinc,1,2)+" °"):padright(10) at(15,4).
-		print (padding(tarhdg,1,2)+" °"):padright(10) at(15,5).
+		print si_formating(taralt,"m"):padright(10) at(15,2+poff).
+		print (padding(tarinc,1,2)+" °"):padright(10) at(15,3+poff).
+		print (padding(adjinc,1,2)+" °"):padright(10) at(15,4+poff).
+		print (padding(tarhdg,1,2)+" °"):padright(10) at(15,5+poff).
 
-		print (padding(orbpit,1,2)+" °"):padright(10) at(15,7).
-		print (padding(srfpit,1,2)+" °"):padright(10) at(15,8).
-		print (padding(compit,1,2)+" °"):padright(10) at(15,9).
-		print (padding(shppit,1,2)+" °"):padright(10) at(15,10).
-		print (padding(tarpit,1,2)+" °"):padright(10) at(15,11).
-		print (padding(limpit,1,2)+" °"):padright(10) at(15,12).
+		print (padding(orbpit,1,2)+" °"):padright(10) at(15,7+poff).
+		print (padding(srfpit,1,2)+" °"):padright(10) at(15,8+poff).
+		print (padding(compit,1,2)+" °"):padright(10) at(15,9+poff).
+		print (padding(shppit,1,2)+" °"):padright(10) at(15,10+poff).
+		print (padding(tarpit,1,2)+" °"):padright(10) at(15,11+poff).
+		print (padding(limpit,1,2)+" °"):padright(10) at(15,12+poff).
 
-		print (padding(maxaoa,1,2)+" °"):padright(10) at(15,14).
-		print (padding(curaoa,1,2)+" °"):padright(10) at(15,15).
-		print (padding(maxtwr,1,3)):padright(10) at(15,16).
-		print (padding(curtwr,1,3)):padright(10) at(15,17).
-		print (padding(curthr*100,3,0)+" %"):padright(10) at(15,18).
-		print si_formating(drange,"m"):padright(10) at(15,19).
-		print si_formating(maxq*constant:atmtokpa*1000,"Pa"):padright(10) at(15,20).
-		print si_formating(maxqalt,"m"):padright(10) at(15,21).
+		print (padding(maxaoa,1,2)+" °"):padright(10) at(15,14+poff).
+		print (padding(curaoa,1,2)+" °"):padright(10) at(15,15+poff).
+		print (padding(maxtwr,1,3)):padright(10) at(15,16+poff).
+		print (padding(curtwr,1,3)):padright(10) at(15,17+poff).
+		print (padding(curthr*100,3,0)+" %"):padright(10) at(15,18+poff).
+		print si_formating(drange,"m"):padright(10) at(15,19+poff).
+		print si_formating(maxq*constant:atmtokpa*1000,"Pa"):padright(10) at(15,20+poff).
+		print si_formating(maxqalt,"m"):padright(10) at(15,21+poff).
 
 		//print an animated icon to show the script is running
-		set animstep to mfd_animicon(0,0,animstep).
+		set animstep to mfd_animicon(0,0+poff,animstep).
 
 	}
 	
@@ -459,12 +493,12 @@ wait until launchdone.
 set throttle to 0. 
 unlock throttle. 
 unlock steering.
-print "ctrl-rel" at(28,7).
+print "ctrl-rel" at(28,7+poff).
 SAS ON.
-print "SAS-ON" at(43,7).
+print "SAS-ON" at(43,7+poff).
 
 //Once the vessel is out of the atmo  
-print "wait-vac" at(43,8).
+print "wait-vac" at(43,8+poff).
 wait until SHIP:BODY:ATM:altitudepressure(SHIP:ALTITUDE) = 0.
 
 //create a node to circulize at the AP 
@@ -472,7 +506,7 @@ set ndvel to (SHIP:BODY:MU / (SHIP:BODY:RADIUS + SHIP:APOAPSIS))^0.5.
 set apvel to VELOCITYAT(SHIP, time:seconds + eta:apoapsis):ORBIT:MAG.
 set newnode to node(time:seconds + eta:apoapsis,0,0,ndvel-apvel).
 add newnode.
-print "circ node @ "+si_formating(ndvel-apvel,"m/s") at(28,9).
+print "circ node @ "+si_formating(ndvel-apvel,"m/s") at(28,9+poff).
 
 //terminate the autopilot
 //clear screen and run list program if possible

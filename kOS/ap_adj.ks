@@ -14,7 +14,7 @@
 //		maxvspd
 
 //collect the passed params
-parameter pHdg, pAlt, pSpd, pMrl, pMsp.
+parameter pHdg, pAlt, pSpd.
 
 //first read in the data
 set LEX TO READJSON("ap.json").
@@ -23,8 +23,6 @@ set LEX TO READJSON("ap.json").
 set LEX["hdg"] to LEX["hdg"] + pHdg.
 set LEX["alt"] to LEX["alt"] + pAlt.
 set LEX["spd"] to LEX["spd"] + pSpd.
-set LEX["mrl"] to LEX["mrl"] + pMrl.
-set LEX["mvs"] to LEX["mvs"] + pMsp.
 
 //then write the lexicon back to a json
 writejson(LEX,"ap.json").
