@@ -172,27 +172,27 @@ AG223    , SP-Reset Timer,
 AG224    , SP-Activate Detector,
 AG225    , SP-Deactivate Detector,
 AG226    , ,
-AG227,		MFD1-1, reserved for software
-AG228,		MFD1-2, reserved for software
-AG229,		MFD1-3, reserved for software
-AG230,		MFD1-4, reserved for software
-AG231,		MFD1-5, reserved for software
-AG232,		MFD1-6, reserved for software
-AG233,		MFD2-1, reserved for software
-AG234,		MFD2-2, reserved for software
-AG235,		MFD2-3, reserved for software
-AG236,		MFD2-4, reserved for software
-AG237,		MFD2-5, reserved for software
-AG238,		MFD2-6, reserved for software
-AG239,		MFD3-1, reserved for software
-AG240,		MFD3-2, reserved for software
-AG241,		MFD3-3, reserved for software
-AG242,		MFD3-4, reserved for software
-AG243,		MFD3-5, reserved for software
-AG244,		MFD3-6, reserved for software
-AG245,		MFD4-1, reserved for software
-AG246,		MFD4-2, reserved for software
-AG247,		MFD4-3, reserved for software
-AG248,		MFD4-4, reserved for software
-AG249,		MFD4-5, reserved for software
-AG250,		MFD4-6, reserved for software	  
+AG227,		MFD1-1, reserved for software : keybind in game via AGX ctrl-alt-q
+AG228,		MFD1-2, reserved for software : keybind in game via AGX ctrl-alt-w
+AG229,		MFD1-3, reserved for software : keybind in game via AGX ctrl-alt-e
+AG230,		MFD1-4, reserved for software : keybind in game via AGX ctrl-alt-r
+AG231,		MFD1-5, reserved for software : keybind in game via AGX ctrl-alt-t
+AG232,		MFD1-6, reserved for software : keybind in game via AGX ctrl-alt-y
+AG233,		MFD2-1, reserved for software : keybind in game via AGX ctrl-alt-u
+AG234,		MFD2-2, reserved for software : keybind in game via AGX ctrl-alt-i
+AG235,		MFD2-3, reserved for software : keybind in game via AGX ctrl-alt-o
+AG236,		MFD2-4, reserved for software : keybind in game via AGX ctrl-alt-p
+AG237,		MFD2-5, reserved for software : keybind in game via AGX ctrl-alt-[
+AG238,		MFD2-6, reserved for software : keybind in game via AGX ctrl-alt-]
+AG239,		MFD3-1, reserved for software : keybind in game via AGX ctrl-alt-a
+AG240,		MFD3-2, reserved for software : keybind in game via AGX ctrl-alt-s
+AG241,		MFD3-3, reserved for software : keybind in game via AGX ctrl-alt-d
+AG242,		MFD3-4, reserved for software : keybind in game via AGX ctrl-alt-f
+AG243,		MFD3-5, reserved for software : keybind in game via AGX ctrl-alt-g
+AG244,		MFD3-6, reserved for software : keybind in game via AGX ctrl-alt-h
+AG245,		MFD4-1, reserved for software : keybind in game via AGX ctrl-alt-b
+AG246,		MFD4-2, reserved for software : keybind in game via AGX ctrl-alt-n
+AG247,		MFD4-3, reserved for software : keybind in game via AGX ctrl-alt-m
+AG248,		MFD4-4, reserved for software : keybind in game via AGX ctrl-alt-,
+AG249,		MFD4-5, reserved for software : keybind in game via AGX ctrl-alt-.
+AG250,		MFD4-6, reserved for software : keybind in game via AGX ctrl-alt-/	  
