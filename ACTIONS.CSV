@@ -1,198 +1,198 @@
-ACTION GROUP, GAME ACTION, CONTROL TYPE
-BRAKE,      default action,     bushbutton -> emulate keyboard
-AG1,     Deploy Ladders,      Toggle UP ON-OFF-ON momentary
-AG2,     Retract Ladders,     Toggle Down ON-OFF-ON momentary
-GEAR,    Deploy Landing Gear,  Toggle up ON-OFF-ON momentary
-AG3,     Retract Landing Gear,  Toggle Down ON-OFF-ON momentary
-AG4,     Extend Landing Legs,   Toggle up ON-OFF-ON momentary
-AG5,     Retract Landing Legs,  Toggle Down ON-OFF-ON momentary
-AG6,     Deploy Drogue,         Toggle ON-OFF momentary
-AG7,     Cut Drogue,            Covered Toggle ON-OFF momentary
-AG8,     Deploy Mains,          Toggle ON-OFF momentary
-AG9,     Cut Mains,             Covered Toggle ON-OFF momentary
-ABORT,   Abort Launch,        Covered Toggle ON-OFF momentary
-AG10,    Release Abort Sys,   Covered Toggle ON-OFF momentary
-AG11,    Undock Node,
-AG12,    Enable Crossfeed,
-AG13,    Disable Crossfeed,
-kos, extend docking port, 
-kos, retract docking port, 
-kos, Open Docking Shield, 
-kos, Close Docking Shield, 
-key, break camera link, pushbutton
-AG14, ,
-AG15,,
-AG16,    Deploy Omni Antenna,     Toggle UP ON-OFF-ON momentary
-AG17,    Retract Omni Antenna,    Toggle Down ON-OFF-ON momentary
-AG18,    Deploy Relay Antenna,    Toggle Up ON-OFF-ON momentary
-AG19,    Retract Relay Antenna,   Toggle Down ON-OFF-ON momentary
-AG20,     Deploy Solar A,     Toggle UP ON-OFF-ON momentary
-AG21,     Retract Solar A,    Toggle Down ON-OFF-ON momentary
-AG22,     Deploy Solar B,     Toggle UP ON-OFF-ON momentary
-AG23,     Retract Solar B,    Toggle Down ON-OFF-ON momentary
-AG24,   Extend Radiator,        Toggle UP ON-OFF-ON momentary
-AG25,   Retract Radiator,       Toggle Down ON-OFF-ON momentary
-AG26,   Jettison Heat Shield,   Covered Toggle ON-OFF momentary
-AG27,   Inflate Heat Shield,    Toggle ON-OFF momentary
-AG28,   Fuel Dump Opon, 
-AG29,   Fuel Dump Close, 
-AG30,   Airbrake Extend, 
-AG31,   Airbrake Retract,     
-AG32,   Flaps Extend, 
-AG33,   Flaps Retract, 
-AG34,   Prop Deploy,
-AG35,   Prop Retract,
-kos, Open Air Intake,
-kos, Close Air Intake,
-kos, reverse thrust, 
-kos, forward thrust, 
-AG36, Wheel Lights On, 
-AG37, Wheel Lights Off, 
-AG38, Flood Lights On, 
-AG39, Flood Lights Off, 
-AG40, Landing Lights On, 
-AG41, Landing Lights Off, 
-AG42, Deploy Fairing,     
-AG43, Open Cargo Bay,    
-AG44, Close Cargo Bay,     
-AG45, Open Service Bay, 
-AG46, Close Service Bay, 
-kos, Open Loading Ramp, 
-kos, Close Loading Ramp, 
-kos, arm grappler, 
-kos, disarm grappler, 
-AG47, Release Grappler, 
-AG48, ,
-AG49, ,
-AG50, , 
-AG51,    Activate Booster,      
-AG52,    Jettison Booster, 
-AG53,   Activate Stage 1, 
-AG54,   Jettison Stage 1, 
-AG55,   Activate Stage 2, 
-AG56,   Jettison Stage 2, 
-AG57,   Activate Stage 3,  
-AG58,   Jettison Stage 3,  
-AG59,   Activate Main Engines, 
-AG60,   Shutdown Main Engines, 
-AG61,   Activate Land Engine, 
-AG62,   Shutdown Land Engine, 
-kos, Switch to Open Cycle, 
-kos, Switch to Closed Cycle, 
-AG63,   Activate ASCT Engine, 
-AG64,   Shutdown ASCT Engine, 
-AG65,   Activate DESC Engine, 
-AG66,   Shutdown DESC Engine, 
-AG67,   Lock Gimbals, 
-AG68,   Free Gimbals, 
-AG69,    ,
-AG70,    ,
-AG71,     ,   
-RCS,    RCS ON ,       Toggle Up ON-OFF-ON momentary
-AG72,   RCS OFF,       Toggle Down ON-OFF-ON momentary    
-AG73,    OMS ON,        Toggle Up ON-OFF-ON momentary   
-AG74,   OMS OFF,       Toggle Down ON-OFF-ON momentary   
-AG75,    VRCS ON,       Toggle Up ON-OFF-ON momentary   
-AG76,   VRCS OFF,      Toggle Down ON-OFF-ON  momentary   
-kos,    Enable Reaction Wheels,     Toggle Up ON-OFF-ON momentary
-kos,    disable reaction wheels,    Toggle Down ON-OFF-ON momentary
-AG77    ,,
-AG78    ,,
-AG79   ,,
-AG80    ,,
-AG81,    Start Experiments, 
-AG82,    Stop Experiments, 
-AG83,    Collect Data, 
-AG84,    System Check, 
-AG85,    Start Scan, 
-AG86,    Stop Scan, 
-AG87,    Scan Surface Feature, 
-AG88,,
-AG89,,
-AG90, ,  
-AG91, Robotics Action A  ,  
-AG92, Robotics Action B  , 
-AG93, Robotics Action C   ,
-AG94, Robotics Action D   ,
-AG95, Robotics Action E     ,
-AG96, Robotics Action F     ,
-AG97,,
-AG98,,
-AG99,,
-AG100,,
-AG151,     Toggle Active Shield,
-AG152 ,    Deploy Habitat Ring,
-AG153  ,   Toggle Greenhouse,
-AG154   ,  ,
-AG155  ,   ,
-AG156  ,   ,
-AG157  ,   ,
-AG158  ,   Toggle Water Extraction,
-AG159  ,   Toggle Ore Extraction,
-AG160  ,   Toggle CO2 Extraction,
-AG161  ,   Toggle Oxygen Extraction,
-AG162  ,   Toggle Nitrogen Extraction,
-AG163  ,   Toggle Ammonia Extraction,
-AG164  ,   ,
-AG165,,
-AG166 ,    Toggle Scrubber,
-AG167  ,   Toggle Pressure Control,
-AG168  ,   Toggle Water Recycler,
-AG169  ,   Toggle Waste Processor,
-AG170  ,   Toggle Air Pump,
-AG171,,
-AG172,,
-AG173 ,    Toggle Water Electrolysis,
-AG174 ,    Toggle Sabatier Reactor,
-AG175 ,    Toggle Haber Reactor,
-AG176 ,    Toggle Waste Incinerator,
-AG177 ,    Toggle Waste Compressor,
-AG178 ,    Toggle Anthraquinone (OX Prod),
-AG179 ,    Toggle Hydrazine Production,
-AG180 ,    Toggle Hydrazone Prod. (N2),
-AG181 ,    Toggle Solid Oxide Electrolysis   ,  
-AG182 ,    Toggle Molten Regolith Olectrolysis,
-AG183 ,    Toggle Selective Catalytic Oxidation,
-,Ballast Tanks Controls-MOD,
-,Release Umbilicals ,
-,Release Launch Clamps,
-AG211,     kOS-Toggle CPU Power,
-AG212,,
-AG213,,
-AG214,,
-AG215,,
-AG216,,
-AG217 ,    KAS-Release Cable,
-AG218  ,   KAS-Stop Motor,
-AG219   ,  KAS-Retract Cable,
-AG220   ,  KAS-Extend Cable,
-AG221    , ,
-AG222    , SP-Start Timer,
-AG223    , SP-Reset Timer,
-AG224    , SP-Activate Detector,
-AG225    , SP-Deactivate Detector,
-AG226    , ,
-AG227,		MFD1-1, reserved for software : keybind in game via AGX ctrl-alt-1
-AG228,		MFD1-2, reserved for software : keybind in game via AGX ctrl-alt-2
-AG229,		MFD1-3, reserved for software : keybind in game via AGX ctrl-alt-3
-AG230,		MFD1-4, reserved for software : keybind in game via AGX ctrl-alt-4
-AG231,		MFD1-5, reserved for software : keybind in game via AGX ctrl-alt-5
-AG232,		MFD1-6, reserved for software : keybind in game via AGX ctrl-alt-6
-AG233,		MFD2-1, reserved for software : keybind in game via AGX ctrl-alt-7
-AG234,		MFD2-2, reserved for software : keybind in game via AGX ctrl-alt-8
-AG235,		MFD2-3, reserved for software : keybind in game via AGX ctrl-alt-9
-AG236,		MFD2-4, reserved for software : keybind in game via AGX ctrl-alt-0
-AG237,		MFD2-5, reserved for software : keybind in game via AGX ctrl-alt-minus
-AG238,		MFD2-6, reserved for software : keybind in game via AGX ctrl-alt-equal
-AG239,		MFD3-1, reserved for software : keybind in game via AGX ctrl-alt-q
-AG240,		MFD3-2, reserved for software : keybind in game via AGX ctrl-alt-w
-AG241,		MFD3-3, reserved for software : keybind in game via AGX ctrl-alt-e
-AG242,		MFD3-4, reserved for software : keybind in game via AGX ctrl-alt-r
-AG243,		MFD3-5, reserved for software : keybind in game via AGX ctrl-alt-t
-AG244,		MFD3-6, reserved for software : keybind in game via AGX ctrl-alt-y
-AG245,		MFD4-1, reserved for software : keybind in game via AGX ctrl-alt-u
-AG246,		MFD4-2, reserved for software : keybind in game via AGX ctrl-alt-i
-AG247,		MFD4-3, reserved for software : keybind in game via AGX ctrl-alt-o
-AG248,		MFD4-4, reserved for software : keybind in game via AGX ctrl-alt-p
-AG249,		MFD4-5, reserved for software : keybind in game via AGX ctrl-alt-[
-AG250,		MFD4-6, reserved for software : keybind in game via AGX ctrl-alt-]
+ACTION GROUP, GAME ACTION, CONTROL TYPE, AGX KEYBIND
+BRAKE,      default action,     bushbutton -> emulate keyboard    ,
+AG1,     Deploy Ladders,      Toggle UP ON-OFF-ON momentary       ,
+AG2,     Retract Ladders,     Toggle Down ON-OFF-ON momentary     ,
+GEAR,    Deploy Landing Gear,  Toggle up ON-OFF-ON momentary      ,
+AG3,     Retract Landing Gear,  Toggle Down ON-OFF-ON momentary   ,
+AG4,     Extend Landing Legs,   Toggle up ON-OFF-ON momentary     ,
+AG5,     Retract Landing Legs,  Toggle Down ON-OFF-ON momentary   ,
+AG6,     Deploy Drogue,         Toggle ON-OFF momentary           ,
+AG7,     Cut Drogue,            Covered Toggle ON-OFF momentary   ,
+AG8,     Deploy Mains,          Toggle ON-OFF momentary           ,
+AG9,     Cut Mains,             Covered Toggle ON-OFF momentary   ,
+ABORT,   Abort Launch,        Covered Toggle ON-OFF momentary     ,
+AG10,    Release Abort Sys,   Covered Toggle ON-OFF momentary     ,
+AG11,    Undock Node,,
+AG12,    Enable Crossfeed,,
+AG13,    Disable Crossfeed,,
+kos, extend docking port, ,
+kos, retract docking port, ,
+kos, Open Docking Shield, ,
+kos, Close Docking Shield, ,
+key, break camera link, pushbutton,
+AG14, ,,
+AG15,,,
+AG16,    Deploy Omni Antenna,     Toggle UP ON-OFF-ON momentary     ,
+AG17,    Retract Omni Antenna,    Toggle Down ON-OFF-ON momentary   ,
+AG18,    Deploy Relay Antenna,    Toggle Up ON-OFF-ON momentary     ,
+AG19,    Retract Relay Antenna,   Toggle Down ON-OFF-ON momentary   ,
+AG20,     Deploy Solar A,     Toggle UP ON-OFF-ON momentary         ,
+AG21,     Retract Solar A,    Toggle Down ON-OFF-ON momentary       ,
+AG22,     Deploy Solar B,     Toggle UP ON-OFF-ON momentary         ,
+AG23,     Retract Solar B,    Toggle Down ON-OFF-ON momentary       ,
+AG24,   Extend Radiator,        Toggle UP ON-OFF-ON momentary       ,
+AG25,   Retract Radiator,       Toggle Down ON-OFF-ON momentary     ,
+AG26,   Jettison Heat Shield,   Covered Toggle ON-OFF momentary     ,
+AG27,   Inflate Heat Shield,    Toggle ON-OFF momentary             ,
+AG28,   Fuel Dump Opon, ,
+AG29,   Fuel Dump Close, ,
+AG30,   Airbrake Extend, ,
+AG31,   Airbrake Retract, ,    
+AG32,   Flaps Extend, ,
+AG33,   Flaps Retract, ,
+AG34,   Prop Deploy,,
+AG35,   Prop Retract,,
+kos, Open Air Intake,,
+kos, Close Air Intake,,
+kos, reverse thrust, ,
+kos, forward thrust, ,
+AG36, Wheel Lights On,, 
+AG37, Wheel Lights Off,, 
+AG38, Flood Lights On, ,
+AG39, Flood Lights Off, ,
+AG40, Landing Lights On, ,
+AG41, Landing Lights Off, ,
+AG42, Deploy Fairing,     ,
+AG43, Open Cargo Bay,    ,
+AG44, Close Cargo Bay,     ,
+AG45, Open Service Bay, ,
+AG46, Close Service Bay, ,
+kos, Open Loading Ramp, ,
+kos, Close Loading Ramp, ,
+kos, arm grappler, ,
+kos, disarm grappler, ,
+AG47, Release Grappler, ,
+AG48, ,,
+AG49, ,,
+AG50, , ,
+AG51,    Activate Booster,      ,
+AG52,    Jettison Booster, ,
+AG53,   Activate Stage 1, ,
+AG54,   Jettison Stage 1, ,
+AG55,   Activate Stage 2, ,
+AG56,   Jettison Stage 2, ,
+AG57,   Activate Stage 3,  ,
+AG58,   Jettison Stage 3,  ,
+AG59,   Activate Main Engines, ,
+AG60,   Shutdown Main Engines, ,
+AG61,   Activate Land Engine, ,
+AG62,   Shutdown Land Engine, ,
+kos, Switch to Open Cycle, ,
+kos, Switch to Closed Cycle,, 
+AG63,   Activate ASCT Engine,, 
+AG64,   Shutdown ASCT Engine, ,
+AG65,   Activate DESC Engine, ,
+AG66,   Shutdown DESC Engine, ,
+AG67,   Lock Gimbals, ,
+AG68,   Free Gimbals, ,
+AG69,    ,,
+AG70,    ,,
+AG71,     ,,   
+RCS,    RCS ON ,       Toggle Up ON-OFF-ON momentary,
+AG72,   RCS OFF,       Toggle Down ON-OFF-ON momentary    ,
+AG73,    OMS ON,        Toggle Up ON-OFF-ON momentary   ,
+AG74,   OMS OFF,       Toggle Down ON-OFF-ON momentary   ,
+AG75,    VRCS ON,       Toggle Up ON-OFF-ON momentary   ,
+AG76,   VRCS OFF,      Toggle Down ON-OFF-ON  momentary   ,
+kos,    Enable Reaction Wheels,     Toggle Up ON-OFF-ON momentary,
+kos,    disable reaction wheels,    Toggle Down ON-OFF-ON momentary,
+AG77    ,,,
+AG78    ,,,
+AG79   ,,,
+AG80    ,,,
+AG81,    Start Experiments, ,
+AG82,    Stop Experiments, ,
+AG83,    Collect Data, ,
+AG84,    System Check, ,
+AG85,    Start Scan, ,
+AG86,    Stop Scan, ,
+AG87,    Scan Surface Feature, ,
+AG88,,,
+AG89,,,
+AG90, ,,  
+AG91, Robotics Action A  ,  ,
+AG92, Robotics Action B  , ,
+AG93, Robotics Action C   ,,
+AG94, Robotics Action D   ,,
+AG95, Robotics Action E     ,,
+AG96, Robotics Action F     ,,
+AG97,,,
+AG98,,,
+AG99,,,
+AG100,,,
+AG151,     Toggle Active Shield,,
+AG152 ,    Deploy Habitat Ring,,
+AG153  ,   Toggle Greenhouse,,
+AG154   ,  ,,
+AG155  ,   ,,
+AG156  ,   ,,
+AG157  ,   ,,
+AG158  ,   Toggle Water Extraction,,
+AG159  ,   Toggle Ore Extraction,,
+AG160  ,   Toggle CO2 Extraction,,
+AG161  ,   Toggle Oxygen Extraction,,
+AG162  ,   Toggle Nitrogen Extraction,,
+AG163  ,   Toggle Ammonia Extraction,,
+AG164  ,   ,,
+AG165,,,
+AG166 ,    Toggle Scrubber,,
+AG167  ,   Toggle Pressure Control,,
+AG168  ,   Toggle Water Recycler,,
+AG169  ,   Toggle Waste Processor,,
+AG170  ,   Toggle Air Pump,,
+AG171,,,
+AG172,,,
+AG173 ,    Toggle Water Electrolysis,,
+AG174 ,    Toggle Sabatier Reactor,,
+AG175 ,    Toggle Haber Reactor,,
+AG176 ,    Toggle Waste Incinerator,,
+AG177 ,    Toggle Waste Compressor,,
+AG178 ,    Toggle Anthraquinone (OX Prod),,
+AG179 ,    Toggle Hydrazine Production,,
+AG180 ,    Toggle Hydrazone Prod. (N2),,
+AG181 ,    Toggle Solid Oxide Electrolysis   ,,  
+AG182 ,    Toggle Molten Regolith Olectrolysis,,
+AG183 ,    Toggle Selective Catalytic Oxidation,,
+,Ballast Tanks Controls-MOD,,
+,Release Umbilicals ,,
+,Release Launch Clamps,,
+AG211,     kOS-Toggle CPU Power,,
+AG212,,,
+AG213,,,
+AG214,,,
+AG215,,,
+AG216,,,
+AG217 ,    KAS-Release Cable,,
+AG218  ,   KAS-Stop Motor,,
+AG219   ,  KAS-Retract Cable,,
+AG220   ,  KAS-Extend Cable,,
+AG221    , ,,
+AG222    , SP-Start Timer,,
+AG223    , SP-Reset Timer,,
+AG224    , SP-Activate Detector,,
+AG225    , SP-Deactivate Detector,,
+AG226    , ,,
+AG227,		MFD1-1, reserved for software , ctrl-alt-1
+AG228,		MFD1-2, reserved for software , ctrl-alt-2
+AG229,		MFD1-3, reserved for software , ctrl-alt-3
+AG230,		MFD1-4, reserved for software , ctrl-alt-4
+AG231,		MFD1-5, reserved for software , ctrl-alt-5
+AG232,		MFD1-6, reserved for software , ctrl-alt-6
+AG233,		MFD2-1, reserved for software , ctrl-alt-7
+AG234,		MFD2-2, reserved for software , ctrl-alt-8
+AG235,		MFD2-3, reserved for software , ctrl-alt-9
+AG236,		MFD2-4, reserved for software , ctrl-alt-0
+AG237,		MFD2-5, reserved for software , ctrl-alt-minus
+AG238,		MFD2-6, reserved for software , ctrl-alt-equal
+AG239,		MFD3-1, reserved for software , ctrl-alt-q
+AG240,		MFD3-2, reserved for software , ctrl-alt-w
+AG241,		MFD3-3, reserved for software , ctrl-alt-e
+AG242,		MFD3-4, reserved for software , ctrl-alt-r
+AG243,		MFD3-5, reserved for software , ctrl-alt-t
+AG244,		MFD3-6, reserved for software , ctrl-alt-y
+AG245,		MFD4-1, reserved for software , ctrl-alt-u
+AG246,		MFD4-2, reserved for software , ctrl-alt-i
+AG247,		MFD4-3, reserved for software , ctrl-alt-o
+AG248,		MFD4-4, reserved for software , ctrl-alt-p
+AG249,		MFD4-5, reserved for software , ctrl-alt-[
+AG250,		MFD4-6, reserved for software , ctrl-alt-]
