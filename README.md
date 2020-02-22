@@ -84,6 +84,9 @@ the left side console and is used to manipulate autopilot, 2 boards
 # SETUP
 You will need a monospace font that supports line drawing, boxes and arrows.  I use [Unifont](http://www.unifoundry.com/unifont/index.html) in all screenshots.  
 
+### Putty
+setting up saved sessions, fonts, etc...
+
 ### Kerbal Operating System
 You need to install the mod and any dependencies. 
 place all the kOS scripts into the archive folder for your install.  KSP/Saves/Scripts typically
