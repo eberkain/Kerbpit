@@ -19,7 +19,6 @@ kos, extend docking port, ,
 kos, retract docking port, ,
 kos, Open Docking Shield, ,
 kos, Close Docking Shield, ,
-key, break camera link, pushbutton,
 AG14, ,,
 AG15,,,
 AG16,    Deploy Omni Antenna,     Toggle UP ON-OFF-ON momentary     ,
@@ -171,7 +170,7 @@ AG222    , SP-Start Timer,,
 AG223    , SP-Reset Timer,,
 AG224    , SP-Activate Detector,,
 AG225    , SP-Deactivate Detector,,
-AG226    , ,,
+AG226,    Terminate Camera Link, pushbutton , ctrl-alt-backslash
 AG227,		MFD1-1, reserved for software , ctrl-alt-1
 AG228,		MFD1-2, reserved for software , ctrl-alt-2
 AG229,		MFD1-3, reserved for software , ctrl-alt-3
