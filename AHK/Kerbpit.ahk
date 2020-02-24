@@ -8,11 +8,12 @@
 ;
 ;
 ;
+
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Enable warnings to assist with detecting common errors.
+#SingleInstance force  ; Only allow one copy of the script to run at time
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-#SingleInstance force  ; Only allow one copy of the script to run at time
 
 ;key delay has a big imact on sending the messages to terminals
 ;    (how long it takes to send message, pause between keypresses)
@@ -57,36 +58,40 @@ AP_MID := 3  ;autopilots
 NV_MID := 4  ;navigation
 
 ;are the button strips on top or bottom for each mfd
+MID1_TOP := true
+MID2_TOP := true
+MID3_TOP := false
+MID4_TOP := false
 SS_TOP := true
 VS_TOP := true
 AP_TOP := false
 NV_TOP := false
 
 ;change the joystick id for each action
-Hotkey, 1joy1, MFD1B1
-Hotkey, 1joy1, MFD1B2
-Hotkey, 1joy1, MFD1B3
-Hotkey, 1joy1, MFD1B4
-Hotkey, 1joy1, MFD1B5
-Hotkey, 1joy1, MFD1B6
-Hotkey, 1joy1, MFD2B1
-Hotkey, 1joy1, MFD2B2
-Hotkey, 1joy1, MFD2B3
-Hotkey, 1joy1, MFD2B4
-Hotkey, 1joy1, MFD2B5
+;Hotkey, 1joy6, MFD1B1
+;Hotkey, 1joy5, MFD1B2
+;Hotkey, 1joy4, MFD1B3
+;Hotkey, 1joy3, MFD1B4
+;Hotkey, 1joy2, MFD1B5
+;Hotkey, 1joy1, MFD1B6
+Hotkey, 1joy6, MFD2B1
+Hotkey, 1joy5, MFD2B2
+Hotkey, 1joy4, MFD2B3
+Hotkey, 1joy3, MFD2B4
+Hotkey, 1joy2, MFD2B5
 Hotkey, 1joy1, MFD2B6
-Hotkey, 1joy1, MFD3B1
-Hotkey, 1joy1, MFD3B2
-Hotkey, 1joy1, MFD3B3
-Hotkey, 1joy1, MFD3B4
-Hotkey, 1joy1, MFD3B5
-Hotkey, 1joy1, MFD3B6
-Hotkey, 1joy1, MFD4B1
-Hotkey, 1joy1, MFD4B2
-Hotkey, 1joy1, MFD4B3
-Hotkey, 1joy1, MFD4B4
-Hotkey, 1joy1, MFD4B5
-Hotkey, 1joy1, MFD4B6
+;Hotkey, 1joy10, MFD3B1
+;Hotkey, 1joy10, MFD3B2
+;Hotkey, 1joy10, MFD3B3
+;Hotkey, 1joy10, MFD3B4
+;Hotkey, 1joy10, MFD3B5
+;Hotkey, 1joy10, MFD3B6
+;Hotkey, 1joy10, MFD4B1
+;Hotkey, 1joy10, MFD4B2
+;Hotkey, 1joy10, MFD4B3
+;Hotkey, 1joy10, MFD4B4
+;Hotkey, 1joy10, MFD4B5
+;Hotkey, 1joy10, MFD4B6
 
 
 Hotkey,^Numpad0,ResetMFD0
@@ -97,6 +102,7 @@ Hotkey,^Numpad8,AutopilotNode
 Hotkey,^Numpad9,AutopilotLaunch
 Hotkey,^Numpad5,AutopilotLand
 Hotkey,^Numpad6,AutopilotAircraft
+Hotkey,^NumpadAdd,FCSTOP
 Hotkey,^Numpad1,ResetMFD1
 Hotkey,^Numpad2,ResetMFD2
 Hotkey,^Numpad3,ResetMFD3
@@ -120,88 +126,90 @@ Hotkey,!Numpad9,FC9
 Hotkey,!NumpadSub,FCSUB
 Hotkey,!NumpadEnter,FCENTER
 
+	Return
 ;--------CONFIGURATION END--------------
-
-
 
 ;shortcuts to launch core programs 
 AutopilotLaunch:
-	ControlSend,,run{Space}A1(%AP_MID%,false).{Enter},kOS MFD%AP_MID%
+	ControlSend,,run{Space}A1(%AP_MID%`,%AP_TOP%).{Enter},kOS MFD%AP_MID%
 	Return
 AutopilotNode:
-	ControlSend,,run{Space}A2(%AP_MID%,false).{Enter},kOS MFD%AP_MID%
+	ControlSend,,run{Space}A2(%AP_MID%`,%AP_TOP%).{Enter},kOS MFD%AP_MID%
 	Return
 AutopilotLand:
-	ControlSend,,run{Space}A3(%AP_MID%,false).{Enter},kOS MFD%AP_MID%
+	ControlSend,,run{Space}A3(%AP_MID%`,%AP_TOP%).{Enter},kOS MFD%AP_MID%
 	Return
 AutopilotAircraft:
-	ControlSend,,run{Space}A4(%AP_MID%,false).{Enter},kOS MFD%AP_MID% 
+	ControlSend,,run{Space}A4(%AP_MID%`,%AP_TOP%).{Enter},kOS MFD%AP_MID% 
 	Return
 	
 ;send course adjustments to the autopilot
 AutopilotHeadDown:
-	ControlSend,,run{Space}ap_adj(-1`,0`,0`,0`,0`).{Enter}, kOS MFD0 
+	ControlSend,,run{Space}ap_adj(-1`,0`,0`,0`,0).{Enter}, kOS MFD0 
 	Return
 AutopilotHeadUp:
-	ControlSend,,run{Space}ap_adj(1`,0`,0`,0`,0`).{Enter}, kOS MFD0 
+	ControlSend,,run{Space}ap_adj(1`,0`,0`,0`,0).{Enter}, kOS MFD0 
 	Return
 AutopilotAltUp:
-	ControlSend,,run{Space}ap_adj(0`,1000`,0`,0`,0`).{Enter}, kOS MFD0 
+	ControlSend,,run{Space}ap_adj(0`,1000`,0`,0`,0).{Enter}, kOS MFD0 
 	Return
 AutopilotAltDown:
-	ControlSend,,run{Space}ap_adj(0`,-1`,0`,0`,0`).{Enter}, kOS MFD0 
+	ControlSend,,run{Space}ap_adj(0`,-1`,0`,0`,0).{Enter}, kOS MFD0 
 	Return
 
 ;Flight Computer Buttons
 FC0:
-	ControlSend,,0,kOS MFD%amfd% 
+	ControlSend,,0,kOS MFD%act_mfd% 
 	Return
 FC1:
-	ControlSend,,1,kOS MFD%amfd% 
+	ControlSend,,1,kOS MFD%act_mfd% 
 	Return
 FC2:
-	ControlSend,,2,kOS MFD%amfd% 
+	ControlSend,,2,kOS MFD%act_mfd% 
 	Return
 FC3:
-	ControlSend,,3,kOS MFD%amfd% 
+	ControlSend,,3,kOS MFD%act_mfd% 
 	Return
 FC4:
-	ControlSend,,4,kOS MFD%amfd% 
+	ControlSend,,4,kOS MFD%act_mfd% 
 	Return
 FC5:
-	ControlSend,,5,kOS MFD%amfd% 
+	ControlSend,,5,kOS MFD%act_mfd% 
 	Return
 FC6:
-	ControlSend,,6,kOS MFD%amfd% 
+	ControlSend,,6,kOS MFD%act_mfd% 
 	Return
 FC7:
-	ControlSend,,7,kOS MFD%amfd% 
+	ControlSend,,7,kOS MFD%act_mfd% 
 	Return
 FC8:
-	ControlSend,,8,kOS MFD%amfd% 
+	ControlSend,,8,kOS MFD%act_mfd% 
 	Return
 FC9:
-	ControlSend,,9,kOS MFD%amfd% 
+	ControlSend,,9,kOS MFD%act_mfd% 
 	Return
 FCSUB:
-	ControlSend,,`-,kOS MFD%amfd% 
+	ControlSend,,`-,kOS MFD%act_mfd% 
 	Return
 FCENTER:
-	ControlSend,,{Enter},kOS MFD%amfd% 
+	ControlSend,,{Enter},kOS MFD%act_mfd% 
 	Return
-
+FCSTOP:
+	ControlSend,,^c,kOS MFD3
+	Return
+	
 ;run list utility
 LISTMFD1:
-	ControlSend,,C1.{Enter},kOS MFD1
+	ControlSend,,C1(1,MID1_TOP).{Enter},kOS MFD1
 	Return
 LISTMFD2:
-	ControlSend,,C1.{Enter},kOS MFD2
+	ControlSend,,C1(2,MID2_TOP).{Enter},kOS MFD2
 	Return
 LISTMFD3:
-	ControlSend,,C1.{Enter},kOS MFD3
+	ControlSend,,C1(3,MID3_TOP).{Enter},kOS MFD3
 	Return
 LISTMFD4:
-	ControlSend,,C1.{Enter},kOS MFD4
+	ControlSend,,C1(4,MID4_TOP).{Enter},kOS MFD4
 	Return
 	
 
@@ -309,74 +317,98 @@ ResetMFD4:
 	
 ;mfd button commands
 MFD1B1:
+	WinActivate,Kerbal Space Program
 	ControlSend,,^!1,Kerbal Space Program 
 	Return
 MFD1B2:
+	WinActivate,Kerbal Space Program
 	ControlSend,,^!2,Kerbal Space Program 
 	Return
 MFD1B3:
+	WinActivate,Kerbal Space Program
 	ControlSend,,^!3,Kerbal Space Program 
 	Return
 MFD1B4:
+	WinActivate,Kerbal Space Program
 	ControlSend,,^!4,Kerbal Space Program 
 	Return
 MFD1B5:
+	WinActivate,Kerbal Space Program
 	ControlSend,,^!5,Kerbal Space Program 
 	Return
 MFD1B6:
+	WinActivate,Kerbal Space Program
 	ControlSend,,^!6,Kerbal Space Program 
 	Return
 MFD2B1:
-	ControlSend,,^!7,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^1,Kerbal Space Program 
 	Return
 MFD2B2:
-	ControlSend,,^!8,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^2,Kerbal Space Program 
 	Return
 MFD2B3:
-	ControlSend,,^!9,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^3,Kerbal Space Program 
 	Return
 MFD2B4:
-	ControlSend,,^!0,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^4,Kerbal Space Program 
 	Return
 MFD2B5:
-	ControlSend,,^!`-,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^5,Kerbal Space Program 
 	Return
 MFD2B6:
-	ControlSend,,^!`=,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^6,Kerbal Space Program 
 	Return
 MFD3B1:
-	ControlSend,,^!q,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,!1,Kerbal Space Program 
 	Return
 MFD3B2:
-	ControlSend,,^!w,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,!2,Kerbal Space Program 
 	Return
 MFD3B3:
-	ControlSend,,^!e,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,!3,Kerbal Space Program 
 	Return
 MFD3B4:
-	ControlSend,,^!r,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,!4,Kerbal Space Program 
 	Return
 MFD3B5:
-	ControlSend,,^!t,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,!5,Kerbal Space Program 
 	Return
 MFD3B6:
-	ControlSend,,^!y,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,!6,Kerbal Space Program 
 	Return
 MFD4B1:
-	ControlSend,,^!u,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^!7,Kerbal Space Program 
 	Return
 MFD4B2:
-	ControlSend,,^!i,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^!8,Kerbal Space Program 
 	Return
 MFD4B3:
-	ControlSend,,^!o,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^!9,Kerbal Space Program 
 	Return
 MFD4B4:
-	ControlSend,,^!p,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^7,Kerbal Space Program 
 	Return
 MFD4B5:
-	ControlSend,,^!`[,Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^8,Kerbal Space Program 
 	Return
 MFD4B6:
-	ControlSend,,^!`],Kerbal Space Program 
+	WinActivate,Kerbal Space Program
+	ControlSend,,^9,Kerbal Space Program 
 	Return
