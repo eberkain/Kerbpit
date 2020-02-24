@@ -91,3 +91,9 @@ place all the kOS scripts into the archive folder for your install.  KSP/Saves/S
 
 ### Auto Hot Key
 You have to install the AutoHotKey program to use the scripts.  
+
+### KSP
+change keybindings
+
+### AGX
+update keybindings
