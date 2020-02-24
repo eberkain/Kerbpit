@@ -12,12 +12,10 @@ Kerbpit.ahk is an AutoHotKey script that is used to interface custom controllers
   * Controls can send complex commands to kOS
 
 kOS is used to operate 4 simultanious MFD screens on side monitors  
-  * MFD1 contains a orbit status display
-  * MFD2 contains a vessel status display
-  * MFD3 runs autopilot programs that control steering and throttle
-  * MFD4 is a flight computer that creates nav nodes
-  * MFD0 is a hidden terminal used to send complex commands via AHk
-  
+* In general the MFDs are situation status, vessel status, autopilot, navigation
+* The scripts are designed so any program can be run on any mfd 
+* the MFDs support 6 action buttons that can be either mounted on the top or bottom
+
 Custom built controllers, each control board can support 32 buttons and 8 analog axis
 
 ![](https://i.imgur.com/1uO12jf.png)
