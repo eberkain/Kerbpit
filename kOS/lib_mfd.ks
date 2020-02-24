@@ -223,6 +223,26 @@ function mfd_createarray {
 	return map. 
 }
 
+function mfd_nugarray {
+    parameter mw, mh, tx, ty.
+    
+    local map is list().
+    
+    local line is list().
+	local t is 0.
+	local i is 0.
+    from {set t to 0.} until t = mh step {set t to t+1.} do {
+        line:add(0).
+		print i + ":" + t + " "at(tx,ty).
+    }
+    from {set i to 0.} until i = mw step {set i to i+1.} do {
+        map:add(line:copy). 
+		print i + ":" + t + " "at(tx,ty).
+    }
+
+    return map. 
+}
+
 //print an image using half filled squares  ▄▀█
 function mfdmap_halfmapdraw {
 	parameter mx, my, mw, mh, map, print_empty to false. 
@@ -252,12 +272,11 @@ set p1_lex to lexicon(2,2,3,3,6,6,7,7,10,10,11,11,14,14,15,15).
 set p2_lex to lexicon(4,4,5,5,6,6,7,7,12,12,13,13,14,14,15,15).
 set p3_lex to lexicon(8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15).
 
-
 //change the value of the pixels to render image
 //called repeadatly so just draw the current point
 function mfdmap_drawpixel {
 	//map pos, map size, point pos pct
-	parameter mx,my,mw,mh,map,vx,vy,print_empty to false.
+	parameter mx,my,mw,mh,map,vx,vy.
 	
 	//value numbers must be on the map
 	if vx > 0 and vx < 1 and vy > 0 and vy < 1 {
@@ -294,58 +313,10 @@ function mfdmap_drawpixel {
 		//faster method indexes the character needed off a string 
 		print quad_char[map[cx][cy]] at(mx+cx,my+cy).
 
-		//find the binary index of the new pixel
-		// 0001  =  strind3      px=0   py=0    ▘ up left     1,3,5,7,9,11,13,15
-		// 0010  =  strind2      px=1   py=0    ▝  up right   2,3,6,7,10,11,14,15
-		// 0100  =  strind1      px=0   py=1    ▖  bot left   4,5,6,7,12,13,14,15
-		// 1000  =  strind0      px=1   py=1    ▗  bot right  8,9,10,11,12,13,14,15
-		//set pix to (1-px)+((1-py)*2).  // 3, 2, 1, 0
-
-		//this gives a value based on above to identify the pixel
-		//set pval to (891*px*py)+(py*99)+(9*px)+1.  //  1, 10, 100, 1000
-
-		//check and set the current map value of that index
-		//set maps to map[cx][cy]. 
-		//if maps[pix] = "0" {
-			//build a new string
-			//set map[cx][cy] to maps:substring(0,pix)+"1"+maps:substring(pix+1,3-pix).  	}
-			
-		
-		
-		
-		//print debug data
-		//print "x:"+round(vx,2)+":"+cx+":"+px+"  " at(mx,my).
-		//print "y:"+round(vy,2)+":"+cy+":"+py+"  " at(mx,my+1).
-		//print "p:"+pix+":"+map[cx][cy]+"   " at(mx,my+2).
-		
-		//print the pixel
-		//single dots ▖▗▘▝
-		//double dots ▚▞▄▀▌▐
-		//tri dots ▙▟▛▜
-		//full dots █
-		
-		
-		//if map[cx][cy] = "0000" { print " " at(mx+cx,my+cy). }       0
-		//else if map[cx][cy] = "0001" { print "▘" at(mx+cx,my+cy). }  1
-		//else if map[cx][cy] = "0010" { print "▝" at(mx+cx,my+cy). }  2 
-		//else if map[cx][cy] = "0011" { print "▀" at(mx+cx,my+cy). }  3 
-		//else if map[cx][cy] = "0100" { print "▖" at(mx+cx,my+cy). }  4 
-		//else if map[cx][cy] = "0101" { print "▌" at(mx+cx,my+cy). }  5 
-		//else if map[cx][cy] = "0110" { print "▞" at(mx+cx,my+cy). }  6 
-		//else if map[cx][cy] = "0111" { print "▛" at(mx+cx,my+cy). }  7 
-		//else if map[cx][cy] = "1000" { print "▗" at(mx+cx,my+cy). }  8  
-		//else if map[cx][cy] = "1001" { print "▚" at(mx+cx,my+cy). }  9  
-		//else if map[cx][cy] = "1010" { print "▐" at(mx+cx,my+cy). } 10 
-		//else if map[cx][cy] = "1011" { print "▜" at(mx+cx,my+cy). } 11 
-		//else if map[cx][cy] = "1100" { print "▄" at(mx+cx,my+cy). } 12 
-		//else if map[cx][cy] = "1101" { print "▙" at(mx+cx,my+cy). } 13
-		//else if map[cx][cy] = "1110" { print "▟" at(mx+cx,my+cy). } 14 
-		//else if map[cx][cy] = "1111" { print "█" at(mx+cx,my+cy). } 15
-	
 		//return the character that was changed
-		//return (mx+cx)+":"+(my+cy).
+		return (mx+cx)+":"+(my+cy).
 	}
-	//else { return "0:0". }
+	else { return "0:0". }
 }
 
 //convert from one range to another

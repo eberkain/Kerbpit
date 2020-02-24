@@ -21,11 +21,11 @@ clearscreen.
 
 //print the button labels at top or bottom
 if mfdtop = true { 
-	print " RES-ALL │ RES-ST │ CAMERA │   UP   │   DN   │  SET    " at (0,0).
-	print "─────────┴────────┴────────┴────────┴────────┴─────────" at(0,1). }
+	print "  RES-AL │ RES-ST │  CAMS  │  SYST  │   F5   │   F6    " at (0,0).
+	print "─────────┴────────┴────────┴────────┴────────┴─────────" at (0,1). }
 else {
-	print "─────────┬────────┬────────┼────────┬────────┬─────────" at(0,23).
-	print " RES-ALL │ RES-ST │ CAMERA │   UP   │   DN   │  SET    " at (0,24). }
+	print "─────────┬────────┬────────┼────────┬────────┬─────────" at (0,23).
+	print "  RES-AL │ RES-ST │  CAMS  │  SYST  │   F5   │   F6    " at (0,24). }
 
 //monitor reserved action groups for button activity
 set btn1 to false. 
@@ -39,116 +39,110 @@ set btn6 to false.
 on AG227 { if mfdid = 1 { set btn1 to true. } preserve. }
 on AG228 { if mfdid = 1 { set btn2 to true. } preserve. }
 on AG229 { if mfdid = 1 { set btn3 to true. } preserve. }
-on AG230 { if nfdud = 1 { set btn4 to true. } preserve. }
+on AG230 { if mfdid = 1 { set btn4 to true. } preserve. }
 on AG231 { if mfdid = 1 { set btn5 to true. } preserve. }
 on AG232 { if mfdid = 1 { set btn6 to true. } preserve. }
 on AG233 { if mfdid = 2 { set btn1 to true. } preserve. }
 on AG234 { if mfdid = 2 { set btn2 to true. } preserve. }
 on AG235 { if mfdid = 2 { set btn3 to true. } preserve. }
-on AG236 { if nfdud = 2 { set btn4 to true. } preserve. }
+on AG236 { if mfdid = 2 { set btn4 to true. } preserve. }
 on AG237 { if mfdid = 2 { set btn5 to true. } preserve. }
 on AG238 { if mfdid = 2 { set btn6 to true. } preserve. }
 on AG239 { if mfdid = 3 { set btn1 to true. } preserve. }
 on AG240 { if mfdid = 3 { set btn2 to true. } preserve. }
 on AG241 { if mfdid = 3 { set btn3 to true. } preserve. }
-on AG242 { if nfdud = 3 { set btn4 to true. } preserve. }
+on AG242 { if mfdid = 3 { set btn4 to true. } preserve. }
 on AG243 { if mfdid = 3 { set btn5 to true. } preserve. }
 on AG244 { if mfdid = 3 { set btn6 to true. } preserve. }
 on AG245 { if mfdid = 4 { set btn1 to true. } preserve. }
 on AG246 { if mfdid = 4 { set btn2 to true. } preserve. }
 on AG247 { if mfdid = 4 { set btn3 to true. } preserve. }
-on AG248 { if nfdud = 4 { set btn4 to true. } preserve. }
+on AG248 { if mfdid = 4 { set btn4 to true. } preserve. }
 on AG249 { if mfdid = 4 { set btn5 to true. } preserve. }
 on AG250 { if mfdid = 4 { set btn6 to true. } preserve. }
 
 
 local function print_page {
 	parameter pageid. 
-
-		//     ----=----=----=----=----=xxxxx----=----=----=----=----=
-		print " RES-ALL │ RES-ST │ CAMERA │   UP   │   DN   │  SET    " at (0,0).
-		print "─────────┴────────┴────────┴────────┴────────┴─────────" at (0,1).
-
 	if pageid = 1 { 
-		//     ----=----=----=----=----=xxxxx----=----=----=----=----=
-		print "  TOTAL RESOURCES                                      " at (0,2).
-		print "Electric   : 0.000 kg    084d 012h    ░░░░░░░░░░░░░░░  " at (0,3).
-		print "Liq. Fuel  :                                           " at (0,4).
-		print "Oxidizer   :                                           " at (0,5).
-		print "Monoprop   :                                           " at (0,6).
-		print "───────────────────────────────────────────────────────" at (0,7).
-		print "Ablator    :                                           " at (0,8).
-		print "Shielding  :                                           " at (0,9).
-		print "───────────────────────────────────────────────────────" at (0,10).
-		print "Oxygen     :                                           " at (0,11).
-		print "Nitrogen   :                                           " at (0,12).
-		print "Food       :                                           " at (0,13).
-		print "Water      :                                           " at (0,14).
-		print "───────────────────────────────────────────────────────" at (0,15).
-		print "Hydrogen   :                                           " at (0,16).
-		print "WasteWater :                                           " at (0,17).
-		print "Waste      :                                           " at (0,18).
-		print "CO2        :                                           " at (0,19).
-		print "xxx        :                                           " at (0,20).
-		print "xxx        :                                           " at (0,21).
-		print "xxx        :                                           " at (0,22).
-		print "xxx        :                                           " at (0,23).
-		print "xxx        :                                          " at (0,24).
+		//      ----=----=----=----=----=xxxxx----=----=----=----=----=
+		print "  TOTAL RESOURCES                                      " at (0,0+poff).
+		print "Electric   : 0.000 kg    084d 012h    ░░░░░░░░░░░░░░░  " at (0,1+poff).
+		print "Liq. Fuel  :                                           " at (0,2+poff).
+		print "Oxidizer   :                                           " at (0,3+poff).
+		print "Monoprop   :                                           " at (0,4+poff).
+		print "───────────────────────────────────────────────────────" at (0,5+poff).
+		print "Ablator    :                                           " at (0,6+poff).
+		print "Shielding  :                                           " at (0,7+poff).
+		print "───────────────────────────────────────────────────────" at (0,8+poff).
+		print "Oxygen     :                                           " at (0,9+poff).
+		print "Nitrogen   :                                           " at (0,10+poff).
+		print "Food       :                                           " at (0,11+poff).
+		print "Water      :                                           " at (0,12+poff).
+		print "───────────────────────────────────────────────────────" at (0,13+poff).
+		print "Hydrogen   :                                           " at (0,14+poff).
+		print "WasteWater :                                           " at (0,15+poff).
+		print "Waste      :                                           " at (0,16+poff).
+		print "CO2        :                                           " at (0,17+poff).
+		print "xxx        :                                           " at (0,18+poff).
+		print "xxx        :                                           " at (0,19+poff).
+		print "xxx        :                                           " at (0,20+poff).
+		print "xxx        :                                           " at (0,21+poff).
+		print "xxx        :                                         " at  (0,22+poff).
 	}
 
 	if pageid = 2 { 
 		//     ----=----=----=----=----=xxxxx----=----=----=----=----=
-		print "  STAGE RESOURCES                                      " at (0,2).
-		print "Electric   : 0.000 kg    084d 012h    ░░░░░░░░░░░░░░░  " at (0,3).
-		print "Liq. Fuel  :                                           " at (0,4).
-		print "Oxidizer   :                                           " at (0,5).
-		print "Monoprop   :                                           " at (0,6).
-		print "───────────────────────────────────────────────────────" at (0,7).
-		print "Ablator    :                                           " at (0,8).
-		print "Shielding  :                                           " at (0,9).
-		print "───────────────────────────────────────────────────────" at (0,10).
-		print "Oxygen     :                                           " at (0,11).
-		print "Nitrogen   :                                           " at (0,12).
-		print "Food       :                                           " at (0,13).
-		print "Water      :                                           " at (0,14).
-		print "───────────────────────────────────────────────────────" at (0,15).
-		print "Hydrogen   :                                           " at (0,16).
-		print "WasteWater :                                           " at (0,17).
-		print "Waste      :                                           " at (0,18).
-		print "CO2        :                                           " at (0,19).
-		print "xxx        :                                           " at (0,20).
-		print "xxx        :                                           " at (0,21).
-		print "xxx        :                                           " at (0,22).
-		print "xxx        :                                           " at (0,23).
-		print "xxx        :                                          " at (0,24).
+		print "  STAGE RESOURCES                                      " at (0,0+poff).
+		print "Electric   : 0.000 kg    084d 012h    ░░░░░░░░░░░░░░░  " at (0,1+poff).
+		print "Liq. Fuel  :                                           " at (0,2+poff).
+		print "Oxidizer   :                                           " at (0,3+poff).
+		print "Monoprop   :                                           " at (0,4+poff).
+		print "───────────────────────────────────────────────────────" at (0,5+poff).
+		print "Ablator    :                                           " at (0,6+poff).
+		print "Shielding  :                                           " at (0,7+poff).
+		print "───────────────────────────────────────────────────────" at (0,8+poff).
+		print "Oxygen     :                                           " at (0,9+poff).
+		print "Nitrogen   :                                           " at (0,10+poff).
+		print "Food       :                                           " at (0,11+poff).
+		print "Water      :                                           " at (0,12+poff).
+		print "───────────────────────────────────────────────────────" at (0,13+poff).
+		print "Hydrogen   :                                           " at (0,14+poff).
+		print "WasteWater :                                           " at (0,15+poff).
+		print "Waste      :                                           " at (0,16+poff).
+		print "CO2        :                                           " at (0,17+poff).
+		print "xxx        :                                           " at (0,18+poff).
+		print "xxx        :                                           " at (0,19+poff).
+		print "xxx        :                                           " at (0,20+poff).
+		print "xxx        :                                           " at (0,21+poff).
+		print "xxx        :                                          " at  (0,22+poff).
 	}
-
 
 	if pageid = 3 { 
 		//     ----=----=----=----=----=xxxxx----=----=----=----=----=
-		print "                    CAMERA SELECTOR                    " at (0,2).
-		print "════╤════════════╤═════════════════════════════════════" at (0,3).
-		print "    │            │                                     " at (0,4).
-		print "    │            │                                     " at (0,5).
-		print "    │            │                                     " at (0,6).
-		print "    │            │                                     " at (0,7).
-		print "    │            │                                     " at (0,8).
-		print "    │            │                                     " at (0,9).
-		print "    │            │                                     " at (0,10).
-		print "    │            │                                     " at (0,11).
-		print "    │            │                                     " at (0,12).
-		print "    │            │                                     " at (0,13).
-		print "    │            │                                     " at (0,14).
-		print "    │            │                                     " at (0,15).
-		print "    │            │                                     " at (0,16).
-		print "    │            │                                     " at (0,17).
-		print "    │            │                                     " at (0,18).
-		print "    │            │                                     " at (0,19).
-		print "    │            │                                     " at (0,20).
-		print "    │            │                                     " at (0,21).
-		print "    │            │                                     " at (0,22).
-		print "    │            │                                     " at (0,23).
-		print "    │            │   " at (0,24).
+		print "                    CAMERA SELECTOR                    " at (0,0+poff).
+		print "════╤════════════╤═════════════════════════════════════" at (0,1+poff).
+		print "    │            │                                     " at (0,2+poff).
+		print "    │            │                                     " at (0,3+poff).
+		print "    │            │                                     " at (0,4+poff).
+		print "    │            │                                     " at (0,5+poff).
+		print "    │            │                                     " at (0,6+poff).
+		print "    │            │                                     " at (0,7+poff).
+		print "    │            │                                     " at (0,8+poff).
+		print "    │            │                                     " at (0,9+poff).
+		print "    │            │                                     " at (0,10+poff).
+		print "    │            │                                     " at (0,11+poff).
+		print "    │            │                                     " at (0,12+poff).
+		print "    │            │                                     " at (0,13+poff).
+		print "    │            │                                     " at (0,14+poff).
+		print "    │            │                                     " at (0,15+poff).
+		print "    │            │                                     " at (0,16+poff).
+		print "    │            │                                     " at (0,17+poff).
+		print "    │            │                                     " at (0,18+poff).
+		print "    │            │                                     " at (0,19+poff).
+		print "    │            │                                     " at (0,20+poff).
+		print "    │            │                                     " at (0,21+poff).
+		print "    │            │                                    " at (0,22+poff).
 	}
 
 }
@@ -169,44 +163,25 @@ set animstep to 0.
 
 //create a list of res we want to show and what line they are on
 set reslex to lexicon(
-	"ElectricCharge",3,
-	"LiquidFuel",4,
-	"Oxidizer",5,
-	"MonoPropellant",6,
-	"Ablator",8,
-	"Shielding",9,
-	"Oxygen",11,
-	"Nitrogen",12,
-	"Food",13,
-	"Water",14,
-	"Hydrogen",16,
-	"WasteWater",17,
-	"Waste",18,
-	"CarbonDioxide",19 ).
+	"ElectricCharge",1,
+	"LiquidFuel",2,
+	"Oxidizer",3,
+	"MonoPropellant",4,
+	"Ablator",6,
+	"Shielding",7,
+	"Oxygen",9,
+	"Nitrogen",10,
+	"Food",11,
+	"Water",12,
+	"Hydrogen",14,
+	"WasteWater",15,
+	"Waste",16,
+	"CarbonDioxide",17 ).
 
 //create a lex to save eta info
-set etalex to lexicon().
-
-//to hold the data from the previous check 
-set prevlex to lexicon().
-set prevtime to time:seconds.
-set prevdelay to 1.
-
-//monitor the action groups for mfd button presses
-set btn1 to false. 
-set btn2 to false. 
-set btn3 to false. 
-set btn4 to false. 
-set btn5 to false. 
-set btn6 to false. 
-
-//respond to button presses
-on AG233 { 	set btn1 to true. preserve. }
-on AG234 { 	set btn2 to true. preserve.  }
-on AG235 { 	set btn3 to true. preserve.  }
-on AG236 { 	set btn4 to true. preserve.  }
-on AG237 { 	set btn5 to true. preserve.  }
-on AG238 { 	set btn6 to true. preserve.  }
+set etalex to lexicon().       //a future time where the resource will expire
+set prevlex to lexicon().		//the amnt of the resouce last we checked
+set prevlextime to lexicon().  //the time last we checked
 
 //control values for camera list 
 set camlistdone to false. 
@@ -218,8 +193,11 @@ set actcamprt to ship:rootpart.
 set shippartcount to 0.
 set change_camsel to false. 
 
-//define the resource structure
-set reslist to list().
+//define the resource structure that we pull for current resources
+set resupid to 0. //the current index to work with on this loop
+set lex_to_res to lexicon().  //middleman that holds direct references to the resources on the ship
+set lastpartcount to 0.		//how many parts were on the ship when lex_to_res was calc
+set lastlextype to 0.
 
 until done = true {
 	
@@ -271,63 +249,133 @@ until done = true {
 	
 	//run the main loop every x sec
 	if time:seconds > looptime {
-		set looptime to time:seconds + 0.25.
+		set looptime to time:seconds + 0.05.
 
 		//print an animated icon to show the script is running
-		set animstep to mfd_animicon(0,2,animstep).
+		set animstep to mfd_animicon(0,0+poff,animstep).
 
-		//print the overall resources page
-		set printres to false. 
-		if curr_page = 1 { 
-			set reslist to ship:resources.
-			set printres to true. 
-		}
-		if curr_page = 2 { 
-			set reslist to stage:resources.
-			set printres to true. 
-		}
+		//if this is a resource page then print one resource update each loop through
+		//only look at resources we are going to actually print, ignore others
+		if curr_page = 1 or curr_page = 2 {
+			//this is just presetup and is usually not executed each loop 
+			//select which resources we are looking at
+			//update if on this page and the parts have changed or the lat update was for the other page
+			if curr_page = 1 and ( lastlextype <> 1 or lastpartcount <> ship:parts:length ) { 
+				set lastlextype to 1.
+				set lastpartcount to ship:parts:length.
 
-		//print resources if flagged
-		if printres = true {
-			//loop through all resrouces
-			for mres in reslist {
-			
-				// if this is one we want to display
-				if reslex:haskey(mres:name) { 
+				//update the lex with the current resounces
+				set lex_to_res to lexicon().
+				for ires in ship:resources {
+					lex_to_res:add(ires:name,ires).
+				}
 				
-					//print the percentage first
-					//print round(mres:amount/mres:capacity*100,0):tostring():padleft(3)+"%" at (13,lex[mres:name]).
+				//clear the eta calculations 
+				set etalex to lexicon().
+				set prevlex to lexicon().
+				set prevlextime to lexicon().
+			}
+			//update if on this page and the parts have changed or the lat update was for the other page
+			if curr_page = 2 and ( lastlextype <> 1 or lastpartcount <> ship:parts:length ) { 
+				set lastlextype to 2.
+				set lastpartcount to ship:parts:length.
 
-					//print the mass
-					print si_formating(mres:amount*mres:density*100000,"g") at(12,reslex[mres:name]).
-					//print round(mres:amount,0) + "/" + round(mres:capacity,0) at (20,lex[mres:name]).
+				//update the lex with the current resounces
+				set lex_to_res to lexicon().
+				for ires in stage:resources {
+					lex_to_res:add(ires:name,ires).
+				}
+
+				//clear the eta calculations 
+				set etalex to lexicon().
+				set prevlex to lexicon().
+				set prevlextime to lexicon().
+			}
+			
+			//we want to index down the reslex and get the correct resource for that 
+			if resupid > reslex:length-1 { set resupid to 0. }
+			if lex_to_res:haskey(reslex:keys[resupid]) { 		
+				set mres to lex_to_res[reslex:keys[resupid]].
+				
+				//print the mass of the resource 
+				print si_formating(mres:amount*mres:density*100000,"g") at(12,reslex[mres:name]+poff).
+
+				//print an eta till depleted
+				//etalex containes an estimated time code for when the res depletes 
+				if etalex:haskey(mres:name) {
+					//first we need to calculate how quickly this resource is changing 
+					//prevlextime contains the time when this was last calculated 
+					//prevlex contains how much of the resource there was last time
+					//we are setting etalex which is a future time when this might run out
+					set localtime to time:seconds.
+					set deltatime to localtime - prevlextime[mres:name].
+					set prevlextime[mres:name] to localtime.
 					
-					//print an eta till depleted
-					if etalex:haskey(mres:name) {
-						if etalex[mres:name] = 0 { 
-							print " hold":padright(14) at (24,reslex[mres:name]).
-						}
-						else if etalex[mres:name] < 0 {
-							print time_formating(-(etalex[mres:name]-time:seconds),5):padright(13)+"⮜" at (24,reslex[mres:name]).
-						}
-						else {
-							//etalex containes an estimated time code for when the res depletes 
-							print time_formating((etalex[mres:name]-time:seconds),5):padright(13)+"⮞" at (24,reslex[mres:name]).
-						}
-					}	
+					//how much has it changed since last check
+					set diff to prevlex[mres:name]-mres:amount.
+					set prevlex[mres:name] to mres:amount.
+							
+					//extimate how how long till resource is depleted at that rate
+					if diff = 0 {
+						set etalex[mres:name] to 0. //special flag to indicate no change
+					}
+					//if diff is neg then resource is filling up 
+					else if diff < 0 {
+						set filltime to (mres:capacity-mres:amount)/(diff/deltatime).
+						set etalex[mres:name] to -time:seconds-filltime.
+					}
+					//if resource is depleting
 					else {
-						print " calculating":padright(13) at (24,reslex[mres:name]).
+						//calc the time in seconds till the resource is gone at current rate
+						set deptime to mres:amount/(diff/deltatime).
+				
+						//set the etatime as a global time value
+						set etalex[mres:name] to time:seconds+deptime. 
 					}
 					
-					if mres:capacity > 0 {
-						//print a progress bar for pct
-						print mfd_progress(15,mres:amount/mres:capacity) at(38,reslex[mres:name]).
+					
+					//print the time estimate
+					if etalex[mres:name] = 0 { 
+						print " no change":padright(14) at (24,reslex[mres:name]+poff).
 					}
-					else { 
-						print "░░░░░░░░░░░░░░░" at(38,reslex[mres:name]).
+					//resouce is filling up 
+					else if etalex[mres:name] < 0 {
+						print time_formating(-(etalex[mres:name]-time:seconds),5):padright(13)+"⮜" at (24,reslex[mres:name]+poff).
+					}
+					//resouce is depleting
+					else {
+						print time_formating((etalex[mres:name]-time:seconds),5):padright(13)+"⮞" at (24,reslex[mres:name]+poff).
 					}
 				}
+				else {
+					// if its not in the lex yet then just say we are calculating it 
+					print " calculating":padright(13) at (24,reslex[mres:name]+poff).
+		
+					//we save the current info for the next loop. 
+					prevlextime:add(mres:name,time:seconds).
+					prevlex:add(mres:name,mres:amount).
+					etalex:add(mres:name,0).
+				}
+
+	
+				//print a progress bar for pct if the resource has a capacity
+				if mres:capacity > 0 {
+					print mfd_progress(15,mres:amount/mres:capacity) at(38,reslex[mres:name]+poff).
+				}
+				else { 
+					print "nil                " at(38,reslex[mres:name]+poff).
+				}
+
 			}
+			
+			//this resource is not on this ship so indicate that 
+			else {
+				print " N/A ":padright(43) at(12,reslex:values[resupid]+poff).				
+			}
+
+			//print the current index and then increment for next time 
+			print resupid+" " at(25,0+poff).
+			set resupid to resupid + 1.
 		}
 	
 		//print the cameras page
@@ -441,44 +489,5 @@ until done = true {
 	}
 
 
-	//calculate resource change over time 
-	if curr_page = 1 or curr_page = 2 {
-		//every x seconds check all resources and update eta based on diff from last time
-		if time:seconds > prevtime + prevdelay { 
-			set localtime to time:seconds.
-			set deltatime to localtime - prevtime.
-			set prevtime to localtime.
-			
-			
-			//loop through all resources
-			for mres in reslist {
-				//if there is a prev value to compare to then update the eta
-				if prevlex:haskey(mres:name) {
-					//how much has it changed since last check
-					set diff to prevlex[mres:name]-mres:amount.
-					
-					//extimate how how long till resource is depleted at that rate
-					if diff = 0 { //if its negative then the resource has gone up 
-						set etalex[mres:name] to 0. //special flag to indicate infinity
-					}
-					//if resource is filling up 
-					else if diff < 0 {
-						set filltime to (mres:capacity-mres:amount)/(diff/deltatime).
-						set etalex[mres:name] to -time:seconds-filltime.
-					}
-					//if resource is depleting
-					else {
-						//calc the time in seconds till the resource is gone at current rate
-						set deptime to mres:amount/(diff/deltatime). //<< pretty sure this is the problem
-		
-						//set the etatime as a global time value
-						set etalex[mres:name] to time:seconds+deptime. 
-					}
-				}
-				
-				//update the prev value for next time
-				set prevlex[mres:name] to mres:amount.
-			}
-		}
-	}
+
 }

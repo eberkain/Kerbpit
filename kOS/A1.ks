@@ -53,28 +53,27 @@ set btn6 to false.
 on AG227 { if mfdid = 1 { set btn1 to true. } preserve. }
 on AG228 { if mfdid = 1 { set btn2 to true. } preserve. }
 on AG229 { if mfdid = 1 { set btn3 to true. } preserve. }
-on AG230 { if nfdud = 1 { set btn4 to true. } preserve. }
+on AG230 { if mfdid = 1 { set btn4 to true. } preserve. }
 on AG231 { if mfdid = 1 { set btn5 to true. } preserve. }
 on AG232 { if mfdid = 1 { set btn6 to true. } preserve. }
 on AG233 { if mfdid = 2 { set btn1 to true. } preserve. }
 on AG234 { if mfdid = 2 { set btn2 to true. } preserve. }
 on AG235 { if mfdid = 2 { set btn3 to true. } preserve. }
-on AG236 { if nfdud = 2 { set btn4 to true. } preserve. }
+on AG236 { if mfdid = 2 { set btn4 to true. } preserve. }
 on AG237 { if mfdid = 2 { set btn5 to true. } preserve. }
 on AG238 { if mfdid = 2 { set btn6 to true. } preserve. }
 on AG239 { if mfdid = 3 { set btn1 to true. } preserve. }
 on AG240 { if mfdid = 3 { set btn2 to true. } preserve. }
 on AG241 { if mfdid = 3 { set btn3 to true. } preserve. }
-on AG242 { if nfdud = 3 { set btn4 to true. } preserve. }
+on AG242 { if mfdid = 3 { set btn4 to true. } preserve. }
 on AG243 { if mfdid = 3 { set btn5 to true. } preserve. }
 on AG244 { if mfdid = 3 { set btn6 to true. } preserve. }
 on AG245 { if mfdid = 4 { set btn1 to true. } preserve. }
 on AG246 { if mfdid = 4 { set btn2 to true. } preserve. }
 on AG247 { if mfdid = 4 { set btn3 to true. } preserve. }
-on AG248 { if nfdud = 4 { set btn4 to true. } preserve. }
+on AG248 { if mfdid = 4 { set btn4 to true. } preserve. }
 on AG249 { if mfdid = 4 { set btn5 to true. } preserve. }
 on AG250 { if mfdid = 4 { set btn6 to true. } preserve. }
-
 //main input vars
 set taralt to 9999.
 set hasalt to false.
@@ -208,6 +207,7 @@ set featherstarted to false.
 set launchdone to false. //flag to kill the main launch loop 
 set animstep to 0. //animation for showing program is runnnig
 set distim to time:seconds. //display update timer
+set printstep to 0.
 
 //transtiion track
 set protrans to false.  //which prograde marker is relevant
@@ -226,7 +226,7 @@ print "map:" at(43,3+poff).
 //instead of an array for data, make it an array for characters
 set mapw to 26.
 set maph to 12.
-set map to mfd_createarray(mapw,maph,47,3+poff).
+set map to mfd_nugarray(mapw,maph,47,3+poff).
 set maptime to time:seconds.
 set lgpos to latlng(ship:latitude,ship:longitude).
 lock drange to (ship:geoposition:position-lgpos:position):mag.
@@ -236,6 +236,7 @@ set my to 0.
 //control steering and throttle until the AP reaches the taralt
 until launchdone {
 	
+	print "Z" at (2,0).
 	//force navball transition
 	if btn1 = true {
 		set btn1 to false.
@@ -264,6 +265,7 @@ until launchdone {
 		lock steering to ship:prograde.
 	}
 	
+	print "A" at (2,0).
 	//we need to update the azimuth every so often during launch
 	if time:seconds > aztime + 5 {
 		set aztime to time:seconds.
@@ -278,6 +280,7 @@ until launchdone {
 		set tarhdg to azimuth(adjinc,taralt).
 	}
 	
+	print "B" at (2,0).
 	//We need to support the autopilot lexicaon tweaking
 	//if once sec has passed since last update then
 	if time:seconds > lextime + 1 {
@@ -301,23 +304,26 @@ until launchdone {
 		}
 	}
 
+	print "C" at (2,0).
 	//once a second update the launch path graphic 
-	if time:seconds > maptime + 1 { 
+	if time:seconds > maptime + 10 { 
 	
 		// the map area is 12x24 characters, 38x24 pixels
 		// loc of map, size of map, data, xpct, ypct
-		mfdmap_drawpixel(28,11+poff,mapw,maph,map,drange/(taralt*2),1-ship:altitude/taralt).
+		set retv to mfdmap_drawpixel(28,11+poff,mapw,maph,map,drange/(taralt*2),1-ship:altitude/taralt).
 
 		//parse the return value, droppped ret value for performance
-		//set slist to retv:split(":").
-		//set mx to slist[0]:tonumber(0).
-		//set my to slist[1]:tonumber(0).
+		set slist to retv:split(":").
+		set mx to slist[0]:tonumber(0).
+		set my to slist[1]:tonumber(0).
 		//print retv+"  "+mx+"/"+my at (2,0).
 	}
 
+	print "D" at (2,0).
 	//we want to transition from looking at the surface prograde marker 
 	//to the orbit marker when they line up
 	if protrans = false {
+	
 		if (compit < maxaoa and ship:verticalspeed > 100) or forceprotrans = true {
 			set protrans to true.
 			set NAVMODE to "ORBIT".
@@ -326,20 +332,25 @@ until launchdone {
 		}
 	}
 
+	print "E" at (2,0).
 	//calculate the current AoA vs the correct prograde marker
 	if protrans = false {
+
 		set curaoa to abs(shppit - srfpit).
 	}
 	else {
+
 		set curaoa to abs(shppit - orbpit).
 	}
 
+	print "F" at (2,0).
 	//skip maxq monitor if no atmo
 	if ship:body:atm:exists = false { set maxqpassed to true. }
 
 	//we need to monitor the dynamic pressure and once it starts to go down
 	//we can start to relax the limiter 
 	if maxqpassed = false { 
+		
 		//if the pressure is going up then save the new max
 		if ship:dynamicpressure > maxq { 
 			set maxq to ship:dynamicpressure.
@@ -355,6 +366,7 @@ until launchdone {
 		}
 	}
 
+	print "G" at (2,0).
 	//get the current air pressure for use later
 	set curpress to SHIP:BODY:ATM:altitudepressure(SHIP:ALTITUDE).
 
@@ -381,6 +393,7 @@ until launchdone {
 		set tarpit to max(0,mfd_convert(ship:apoapsis,pitchstartap,taralt*.95,maxqpit,0)).
 	}
 	
+	print "H" at (2,0).
 	//calculate the limited pitch, the thing steering is locked to.  
 	//must be withing the maxaoa range of the current prograde reference
 	if ship:verticalspeed < 100 and ship:altitude < 1000 {
@@ -414,6 +427,7 @@ until launchdone {
 	
 	}
 
+	print "I" at (2,0).
 	//after the AP is 95% there start lowering the throttle
 	if SHIP:APOAPSIS/taralt > 0.95 {
 		set curthr to 1 - (((SHIP:APOAPSIS/taralt)-0.95)/0.05).
@@ -452,31 +466,59 @@ until launchdone {
 		}
 	}
 
+	print "J" at (2,0).
 	//only update the status display a few times a second to save CPU
-	if time:seconds > distim + 0.1 {
+	if time:seconds > distim + 0.05 {
 		set distim to time:seconds.
 
-		//new status data
-		print si_formating(taralt,"m"):padright(10) at(15,2+poff).
-		print (padding(tarinc,1,2)+" °"):padright(10) at(15,3+poff).
-		print (padding(adjinc,1,2)+" °"):padright(10) at(15,4+poff).
-		print (padding(tarhdg,1,2)+" °"):padright(10) at(15,5+poff).
+		if printstep = 0 {
+			print si_formating(taralt,"m"):padright(10) at(15,2+poff).
+			print (padding(tarinc,1,2)+" °"):padright(10) at(15,3+poff). }
+			//print (round(taralt)+" "):padright(10) at(15,2+poff).
+			//print (round(tarinc)+" °"):padright(10) at(15,3+poff). }
+		else if printstep = 1 {
+			print (padding(adjinc,1,2)+" °"):padright(10) at(15,4+poff).
+			print (padding(tarhdg,1,2)+" °"):padright(10) at(15,5+poff). }
+			//print (round(adjinc,2)+" °"):padright(10) at(15,4+poff).
+			//print (round(tarhdg,2)+" °"):padright(10) at(15,5+poff). }
+		else if printstep = 2 { 
+			print (padding(orbpit,1,2)+" °"):padright(10) at(15,7+poff).
+			print (padding(srfpit,1,2)+" °"):padright(10) at(15,8+poff). }
+			//print (round(orbpit,1)+" °"):padright(10) at(15,7+poff).
+			//print (round(srfpit,1)+" °"):padright(10) at(15,8+poff). }
+		else if printstep = 3 { 
+			print (padding(compit,1,2)+" °"):padright(10) at(15,9+poff).
+			print (padding(shppit,1,2)+" °"):padright(10) at(15,10+poff). }
+			//print (round(compit,1)+" °"):padright(10) at(15,9+poff).
+			//print (round(shppit,1)+" °"):padright(10) at(15,10+poff). }
+		else if printstep = 4 {
+			print (padding(tarpit,1,2)+" °"):padright(10) at(15,11+poff).
+			print (padding(limpit,1,2)+" °"):padright(10) at(15,12+poff). }
+			//print (round(tarpit,1)+" °"):padright(10) at(15,11+poff).
+			//print (round(limpit,1)+" °"):padright(10) at(15,12+poff). }
+		else if printstep = 5 {
+			print (padding(maxaoa,1,2)+" °"):padright(10) at(15,14+poff).
+			print (padding(curaoa,1,2)+" °"):padright(10) at(15,15+poff). }
+			//print (round(maxaoa,1)+" °"):padright(10) at(15,14+poff).
+			//print (round(curaoa,1)+" °"):padright(10) at(15,15+poff). }
+		else if printstep = 6 { 
+			print (padding(maxtwr,1,3)):padright(10) at(15,16+poff).
+			print (padding(curtwr,1,3)):padright(10) at(15,17+poff). }
+			//print (round(maxtwr,3)+" "):padright(10) at(15,16+poff).
+			//print (round(curtwr,3)+" "):padright(10) at(15,17+poff). }
+		else if printstep = 7 {
+			print (padding(curthr*100,3,0)+" %"):padright(10) at(15,18+poff).
+			print si_formating(drange,"m"):padright(10) at(15,19+poff). }
+			//print (round(curthr*100)+" %"):padright(10) at(15,18+poff).
+			//print (round(drange)+" "):padright(10) at(15,19+poff). }
+		else if printstep = 8 {
+			print si_formating(maxq*constant:atmtokpa*1000,"Pa"):padright(10) at(15,20+poff).
+			print si_formating(maxqalt,"m"):padright(10) at(15,21+poff). }
+			//print (round(maxq*constant:atmtokpa*1000)+" "):padright(10) at(15,20+poff).
+			//print (round(maxqalt)+" "):padright(10) at(15,21+poff). }
 
-		print (padding(orbpit,1,2)+" °"):padright(10) at(15,7+poff).
-		print (padding(srfpit,1,2)+" °"):padright(10) at(15,8+poff).
-		print (padding(compit,1,2)+" °"):padright(10) at(15,9+poff).
-		print (padding(shppit,1,2)+" °"):padright(10) at(15,10+poff).
-		print (padding(tarpit,1,2)+" °"):padright(10) at(15,11+poff).
-		print (padding(limpit,1,2)+" °"):padright(10) at(15,12+poff).
-
-		print (padding(maxaoa,1,2)+" °"):padright(10) at(15,14+poff).
-		print (padding(curaoa,1,2)+" °"):padright(10) at(15,15+poff).
-		print (padding(maxtwr,1,3)):padright(10) at(15,16+poff).
-		print (padding(curtwr,1,3)):padright(10) at(15,17+poff).
-		print (padding(curthr*100,3,0)+" %"):padright(10) at(15,18+poff).
-		print si_formating(drange,"m"):padright(10) at(15,19+poff).
-		print si_formating(maxq*constant:atmtokpa*1000,"Pa"):padright(10) at(15,20+poff).
-		print si_formating(maxqalt,"m"):padright(10) at(15,21+poff).
+		set printstep to printstep + 1.
+		if printstep = 9 { set printstep to 0. }
 
 		//print an animated icon to show the script is running
 		set animstep to mfd_animicon(0,0+poff,animstep).

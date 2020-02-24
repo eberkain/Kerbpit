@@ -5,10 +5,6 @@
         "alt",
         100000,
         "spd",
-        0,
-        "mrl",
-        0,
-        "mvs",
         0
     ],
     "$type": "kOS.Safe.Encapsulation.Lexicon"
