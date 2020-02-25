@@ -1,20 +1,64 @@
 # Kerbpit
 
-This is a project to build a KSP desktop simpit 
-  * The general idea is to build custom kOS scripts to control throttle and steering
-  * Most systems are manually controlled via tactile switches that send kOS commands via AHK keybinds
-  * kOS scripts are used to monitor ship systems and generate manuvre nodes using MFDS
-  * The main game window should see minimal use to the point where it can simply display a camera view
+## Overview
 
-Kerbpit.ahk is an AutoHotKey script that is used to interface custom controllers KSP
-  * Controls can be bound to direct in-game actions
-  * Controls can send simulated keypresses to ksp
-  * Controls can send complex commands to kOS
+### This is a project to build a KSP desktop simpit 
+* The general idea is to build custom kOS scripts to control throttle and steering
+* Most systems are manually controlled via tactile switches that send kOS commands via AHK keybinds
+* kOS scripts are used to monitor ship systems and generate manuvre nodes using MFDS
+* The main game window should see minimal use to the point where it can simply display a camera or map view
+* Controls can be bound to direct in-game actions
+* AHK can send simulated keypresses to ksp
+* AHK can send complex commands to kOS to run scripts or perform game actions
+
+### Files
+* Kerbpit.ahk is an AutoHotKey script that is used to interface custom controllers KSP
+* Actions.csv lists all the action groups, what they do, tactile button type, keybind
+* /KS contains all the kOS scripts
+* /3D contains all the 3d printer model files
 
 kOS is used to operate 4 simultanious MFD screens on side monitors  
 * In general the MFDs are situation status, vessel status, autopilot, navigation
 * The scripts are designed so any program can be run on any mfd 
-* the MFDs support 6 action buttons that can be either mounted on the top or bottom
+* the MFD scripts support 6 action buttons that can be either mounted on the top or bottom
+
+
+
+## MFD Programs
+
+![](https://i.imgur.com/r8E8BcJb.png)
+### Navigation Program Features - MFD4
+* Circulize (Ap, Pe, Now, Eta, Alt)
+* Change Ap (Ap, Pe, Now, Eta)
+* Change Pe (Ap, Pe, Now, Eta)
+* Change Inclnaction 
+* Intercept Target
+* Fine Tune Closest Approach 
+* Match Velocities at Closest Approach
+* Deorbit at Coordinates
+
+![](https://i.imgur.com/EQRwYrfb.png)      ![](https://i.imgur.com/p8G04dMb.png)      ![](https://i.imgur.com/OdGHPVgb.png)
+### Vessel Status Program Features	- MFD2	
+* Complete Vessel Resource Summary 	
+* Active Stage Resource Summary
+* List of all cameras - Allow selection and switching views
+* System Controller - activate/deactivate systems like fuel cells, isru, drills, 
+		
+![](https://i.imgur.com/h5i7wb1b.png)
+### Situation Status Program Features - MFD1	
+* Overall Summary - page that shows some basic information, main menu
+* Orbit - Show summary of vessel info, orbit, alt, speed, etc...
+* Surface - lat, lng, etc...
+* Landing - suicide burn, etc..
+* Target - closest approace, etc..
+* Target Selection - provide a list of targets and allow user to make selection
+	
+![](https://i.imgur.com/15DyPmCb.png)
+### Autopilot Programs - MFD3
+* Launh to Orbit Program 
+* Execute Next Node Program
+* Perform Landing Program 
+* Aircraft Autopilot Program 
 
 Custom built controllers, each control board can support 32 buttons and 8 analog axis
 
