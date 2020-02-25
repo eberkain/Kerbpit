@@ -24,8 +24,10 @@ Vessel Status Program Features	- MFD2
 
 Situation Status Program Features - MFD1	
 * Overall Summary - page that shows some basic information, main menu
-* Orbit Summary - Show summary of vessel info, orbit, alt, speed, etc...
-* Surface Summary - 
+* Orbit - Show summary of vessel info, orbit, alt, speed, etc...
+* Surface - lat, lng, etc...
+* Landing - suicide burn, etc..
+* Target - closest approace, etc..
 * Target Selection - provide a list of targets and allow user to make selection
 	
 ![](https://i.imgur.com/15DyPmCb.png)
