@@ -1,11 +1,10 @@
 List of all the programs with a basic outline of what they do
 		
+![](https://i.imgur.com/r8E8BcJ.png)
 Navigation Program Features - MFD4
-* Circulize at Ap
-* Circulize at Pe
-* Circulize at ALT
-* Change Ap
-* Change Pe
+* Circulize (Ap, Pe, Now, Eta, Alt)
+* Change Ap (Ap, Pe, Now, Eta)
+* Change Pe (Ap, Pe, Now, Eta)
 * Change Inclnaction 
 * Intercept Target
 * Fine Tune Closest Approach 
