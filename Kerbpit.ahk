@@ -1,4 +1,4 @@
-﻿; AHK Kerbpit Control Script 
+; AHK Kerbpit Control Script 
 ; Jonathan Medders "EberKain"
 ;
 ; The basic idea is to monitor joystick buttons and send the correct commands to 
