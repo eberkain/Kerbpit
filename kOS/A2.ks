@@ -70,28 +70,30 @@ set nd to nextnode.
 //print out the mfd screen
 clearscreen.
 //     ----=----=----=----=----=xxxxx----=----=----=----=----=
-print "                 EXECUTE MANUVRE NODE                  " at(0,0).
-print "═══════════════════════════╤═══════════════════════════" at(0,1).
-print "  Node ETA     (sec): " + round(nd:eta,0).
-print "  Node DeltaV  (m/s): " + round(nd:deltav:mag).
-print "───────────────────────────┤                          " at(0,6).   
-print "  Starting Mass     : ".
-print "  Engine ISP        : ".
-print "  Engine Thrust     : ".
-print " ".
-print "  Ending Mass       : ".
-print "  Fuel Flow         : ".
-print "  Burn Duration     : ".
-print " ".
-print "  Node VANG         : ".
-print "  Max Stop Time     : ".
-print " ".
-print "  Current Mass      : ".
-print "  Curr. Max Accel.  : ".
-print "  Curr. Throttle    : ".
-print "  Remaining DeltaV  : ".
-print "  Node Dot Prod.    : ".
+print "  EXECUTE MANUVRE NODE                                 " at(0,0+poff).
+print "═══════════════════════════╤═══════════════════════════" at(0,1+poff).
+print "Node ETA     :             │                           " at(0,2+poff).
+print "Node ΔV      :             │                           " at(0,3+poff).
+print "───────────────────────────┤                           " at(0,4+poff).   
+print "Start Mass   :             │                           " at(0,5+poff).
+print "ISP          :             │                           " at(0,6+poff).
+print "Aval Thrust  :             │                           " at(0,7+poff).
+print "                           │                           " at(0,8+poff).
+print "Ending Mass  :             │                           " at(0,9+poff).
+print "Fuel Flow    :             │                           " at(0,10+poff).
+print "Burn Dur.    :             │                           " at(0,11+poff).
+print "                           │                           " at(0,12+poff).
+print "Node VANG    :             │                           " at(0,13+poff).
+print "Max Stop     :             │                           " at(0,14+poff).
+print "                           │                           " at(0,15+poff).
+print "Current Mass :             │                           " at(0,16+poff).
+print "Max Accel.   :             │                           " at(0,17+poff).
+print "Curr. Throt. :             │                           " at(0,18+poff).
+print "Remaining ΔV :             │                           " at(0,19+poff).
+print "Node Dot Prd.:             │                           " at(0,20+poff).
 
+// round(nd:deltav:mag)
+// round(nd:eta,0)
 
 //calculate params needed for burn calc
 list engines in eng.

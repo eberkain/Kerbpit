@@ -26,7 +26,7 @@ if mfdtop = true { set poff to 2. }
 clearscreen. 
 //print the button labels at top or bottom
 if mfdtop = true { 
-	print "    F1   │   F2   │   F3   │   F4   │   F5   │   F6   " at (0,0).
+	print "    F1   │   F2   │   F3   │   F4   │   F5   │   F6    " at (0,0).
 	print "─────────┴────────┴────────┴────────┴────────┴─────────" at(0,1). }
 else {
 	print "─────────┬────────┬────────┼────────┬────────┬─────────" at(0,23).

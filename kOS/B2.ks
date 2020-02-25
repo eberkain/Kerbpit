@@ -19,14 +19,6 @@ if mfdtop = true { set poff to 2. }
 
 clearscreen.
 
-//print the button labels at top or bottom
-if mfdtop = true { 
-	print "  RES-AL │ RES-ST │  CAMS  │  SYST  │   F5   │   F6    " at (0,0).
-	print "─────────┴────────┴────────┴────────┴────────┴─────────" at (0,1). }
-else {
-	print "─────────┬────────┬────────┼────────┬────────┬─────────" at (0,23).
-	print "  RES-AL │ RES-ST │  CAMS  │  SYST  │   F5   │   F6    " at (0,24). }
-
 //monitor reserved action groups for button activity
 set btn1 to false. 
 set btn2 to false. 
@@ -61,13 +53,19 @@ on AG248 { if mfdid = 4 { set btn4 to true. } preserve. }
 on AG249 { if mfdid = 4 { set btn5 to true. } preserve. }
 on AG250 { if mfdid = 4 { set btn6 to true. } preserve. }
 
-
+//print the background for each of the mdf pages
 local function print_page {
 	parameter pageid. 
 	if pageid = 1 { 
-		//      ----=----=----=----=----=xxxxx----=----=----=----=----=
-		print "  TOTAL RESOURCES                                      " at (0,0+poff).
-		print "Electric   : 0.000 kg    084d 012h    ░░░░░░░░░░░░░░░  " at (0,1+poff).
+		if mfdtop = true { 
+			print "  STAGE  │ CAMERA │ SYSTEM │   F4   │   F5   │   F6    " at (0,0).
+			print "─────────┴────────┴────────┴────────┴────────┴─────────" at (0,1). }
+		else {
+			print "─────────┬────────┬────────┼────────┬────────┬─────────" at (0,23).
+			print "  STAGE  │ CAMERA │ SYSTEM │   F4   │   F5   │   F6    " at (0,24). }
+
+		print "  TOTAL RESOURCES - MAIN MENU                          " at (0,0+poff).
+		print "═══════════════════════════════════════════════════════" at (0,1+poff).
 		print "Liq. Fuel  :                                           " at (0,2+poff).
 		print "Oxidizer   :                                           " at (0,3+poff).
 		print "Monoprop   :                                           " at (0,4+poff).
@@ -75,16 +73,16 @@ local function print_page {
 		print "Ablator    :                                           " at (0,6+poff).
 		print "Shielding  :                                           " at (0,7+poff).
 		print "───────────────────────────────────────────────────────" at (0,8+poff).
-		print "Oxygen     :                                           " at (0,9+poff).
-		print "Nitrogen   :                                           " at (0,10+poff).
-		print "Food       :                                           " at (0,11+poff).
-		print "Water      :                                           " at (0,12+poff).
-		print "───────────────────────────────────────────────────────" at (0,13+poff).
-		print "Hydrogen   :                                           " at (0,14+poff).
-		print "WasteWater :                                           " at (0,15+poff).
-		print "Waste      :                                           " at (0,16+poff).
-		print "CO2        :                                           " at (0,17+poff).
-		print "xxx        :                                           " at (0,18+poff).
+		print "Electricity:                                           " at (0,9+poff).
+		print "Oxygen     :                                           " at (0,10+poff).
+		print "Nitrogen   :                                           " at (0,11+poff).
+		print "Food       :                                           " at (0,12+poff).
+		print "Water      :                                           " at (0,13+poff).
+		print "───────────────────────────────────────────────────────" at (0,14+poff).
+		print "Hydrogen   :                                           " at (0,15+poff).
+		print "WasteWater :                                           " at (0,16+poff).
+		print "Waste      :                                           " at (0,17+poff).
+		print "CO2        :                                           " at (0,18+poff).
 		print "xxx        :                                           " at (0,19+poff).
 		print "xxx        :                                           " at (0,20+poff).
 		print "xxx        :                                           " at (0,21+poff).
@@ -92,9 +90,15 @@ local function print_page {
 	}
 
 	if pageid = 2 { 
-		//     ----=----=----=----=----=xxxxx----=----=----=----=----=
+		if mfdtop = true { 
+			print "   BACK  │   F2   │   F3   │  F4    │   F5   │   F6    " at (0,0).
+			print "─────────┴────────┴────────┴────────┴────────┴─────────" at (0,1). }
+		else {
+			print "─────────┬────────┬────────┼────────┬────────┬─────────" at (0,23).
+			print "   BACK  │   F2   │   F3   │  F4    │   F5   │   F6    " at (0,24). }
+
 		print "  STAGE RESOURCES                                      " at (0,0+poff).
-		print "Electric   : 0.000 kg    084d 012h    ░░░░░░░░░░░░░░░  " at (0,1+poff).
+		print "═══════════════════════════════════════════════════════" at (0,1+poff).
 		print "Liq. Fuel  :                                           " at (0,2+poff).
 		print "Oxidizer   :                                           " at (0,3+poff).
 		print "Monoprop   :                                           " at (0,4+poff).
@@ -102,16 +106,16 @@ local function print_page {
 		print "Ablator    :                                           " at (0,6+poff).
 		print "Shielding  :                                           " at (0,7+poff).
 		print "───────────────────────────────────────────────────────" at (0,8+poff).
-		print "Oxygen     :                                           " at (0,9+poff).
-		print "Nitrogen   :                                           " at (0,10+poff).
-		print "Food       :                                           " at (0,11+poff).
-		print "Water      :                                           " at (0,12+poff).
-		print "───────────────────────────────────────────────────────" at (0,13+poff).
-		print "Hydrogen   :                                           " at (0,14+poff).
-		print "WasteWater :                                           " at (0,15+poff).
-		print "Waste      :                                           " at (0,16+poff).
-		print "CO2        :                                           " at (0,17+poff).
-		print "xxx        :                                           " at (0,18+poff).
+		print "Electricity:                                           " at (0,9+poff).
+		print "Oxygen     :                                           " at (0,10+poff).
+		print "Nitrogen   :                                           " at (0,11+poff).
+		print "Food       :                                           " at (0,12+poff).
+		print "Water      :                                           " at (0,13+poff).
+		print "───────────────────────────────────────────────────────" at (0,14+poff).
+		print "Hydrogen   :                                           " at (0,15+poff).
+		print "WasteWater :                                           " at (0,16+poff).
+		print "Waste      :                                           " at (0,17+poff).
+		print "CO2        :                                           " at (0,18+poff).
 		print "xxx        :                                           " at (0,19+poff).
 		print "xxx        :                                           " at (0,20+poff).
 		print "xxx        :                                           " at (0,21+poff).
@@ -119,8 +123,47 @@ local function print_page {
 	}
 
 	if pageid = 3 { 
-		//     ----=----=----=----=----=xxxxx----=----=----=----=----=
-		print "                    CAMERA SELECTOR                    " at (0,0+poff).
+		if mfdtop = true { 
+			print "   BACK  │   F2   │   F3   │   UP   │  DOWN  │  SET    " at (0,0).
+			print "─────────┴────────┴────────┴────────┴────────┴─────────" at (0,1). }
+		else {
+			print "─────────┬────────┬────────┼────────┬────────┬─────────" at (0,23).
+			print "   BACK  │   F2   │   F3   │   UP   │  DOWN  │  SET    " at (0,24). }
+
+		print "  CAMERA SELECTOR                                      " at (0,0+poff).
+		print "════╤════════════╤═════════════════════════════════════" at (0,1+poff).
+		print "    │            │                                     " at (0,2+poff).
+		print "    │            │                                     " at (0,3+poff).
+		print "    │            │                                     " at (0,4+poff).
+		print "    │            │                                     " at (0,5+poff).
+		print "    │            │                                     " at (0,6+poff).
+		print "    │            │                                     " at (0,7+poff).
+		print "    │            │                                     " at (0,8+poff).
+		print "    │            │                                     " at (0,9+poff).
+		print "    │            │                                     " at (0,10+poff).
+		print "    │            │                                     " at (0,11+poff).
+		print "    │            │                                     " at (0,12+poff).
+		print "    │            │                                     " at (0,13+poff).
+		print "    │            │                                     " at (0,14+poff).
+		print "    │            │                                     " at (0,15+poff).
+		print "    │            │                                     " at (0,16+poff).
+		print "    │            │                                     " at (0,17+poff).
+		print "    │            │                                     " at (0,18+poff).
+		print "    │            │                                     " at (0,19+poff).
+		print "    │            │                                     " at (0,20+poff).
+		print "    │            │                                     " at (0,21+poff).
+		print "    │            │                                    " at (0,22+poff).
+	}
+	
+	if pageid = 4 { 
+		if mfdtop = true { 
+			print "   BACK  │  LEFT  │ RIGHT  │   UP   │  DOWN  │ TOGGLE  " at (0,0).
+			print "─────────┴────────┴────────┴────────┴────────┴─────────" at (0,1). }
+		else {
+			print "─────────┬────────┬────────┼────────┬────────┬─────────" at (0,23).
+			print "   BACK  │  LEFT  │ RIGHT  │   UP   │  DOWN  │ TOGGLE " at (0,24). }
+
+		print "  SYSTEM CONTROL                                       " at (0,0+poff).
 		print "════╤════════════╤═════════════════════════════════════" at (0,1+poff).
 		print "    │            │                                     " at (0,2+poff).
 		print "    │            │                                     " at (0,3+poff).
@@ -163,20 +206,21 @@ set animstep to 0.
 
 //create a list of res we want to show and what line they are on
 set reslex to lexicon(
-	"ElectricCharge",1,
 	"LiquidFuel",2,
 	"Oxidizer",3,
 	"MonoPropellant",4,
 	"Ablator",6,
 	"Shielding",7,
-	"Oxygen",9,
-	"Nitrogen",10,
-	"Food",11,
-	"Water",12,
-	"Hydrogen",14,
-	"WasteWater",15,
-	"Waste",16,
-	"CarbonDioxide",17 ).
+	"ElectricCharge",9,
+	"Oxygen",10,
+	"Nitrogen",11,
+	"Food",12,
+	"Water",13,
+	"Hydrogen",15,
+	"WasteWater",16,
+	"Waste",17,
+	"CarbonDioxide",18,
+	"Ammonia",19 ).
 
 //create a lex to save eta info
 set etalex to lexicon().       //a future time where the resource will expire
@@ -201,51 +245,65 @@ set lastlextype to 0.
 
 until done = true {
 	
-	if btn1 = true {
-		set btn1 to false.
-		set curr_page to 1.
-		print_page(curr_page).
-	}
-	if btn2 = true {
-		set btn2 to false.
-		set curr_page to 2.
-		print_page(curr_page).
-	}
-	if btn3 = true {
-		set btn3 to false.
-		set curr_page to 3.
-		set camlistdone to false. 
-	}
-	//move the selector up
-	if btn4 = true {
-		set btn4 to false.
-
-		//check if its safe to decrement
-		if camsel > 1 {
-			//remove old pointer
-			print " " at(2, 3+camsel).
-			//increment counter
-			set camsel to camsel - 1.
+	//process button presses
+	//if on the main menu then change to sub page
+	if curr_page = 1 { 
+		if btn1 = true {
+			set btn1 to false.
+			set curr_page to 2.
+			set resupid to 0.
+			print_page(curr_page).
+		}
+		if btn2 = true {
+			set btn2 to false.
+			set curr_page to 3.
+			set camlistdone to false. 
+		}
+		if btn3 = true {
+			set btn3 to false.
+			set curr_page to 4.
+			print_page(curr_page).
 		}
 	}
-	//move the selector down
-	if btn5 = true {
-		set btn5 to false.
-		//check if its safe to increment
-		if camsel < clist:length {
-			//remove old pointer
-			print " " at(2, 3+camsel).
-			//increment counter
-			set camsel to camsel + 1.
-		}
-	}
-	//select the item
-	if btn6 = true {
-		set btn6 to false.
 	
-		set change_camsel to true. 
-	}
+	//if on any other page, then proc buttons as actions
+	if curr_page <> 1 {
+		if btn1 = true { //back button
+			set btn1 to false.
+			set curr_page to 1.
+			set resupid to 0.
+			print_page(curr_page).
+		}	
+		//move the selector up
+		if btn4 = true {
+			set btn4 to false.
 
+			//check if its safe to decrement
+			if camsel > 1 {
+				//remove old pointer
+				print " " at(2, 3+camsel).
+				//increment counter
+				set camsel to camsel - 1.
+			}
+		}
+		//move the selector down
+		if btn5 = true {
+			set btn5 to false.
+			//check if its safe to increment
+			if camsel < clist:length {
+				//remove old pointer
+				print " " at(2, 3+camsel).
+				//increment counter
+				set camsel to camsel + 1.
+			}
+		}
+		//select the item
+		if btn6 = true {
+			set btn6 to false.
+		
+			set change_camsel to true. 
+		}
+	}
 	
 	//run the main loop every x sec
 	if time:seconds > looptime {
@@ -276,7 +334,7 @@ until done = true {
 				set prevlextime to lexicon().
 			}
 			//update if on this page and the parts have changed or the lat update was for the other page
-			if curr_page = 2 and ( lastlextype <> 1 or lastpartcount <> ship:parts:length ) { 
+			if curr_page = 2 and ( lastlextype <> 2 or lastpartcount <> ship:parts:length ) { 
 				set lastlextype to 2.
 				set lastpartcount to ship:parts:length.
 
@@ -363,7 +421,7 @@ until done = true {
 					print mfd_progress(15,mres:amount/mres:capacity) at(38,reslex[mres:name]+poff).
 				}
 				else { 
-					print "nil                " at(38,reslex[mres:name]+poff).
+					print "nil":padright(15) at(38,reslex[mres:name]+poff).
 				}
 
 			}
@@ -374,7 +432,7 @@ until done = true {
 			}
 
 			//print the current index and then increment for next time 
-			print resupid+" " at(25,0+poff).
+			print resupid+" " at(38,0+poff).
 			set resupid to resupid + 1.
 		}
 	
