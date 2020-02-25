@@ -1,3 +1,0 @@
-#Persistent
-#InstallKeybdHook
-#InstallMouseHook
