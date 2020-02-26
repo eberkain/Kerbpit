@@ -31,7 +31,7 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 ### Navigation Program Features - MFD4
 * Generates manuvre nodes based on the parameters given
 * In general you specific an type of manuvre, when you execute it, and then any console input
-* Supports Free Node - Circulize, Change Orbit (Ap, Pe, Incl, Ecc)
+* Supports Free Node - Circulize, Change Orbit (Ap, Pe, Incl, Ecc), Return from Moon
 * Supports Target Node - Match Plane, Hohman Transfer, Match Velo, Approach 
 * Supports Landing Node - Cross Plane at Coord, Deorbit 
 
@@ -56,10 +56,11 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 <img src="https://i.imgur.com/15DyPmC.png" alt="" width="200" height="200">
 
 ### Autopilot Programs - MFD3
-* Launh to Orbit Program 
-* Execute Next Node Program
-* Perform Landing Program 
-* Aircraft Autopilot Program 
+* Launh to Orbit  
+* Execute Next Node
+* Perform Landing  
+* Atmospheric Autopilot 
+* Docking 
 
 # Custom Controllers 
 each control board can support 32 buttons and 8 analog axis
@@ -100,7 +101,7 @@ the left side console and is used to manipulate autopilot, 2 boards
     - run adjust script on mfd0 to change var, which is then read in by autopilot script later
 * 10  3xrot switch-rate adjustment controls how much to add/sub per press, hdg, alt, spd
     - change var in AHK which is used by trim buttons 
-* 4 keyswitch-Execute shortcuts to launch prog (Launch, Land, Node, Atmo)
+* 5 keyswitch-Execute shortcuts to launch prog (Launch, Land, Node, Atmo, Dock)
     - run program directly on mfd3
 * 4 pushbutton-time control buttons to control time warp +/- norm/phys
     - simulate keypresses sent to KSP window
