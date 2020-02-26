@@ -29,14 +29,11 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 <img src="https://i.imgur.com/r8E8BcJ.png" alt="" width="200" height="200">
 
 ### Navigation Program Features - MFD4
-* Circulize (Ap, Pe, Now, Eta, Alt)
-* Change Ap (Ap, Pe, Now, Eta)
-* Change Pe (Ap, Pe, Now, Eta)
-* Change Inclnaction 
-* Intercept Target
-* Fine Tune Closest Approach 
-* Match Velocities at Closest Approach
-* Deorbit at Coordinates
+* Generates manuvre nodes based on the parameters given
+* In general you specific an type of manuvre, when you execute it, and then any console input
+* Supports Free Node - Circulize, Change Orbit (Ap, Pe, Incl, Ecc)
+* Supports Target Node - Match Plane, Hohman Transfer, Match Velo, Approach 
+* Supports Landing Node - Cross Plane at Coord, Deorbit 
 
 <img src="https://i.imgur.com/EQRwYrf.png" alt="" width="200" height="200"> <img src="https://i.imgur.com/p8G04dM.png" alt="" width="200" height="200"> <img src="https://i.imgur.com/OdGHPVg.png" alt="" width="200" height="200"> 
 
