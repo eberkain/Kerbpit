@@ -14,7 +14,7 @@
 ### Files
 * Kerbpit.ahk is an AutoHotKey script that is used to interface custom controllers KSP
 * Actions.csv lists all the action groups, what they do, tactile button type, keybind
-* /KS contains all the kOS scripts
+* /kOS contains all the kOS scripts
 * /3D contains all the 3d printer model files
 
 kOS is used to operate 4 simultanious MFD screens on side monitors  
