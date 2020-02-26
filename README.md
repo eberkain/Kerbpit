@@ -26,7 +26,8 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 
 ## MFD Programs
 
-![](https://i.imgur.com/r8E8BcJb.png)
+<img src="https://i.imgur.com/r8E8BcJ.png" alt="" width="200" height="200">
+
 ### Navigation Program Features - MFD4
 * Circulize (Ap, Pe, Now, Eta, Alt)
 * Change Ap (Ap, Pe, Now, Eta)
@@ -37,14 +38,16 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 * Match Velocities at Closest Approach
 * Deorbit at Coordinates
 
-![](https://i.imgur.com/EQRwYrfb.png)      ![](https://i.imgur.com/p8G04dMb.png)      ![](https://i.imgur.com/OdGHPVgb.png)
+<img src="https://i.imgur.com/EQRwYrf.png" alt="" width="200" height="200"> <img src="https://i.imgur.com/p8G04dM.png" alt="" width="200" height="200"> <img src="https://i.imgur.com/OdGHPVg.png" alt="" width="200" height="200"> 
+
 ### Vessel Status Program Features	- MFD2	
 * Complete Vessel Resource Summary 	
 * Active Stage Resource Summary
 * List of all cameras - Allow selection and switching views
 * System Controller - activate/deactivate systems like fuel cells, isru, drills, 
 		
-![](https://i.imgur.com/h5i7wb1b.png) ![](https://i.imgur.com/eevgVyWb.png)
+<img src="https://i.imgur.com/h5i7wb1.png" alt="" width="200" height="200">  <img src="https://i.imgur.com/eevgVyW.png" alt="" width="200" height="200">		
+
 ### Situation Status Program Features - MFD1	
 * Overall Summary - page that shows some basic information, main menu
 * Orbit - Show summary of vessel info, orbit, alt, speed, etc...
@@ -53,7 +56,8 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 * Target - closest approace, etc..
 * Target Selection - provide a list of targets and allow user to make selection
 	
-![](https://i.imgur.com/15DyPmCb.png)
+<img src="https://i.imgur.com/15DyPmC.png" alt="" width="200" height="200">
+
 ### Autopilot Programs - MFD3
 * Launh to Orbit Program 
 * Execute Next Node Program
