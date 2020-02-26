@@ -44,7 +44,7 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 * List of all cameras - Allow selection and switching views
 * System Controller - activate/deactivate systems like fuel cells, isru, drills, 
 		
-![](https://i.imgur.com/h5i7wb1b.png)
+![](https://i.imgur.com/h5i7wb1b.png) ![](https://i.imgur.com/eevgVyWb.png)
 ### Situation Status Program Features - MFD1	
 * Overall Summary - page that shows some basic information, main menu
 * Orbit - Show summary of vessel info, orbit, alt, speed, etc...
