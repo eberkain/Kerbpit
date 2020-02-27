@@ -65,7 +65,7 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 # Custom Controllers 
 each control board can support 32 buttons and 8 analog axis
 
-![](https://i.imgur.com/1uO12jf.png)
+![](https://i.imgur.com/YMd97cB.png)
 ### Flight Computer 
 the right side console and used to operate mfds, 2 boards
 * 6 keyswitch-Select button allows you to choose what MFD to send commands to (#, master, input for 5)
@@ -94,7 +94,7 @@ the right side console and used to operate mfds, 2 boards
 * A-4 slide pot robotics controls, single axis. 
 * D-2  rocker switch for backlight (console, mfds)
     
-![](https://i.imgur.com/GbYlhNH.png)
+![](https://i.imgur.com/wJTARCr.png)
 ### Navigation Controller 
 the left side console and is used to manipulate autopilot, 2 boards
 * 6 pushbutton-trim buttons +/- for HDG, ALT, SPD
