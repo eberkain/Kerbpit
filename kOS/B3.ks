@@ -68,10 +68,10 @@ local function printmenu {
 	//     ----=----=----=----=----=xxxxx----=----=----=----=----=
 	print "  NAVIGATION SYSTEM                                    " at (0,0+poff).
 	print "═════════════════╤═════════════════╤═══════════════════" at (0,1+poff).
-	print "  Circulize      │  Hohman Trans   │  Target Deorbit   " at (0,2+poff).
-	print "  Change Ap      │  Adj Close App  │  22               " at (0,3+poff).
-	print "  Change Pe      │  Match Velo     │  23               " at (0,4+poff).
-	print "  Change Inc     │  14             │  24               " at (0,5+poff).
+	print "  Circulize      │  Match Plane    │  Target Deorbit   " at (0,2+poff).
+	print "  Change Ap      │  Hohman Trans   │  22               " at (0,3+poff).
+	print "  Change Pe      │  Adj Close App  │  23               " at (0,4+poff).
+	print "  Change Inc     │  Match Velo     │  24               " at (0,5+poff).
 	print "  5              │  15             │  25               " at (0,6+poff).
 	print "  6              │  16             │  26               " at (0,7+poff).
 	print "  7              │  17             │  27               " at (0,8+poff).
@@ -159,7 +159,6 @@ until done {
 			set sely to sely + 1.
 			if sely >9 { set sely to 9. }
 			printselector.
-
 		}
 		//execute a program based on the value of the selected program
 		if btn6 = true {

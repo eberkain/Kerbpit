@@ -59,6 +59,7 @@ print "A1 - Launch to Orbit                                   ".
 print "A2 - Execute Next Node                                 ".
 print "A3 - Perform Landing                                   ".
 print "A4 - Aircraft Autopilot                                ".
+print "A5 - Docking Autopilot                                 ".
 print "                                                       ".
 print "B1 - Situation Status                                  ".
 print "B2 - Vessel Status                                     ".

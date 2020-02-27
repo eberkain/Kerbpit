@@ -236,7 +236,7 @@ set my to 0.
 //control steering and throttle until the AP reaches the taralt
 until launchdone {
 	
-	print "Z" at (2,0).
+	//print "Z" at (2,0).
 	//force navball transition
 	if btn1 = true {
 		set btn1 to false.
@@ -265,7 +265,7 @@ until launchdone {
 		lock steering to ship:prograde.
 	}
 	
-	print "A" at (2,0).
+	//print "A" at (2,0).
 	//we need to update the azimuth every so often during launch
 	if time:seconds > aztime + 5 {
 		set aztime to time:seconds.
@@ -280,7 +280,7 @@ until launchdone {
 		set tarhdg to azimuth(adjinc,taralt).
 	}
 	
-	print "B" at (2,0).
+	//print "B" at (2,0).
 	//We need to support the autopilot lexicaon tweaking
 	//if once sec has passed since last update then
 	if time:seconds > lextime + 1 {
@@ -304,7 +304,7 @@ until launchdone {
 		}
 	}
 
-	print "C" at (2,0).
+	//print "C" at (2,0).
 	//once a second update the launch path graphic 
 	if time:seconds > maptime + 10 { 
 	
@@ -319,7 +319,7 @@ until launchdone {
 		//print retv+"  "+mx+"/"+my at (2,0).
 	}
 
-	print "D" at (2,0).
+	//print "D" at (2,0).
 	//we want to transition from looking at the surface prograde marker 
 	//to the orbit marker when they line up
 	if protrans = false {
@@ -332,7 +332,7 @@ until launchdone {
 		}
 	}
 
-	print "E" at (2,0).
+	//print "E" at (2,0).
 	//calculate the current AoA vs the correct prograde marker
 	if protrans = false {
 
@@ -343,7 +343,7 @@ until launchdone {
 		set curaoa to abs(shppit - orbpit).
 	}
 
-	print "F" at (2,0).
+	//print "F" at (2,0).
 	//skip maxq monitor if no atmo
 	if ship:body:atm:exists = false { set maxqpassed to true. }
 
@@ -366,7 +366,7 @@ until launchdone {
 		}
 	}
 
-	print "G" at (2,0).
+	//print "G" at (2,0).
 	//get the current air pressure for use later
 	set curpress to SHIP:BODY:ATM:altitudepressure(SHIP:ALTITUDE).
 
@@ -393,7 +393,7 @@ until launchdone {
 		set tarpit to max(0,mfd_convert(ship:apoapsis,pitchstartap,taralt*.95,maxqpit,0)).
 	}
 	
-	print "H" at (2,0).
+	//print "H" at (2,0).
 	//calculate the limited pitch, the thing steering is locked to.  
 	//must be withing the maxaoa range of the current prograde reference
 	if ship:verticalspeed < 100 and ship:altitude < 1000 {
@@ -427,7 +427,7 @@ until launchdone {
 	
 	}
 
-	print "I" at (2,0).
+	//print "I" at (2,0).
 	//after the AP is 95% there start lowering the throttle
 	if SHIP:APOAPSIS/taralt > 0.95 {
 		set curthr to 1 - (((SHIP:APOAPSIS/taralt)-0.95)/0.05).
@@ -466,7 +466,7 @@ until launchdone {
 		}
 	}
 
-	print "J" at (2,0).
+	//print "J" at (2,0).
 	//only update the status display a few times a second to save CPU
 	if time:seconds > distim + 0.05 {
 		set distim to time:seconds.

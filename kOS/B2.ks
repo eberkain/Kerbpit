@@ -2,7 +2,10 @@
 // by Jonathan Medders  'EberKain'
 //
 // The general idea here is to make a program that can display the current 
-// state of the vessel orbit, etc...
+// state of the vessel resources, cameras, systems, etc...
+//
+// resource list iterator is dynamically created based on res on vessel 
+// this is to be faster and more responsive
 
 
 //load libraries
@@ -66,27 +69,27 @@ local function print_page {
 
 		print "  TOTAL RESOURCES - MAIN MENU                          " at (0,0+poff).
 		print "═══════════════════════════════════════════════════════" at (0,1+poff).
-		print "Liq. Fuel  :                                           " at (0,2+poff).
-		print "Oxidizer   :                                           " at (0,3+poff).
-		print "Monoprop   :                                           " at (0,4+poff).
-		print "───────────────────────────────────────────────────────" at (0,5+poff).
-		print "Ablator    :                                           " at (0,6+poff).
-		print "Shielding  :                                           " at (0,7+poff).
-		print "───────────────────────────────────────────────────────" at (0,8+poff).
-		print "Electricity:                                           " at (0,9+poff).
-		print "Oxygen     :                                           " at (0,10+poff).
-		print "Nitrogen   :                                           " at (0,11+poff).
-		print "Food       :                                           " at (0,12+poff).
-		print "Water      :                                           " at (0,13+poff).
-		print "───────────────────────────────────────────────────────" at (0,14+poff).
-		print "Hydrogen   :                                           " at (0,15+poff).
-		print "WasteWater :                                           " at (0,16+poff).
-		print "Waste      :                                           " at (0,17+poff).
-		print "CO2        :                                           " at (0,18+poff).
-		print "xxx        :                                           " at (0,19+poff).
-		print "xxx        :                                           " at (0,20+poff).
-		print "xxx        :                                           " at (0,21+poff).
-		print "xxx        :                                         " at  (0,22+poff).
+		print "           :                                           " at (0,2+poff).
+		print "           :                                           " at (0,3+poff).
+		print "           :                                           " at (0,4+poff).
+		print "           :                                           " at (0,5+poff).
+		print "           :                                           " at (0,6+poff).
+		print "           :                                           " at (0,7+poff).
+		print "           :                                           " at (0,8+poff).
+		print "           :                                           " at (0,9+poff).
+		print "           :                                           " at (0,10+poff).
+		print "           :                                           " at (0,11+poff).
+		print "           :                                           " at (0,12+poff).
+		print "           :                                           " at (0,13+poff).
+		print "           :                                           " at (0,14+poff).
+		print "           :                                           " at (0,15+poff).
+		print "           :                                           " at (0,16+poff).
+		print "           :                                           " at (0,17+poff).
+		print "           :                                           " at (0,18+poff).
+		print "           :                                           " at (0,19+poff).
+		print "           :                                           " at (0,20+poff).
+		print "           :                                           " at (0,21+poff).
+		print "           :                                          " at  (0,22+poff).
 	}
 
 	if pageid = 2 { 
@@ -99,27 +102,27 @@ local function print_page {
 
 		print "  STAGE RESOURCES                                      " at (0,0+poff).
 		print "═══════════════════════════════════════════════════════" at (0,1+poff).
-		print "Liq. Fuel  :                                           " at (0,2+poff).
-		print "Oxidizer   :                                           " at (0,3+poff).
-		print "Monoprop   :                                           " at (0,4+poff).
-		print "───────────────────────────────────────────────────────" at (0,5+poff).
-		print "Ablator    :                                           " at (0,6+poff).
-		print "Shielding  :                                           " at (0,7+poff).
-		print "───────────────────────────────────────────────────────" at (0,8+poff).
-		print "Electricity:                                           " at (0,9+poff).
-		print "Oxygen     :                                           " at (0,10+poff).
-		print "Nitrogen   :                                           " at (0,11+poff).
-		print "Food       :                                           " at (0,12+poff).
-		print "Water      :                                           " at (0,13+poff).
-		print "───────────────────────────────────────────────────────" at (0,14+poff).
-		print "Hydrogen   :                                           " at (0,15+poff).
-		print "WasteWater :                                           " at (0,16+poff).
-		print "Waste      :                                           " at (0,17+poff).
-		print "CO2        :                                           " at (0,18+poff).
-		print "xxx        :                                           " at (0,19+poff).
-		print "xxx        :                                           " at (0,20+poff).
-		print "xxx        :                                           " at (0,21+poff).
-		print "xxx        :                                          " at  (0,22+poff).
+		print "           :                                           " at (0,2+poff).
+		print "           :                                           " at (0,3+poff).
+		print "           :                                           " at (0,4+poff).
+		print "           :                                           " at (0,5+poff).
+		print "           :                                           " at (0,6+poff).
+		print "           :                                           " at (0,7+poff).
+		print "           :                                           " at (0,8+poff).
+		print "           :                                           " at (0,9+poff).
+		print "           :                                           " at (0,10+poff).
+		print "           :                                           " at (0,11+poff).
+		print "           :                                           " at (0,12+poff).
+		print "           :                                           " at (0,13+poff).
+		print "           :                                           " at (0,14+poff).
+		print "           :                                           " at (0,15+poff).
+		print "           :                                           " at (0,16+poff).
+		print "           :                                           " at (0,17+poff).
+		print "           :                                           " at (0,18+poff).
+		print "           :                                           " at (0,19+poff).
+		print "           :                                           " at (0,20+poff).
+		print "           :                                           " at (0,21+poff).
+		print "           :                                          " at  (0,22+poff).
 	}
 
 	if pageid = 3 { 
@@ -205,22 +208,23 @@ set done to false.
 set animstep to 0.
 
 //create a list of res we want to show and what line they are on
-set reslex to lexicon(
-	"LiquidFuel",2,
-	"Oxidizer",3,
-	"MonoPropellant",4,
-	"Ablator",6,
-	"Shielding",7,
-	"ElectricCharge",9,
-	"Oxygen",10,
-	"Nitrogen",11,
-	"Food",12,
-	"Water",13,
-	"Hydrogen",15,
-	"WasteWater",16,
-	"Waste",17,
-	"CarbonDioxide",18,
-	"Ammonia",19 ).
+set reslexindex to lexicon().
+set reslexgroup to lexicon(
+	"LiquidFuel",0,
+	"Oxidizer",0,
+	"MonoPropellant",0,
+	"Ablator",1,
+	"Shielding",1,
+	"ElectricCharge",2,
+	"Oxygen",2,
+	"Nitrogen",2,
+	"Food",2,
+	"Water",2,
+	"Hydrogen",3,
+	"WasteWater",3,
+	"Waste",3,
+	"CarbonDioxide",3,
+	"Ammonia",3 ).
 
 //create a lex to save eta info
 set etalex to lexicon().       //a future time where the resource will expire
@@ -242,6 +246,46 @@ set resupid to 0. //the current index to work with on this loop
 set lex_to_res to lexicon().  //middleman that holds direct references to the resources on the ship
 set lastpartcount to 0.		//how many parts were on the ship when lex_to_res was calc
 set lastlextype to 0.
+
+//select which resources we are looking at
+//update if on this page and the parts have changed or the lat update was for the other page
+local function resetreslex { 
+	parameter source.
+	//update the lex with the current resounces
+	set lex_to_res to lexicon().
+	for ires in source {
+		lex_to_res:add(ires:name,ires).
+	}
+	
+	//create a custom lex with only the resources we want to monitor 
+	//loop through the reslexgroup and... 
+	set rowcount to 2. 
+	set lastgroup to 0.
+	set reslexindex to lexicon().
+	for xres in reslexgroup:keys { 
+		//if we found a matching res from the above list...
+		if lex_to_res:haskey(xres) {
+			if lex_to_res[xres]:capacity > 0 {
+				//at the end of each reslexgroup print out a spacer for the group
+				if reslexgroup[xres] <> lastgroup {
+					print "───────────────────────────────────────────────────────" at(0,rowcount+poff).
+					set rowcount to rowcount + 1. 
+				}
+				set lastgroup to reslexgroup[xres].
+				
+				//then add it to the reslexindex with a row number
+				reslexindex:add(xres,rowcount).
+				print xres:substring(0,min(xres:length,10)) at(0,rowcount+poff).
+				set rowcount to rowcount + 1.
+			}
+		}
+	}
+	
+	//clear the eta calculations 
+	set etalex to lexicon().
+	set prevlex to lexicon().
+	set prevlextime to lexicon().
+}
 
 until done = true {
 	
@@ -316,47 +360,30 @@ until done = true {
 		//only look at resources we are going to actually print, ignore others
 		if curr_page = 1 or curr_page = 2 {
 			//this is just presetup and is usually not executed each loop 
-			//select which resources we are looking at
-			//update if on this page and the parts have changed or the lat update was for the other page
 			if curr_page = 1 and ( lastlextype <> 1 or lastpartcount <> ship:parts:length ) { 
 				set lastlextype to 1.
 				set lastpartcount to ship:parts:length.
-
-				//update the lex with the current resounces
-				set lex_to_res to lexicon().
-				for ires in ship:resources {
-					lex_to_res:add(ires:name,ires).
-				}
-				
-				//clear the eta calculations 
-				set etalex to lexicon().
-				set prevlex to lexicon().
-				set prevlextime to lexicon().
+				print_page(curr_page).
+				resetreslex(ship:resources).
 			}
 			//update if on this page and the parts have changed or the lat update was for the other page
 			if curr_page = 2 and ( lastlextype <> 2 or lastpartcount <> ship:parts:length ) { 
 				set lastlextype to 2.
 				set lastpartcount to ship:parts:length.
-
-				//update the lex with the current resounces
-				set lex_to_res to lexicon().
-				for ires in stage:resources {
-					lex_to_res:add(ires:name,ires).
-				}
-
-				//clear the eta calculations 
-				set etalex to lexicon().
-				set prevlex to lexicon().
-				set prevlextime to lexicon().
+				print_page(curr_page).
+				resetreslex(stage:resources).
 			}
 			
 			//we want to index down the reslex and get the correct resource for that 
-			if resupid > reslex:length-1 { set resupid to 0. }
-			if lex_to_res:haskey(reslex:keys[resupid]) { 		
-				set mres to lex_to_res[reslex:keys[resupid]].
+			if resupid > reslexindex:length-1 { set resupid to 0. }
+			if reslexindex:length = 0 {
+				print "no resources on stage" at(15,5+poff).
+			}
+			else if lex_to_res:haskey(reslexindex:keys[resupid]) { 		
+				set mres to lex_to_res[reslexindex:keys[resupid]].
 				
 				//print the mass of the resource 
-				print si_formating(mres:amount*mres:density*100000,"g") at(12,reslex[mres:name]+poff).
+				print si_formating(mres:amount*mres:density*100000,"g") at(12,reslexindex[mres:name]+poff).
 
 				//print an eta till depleted
 				//etalex containes an estimated time code for when the res depletes 
@@ -394,20 +421,20 @@ until done = true {
 					
 					//print the time estimate
 					if etalex[mres:name] = 0 { 
-						print " no change":padright(14) at (24,reslex[mres:name]+poff).
+						print " no change":padright(14) at (24,reslexindex[mres:name]+poff).
 					}
 					//resouce is filling up 
 					else if etalex[mres:name] < 0 {
-						print time_formating(-(etalex[mres:name]-time:seconds),5):padright(13)+"⮜" at (24,reslex[mres:name]+poff).
+						print time_formating(-(etalex[mres:name]-time:seconds),5):padright(13)+"⮜" at (24,reslexindex[mres:name]+poff).
 					}
 					//resouce is depleting
 					else {
-						print time_formating((etalex[mres:name]-time:seconds),5):padright(13)+"⮞" at (24,reslex[mres:name]+poff).
+						print time_formating((etalex[mres:name]-time:seconds),5):padright(13)+"⮞" at (24,reslexindex[mres:name]+poff).
 					}
 				}
 				else {
 					// if its not in the lex yet then just say we are calculating it 
-					print " calculating":padright(13) at (24,reslex[mres:name]+poff).
+					print " calculating":padright(13) at (24,reslexindex[mres:name]+poff).
 		
 					//we save the current info for the next loop. 
 					prevlextime:add(mres:name,time:seconds).
@@ -418,17 +445,17 @@ until done = true {
 	
 				//print a progress bar for pct if the resource has a capacity
 				if mres:capacity > 0 {
-					print mfd_progress(15,mres:amount/mres:capacity) at(38,reslex[mres:name]+poff).
+					print mfd_progress(15,mres:amount/mres:capacity) at(38,reslexindex[mres:name]+poff).
 				}
 				else { 
-					print "nil":padright(15) at(38,reslex[mres:name]+poff).
+					print "nil":padright(15) at(38,reslexindex[mres:name]+poff).
 				}
 
 			}
 			
 			//this resource is not on this ship so indicate that 
 			else {
-				print " N/A ":padright(43) at(12,reslex:values[resupid]+poff).				
+				print " N/A ":padright(43) at(12,reslexindex:values[resupid]+poff).				
 			}
 
 			//print the current index and then increment for next time 
