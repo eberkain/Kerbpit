@@ -46,24 +46,24 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 <img src="https://i.imgur.com/h5i7wb1.png" alt="" width="200" height="200">  <img src="https://i.imgur.com/eevgVyW.png" alt="" width="200" height="200">		
 
 ### Situation Status Program Features - MFD1	
-* Overall Summary - page that shows some basic information, main menu
-* Orbit - Show summary of vessel info, orbit, alt, speed, etc...
-* Surface - lat, lng, etc...
-* Landing - suicide burn, etc..
-* Target - closest approace, etc..
+* Summary - Main Menu - shows root list plus base list for orbit, surf, land
+* Orbit - shows root list, orbit base and adv list, plus diagram of curr orbit and position
+* Surface - shows root list, surface base and adv list, plus altitude graph over time 
+* Landing - shows root list, landing base and adv list, plus surface terrain crosssection
+* Target - shows root list, target base and adv list, plus ??? 
 * Target Selection - provide a list of targets and allow user to make selection
 	
 <img src="https://i.imgur.com/15DyPmC.png" alt="" width="200" height="200">
 
 ### Autopilot Programs - MFD3
-* Launh to Orbit  
-* Execute Next Node
-* Perform Landing  
-* Atmospheric Autopilot 
-* Docking 
+* each program controls steering and throttle
+* some programs include override buttons to alter runtime execution
+* some programs utilize the ap adjuster to allow for tweaking of parameters during flight
+* Programs include: Launh to Orbit, Execute Next Node, Perform Landing, Atmospheric Autopilot, Docking 
 
 # Custom Controllers 
-each control board can support 32 buttons and 8 analog axis
+Each control board can support 32 buttons and 8 analog axis.
+Suggested control board is [Leo Bodnar BU0836A 12-Bit Joystick Controller](http://www.leobodnar.com/shop/index.php?main_page=product_info&cPath=94&products_id=204).
 
 ![](https://i.imgur.com/YMd97cB.png)
 ### Flight Computer 
