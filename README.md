@@ -38,8 +38,8 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 <img src="https://i.imgur.com/EQRwYrf.png" alt="" width="200" height="200"> <img src="https://i.imgur.com/p8G04dM.png" alt="" width="200" height="200"> <img src="https://i.imgur.com/OdGHPVg.png" alt="" width="200" height="200"> 
 
 ### Vessel Status Program Features	- MFD2	
-* Complete Vessel Resource Summary 	
-* Active Stage Resource Summary
+* Resource summary by vessel or stage 	
+* dynamically fills the list and only calculates important resrouces
 * List of all cameras - Allow selection and switching views
 * System Controller - activate/deactivate systems like fuel cells, isru, drills, 
 		
