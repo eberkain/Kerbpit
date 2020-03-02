@@ -331,3 +331,41 @@ function mfd_clamp {
 	parameter num, nmin, nmax.
 	return min(max(num, nmin), nmax).
 }
+
+//since we can't query an engine to see what kind of fuel it uses
+//we assume any fuel on the stage is used for dv
+//TODO: need a way to account for monoprop
+set fueltypes to list("LiquidFuel","Oxidizer","SolidFuel").
+
+//calculate the stage delta v 
+function calcstagedeltav {
+	
+	//we find all the active engines and average the isp based on relative thrust
+	list engines in alleng.
+	set avgisp to 0. 
+	set totthr to 0. 
+	set fuellist to list(). 
+	for eng in alleng {
+		if eng:ignition {
+			//make a list of all fuel types in use, well shit...
+			//fuellist:add("engfueltype").
+			set avgisp to avgisp + (eng:isp * eng:availablethrust).
+			set totthr to totthr + eng:availablethrust. 
+		}
+	}
+	if totthr > 0 {	set avgisp to avgisp / totthr. }
+	else return 0. 
+
+	//calculate the mass of the fuel in the stage
+	set stgres to stage:resourceslex.
+	set stgdrymass to ship:mass.
+	for fuel in fueltypes {
+		set res to stgres[fuel].
+		set stgdrymass to stgdrymass - (res:amount*res:density).
+	}
+	
+	print round(avgisp)+":"+round(stgdrymass) at(20,2).
+	
+	//return the stage deltav
+	return (constant:g0 * (avgisp * (ln(ship:mass / stgdrymass)))).
+}
