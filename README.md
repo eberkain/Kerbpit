@@ -26,23 +26,6 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 
 ## MFD Programs
 
-<img src="https://i.imgur.com/r8E8BcJ.png" alt="" width="200" height="200">
-
-### Navigation Program Features - MFD4
-* Generates manuvre nodes based on the parameters given
-* In general you specific an type of manuvre, when you execute it, and then any console input
-* Supports Free Node - Circulize, Change Orbit (Ap, Pe, Incl, Ecc), Return from Moon
-* Supports Target Node - Match Plane, Hohman Transfer, Match Velo, Approach 
-* Supports Landing Node - Cross Plane at Coord, Deorbit 
-
-<img src="https://i.imgur.com/EQRwYrf.png" alt="" width="200" height="200"> <img src="https://i.imgur.com/p8G04dM.png" alt="" width="200" height="200"> <img src="https://i.imgur.com/OdGHPVg.png" alt="" width="200" height="200"> 
-
-### Vessel Status Program Features	- MFD2	
-* Resource summary by vessel or stage 	
-* dynamically fills the list and only calculates important resrouces
-* List of all cameras - Allow selection and switching views
-* System Controller - activate/deactivate systems like fuel cells, isru, drills, 
-		
 <img src="https://i.imgur.com/h5i7wb1.png" alt="" width="200" height="200">  <img src="https://i.imgur.com/eevgVyW.png" alt="" width="200" height="200">		
 
 ### Situation Status Program Features - MFD1	
@@ -52,7 +35,16 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 * Landing - shows root list, landing base and adv list, plus surface terrain crosssection
 * Target - shows root list, target base and adv list, plus ??? 
 * Target Selection - provide a list of targets and allow user to make selection
-	
+
+<img src="https://i.imgur.com/EQRwYrf.png" alt="" width="200" height="200"> <img src="https://i.imgur.com/p8G04dM.png" alt="" width="200" height="200"> <img src="https://i.imgur.com/OdGHPVg.png" alt="" width="200" height="200"> 
+
+### Vessel Status Program Features - MFD2	
+* Resource summary by vessel or stage 	
+* dynamically fills the list and only calculates important resrouces
+* List of all cameras - Allow selection and switching views
+* System Controller - activate/deactivate systems like fuel cells, isru, drills, 
+* Science Controller - activate/deactivate science systems
+		
 <img src="https://i.imgur.com/15DyPmC.png" alt="" width="200" height="200">
 
 ### Autopilot Programs - MFD3
@@ -60,6 +52,16 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 * some programs include override buttons to alter runtime execution
 * some programs utilize the ap adjuster to allow for tweaking of parameters during flight
 * Programs include: Launh to Orbit, Execute Next Node, Perform Landing, Atmospheric Autopilot, Docking 
+
+<img src="https://i.imgur.com/r8E8BcJ.png" alt="" width="200" height="200">
+
+### Navigation Program Features - MFD4
+* Generates manuvre nodes based on the parameters given
+* In general you specific an type of manuvre, when you execute it, and then any console input
+* Supports Free Node - Circulize, Change Orbit (Ap, Pe, Incl, Ecc), Return from Moon
+* Supports Target Node - Match Plane, Hohman Transfer, Match Velo, Approach 
+* Supports Landing Node - Cross Plane at Coord, Deorbit 
+
 
 # Custom Controllers 
 Each control board can support 32 buttons and 8 analog axis.
