@@ -75,25 +75,25 @@ local function print_page {
 		print "═══════════════════════════╤══════════════════════════" at (0,1+poff).
 		print "Altitude     :             │AGL Alt.     :            " at (0,2+poff).
 		print "Velocity     :             │Airspeed     :            " at (0,3+poff).
-		print "Acceleration :             │Vert. Speed  :            " at (0,4+poff).
-		print "Total Mass   :             │Ground Speed :            " at (0,5+poff).
-		print "Stage Δv     :             │Heading      :            " at (0,6+poff).
+		print "Engine Accel.:             │Heading      :            " at (0,4+poff).
+		print "Total Mass   :             │Mach Number  :            " at (0,5+poff).
+		print "Stage Δv     :             │Intake Air   :            " at (0,6+poff).
 		print "Node ETA     :             │Air Press.   :            " at (0,7+poff).
 		print "Part Count   :             │Dyn. Press.  :            " at (0,8+poff).
-		print "Status       :             │Mach Number  :            " at (0,9+poff).
-		print "Situation    :             │Intake Air   :            " at (0,10+poff).
-		print "Biome        :             │xxx          :            " at (0,11+poff).
+		print "Status       :             │             :            " at (0,9+poff).
+		print "Situation    :             │             :            " at (0,10+poff).
+		print "Biome        :             │             :            " at (0,11+poff).
 		print "───────────────────────────┼──────────────────────────" at (0,12+poff).
 		print "Apoapsis     :             │Latitude     :            " at (0,13+poff).
 		print "Periapsis    :             │Longitude    :            " at (0,14+poff).
 		print "Time to Ap   :             │Impact Time  :            " at (0,15+poff).
 		print "Time to Pe   :             │Impact Biome :            " at (0,16+poff).
-		print "Inclination  :             │Suicide Burn :            " at (0,17+poff).
-		print "Eccentricity :             │SB ΔV        :            " at (0,18+poff).
-		print "Peroid       :             │Aval. Thrust :            " at (0,19+poff).
-		print "Time to SOI  :             │Max Thrust   :            " at (0,20+poff).
-		print "xxx          :             │                          " at (0,21+poff).
-		print "xxx          :             │                        " at (0,22+poff).
+		print "Inclination  :             │Vert. Speed  :            " at (0,17+poff).
+		print "Eccentricity :             │Ground Speed :            " at (0,18+poff).
+		print "Peroid       :             │Suc Burn Eta :            " at (0,19+poff).
+		print "Time to SOI  :             │Suc Burn ΔV  :            " at (0,20+poff).
+		print "             :             │             :            " at (0,21+poff).
+		print "             :             │             :          " at (0,22+poff).
 	}
 	else if pageid = 1 { //Orbit Info
 		//print the button labels at top or bottom
@@ -125,8 +125,8 @@ local function print_page {
 		print "Eccentricity :             │                          " at (0,18+poff).
 		print "Peroid       :             │                          " at (0,19+poff).
 		print "Time to SOI  :             │                          " at (0,20+poff).
-		print "xxx          :             │                          " at (0,21+poff).
-		print "xxx          :             │                        " at (0,22+poff).
+		print "             :             │                          " at (0,21+poff).
+		print "             :             │                        " at (0,22+poff).
 	}
 	else if pageid = 2 { //Flight Info
 		//print the button labels at top or bottom
@@ -141,8 +141,8 @@ local function print_page {
 		print "═══════════════════════════╤══════════════════════════" at (0,1+poff).
 		print "Altitude     :             │Thrust Offset:            " at (0,2+poff).
 		print "Velocity     :             │Thrust Torque:            " at (0,3+poff).
-		print "Acceleration :             │             :            " at (0,4+poff).
-		print "Stage Δv     :             │             :            " at (0,5+poff).
+		print "Acceleration :             │Aval. Thrust :            " at (0,4+poff).
+		print "Stage Δv     :             │Max Thrust   :            " at (0,5+poff).
 		print "Total Δv     :             │             :            " at (0,6+poff).
 		print "Node ETA     :             │             :            " at (0,7+poff).
 		print "Total Mass   :             │             :            " at (0,8+poff).
@@ -172,8 +172,8 @@ local function print_page {
 		//     ----=----=----=----=----=xxxxx----=----=----=----=----=
 		print "  LANDING STATUS                                      " at (0,0+poff).
 		print "═══════════════════════════╤══════════════════════════" at (0,1+poff).
-		print "Altitude     :             │             :            " at (0,2+poff).
-		print "Velocity     :             │             :            " at (0,3+poff).
+		print "Altitude     :             │Aval. Thrust :            " at (0,2+poff).
+		print "Velocity     :             │Max Thrust   :            " at (0,3+poff).
 		print "Acceleration :             │             :            " at (0,4+poff).
 		print "Stage Δv     :             │             :            " at (0,5+poff).
 		print "Total Δv     :             │             :            " at (0,6+poff).
@@ -270,6 +270,7 @@ set animstep to 0.
 set apstep to 0. 
 set bpstep to 0. 
 set cpstep to 0. 
+set dpstep to 0. 
 
 //target selection vars
 set targlist to list().  //a place to store all the possible targets
@@ -325,20 +326,34 @@ local function printtargetlist {
 
 //part finder function
 set lastpartcount to ship:parts:length. 
-set biomesensor to ship:parts[0]. 
+//set biomesensor to ship:parts[0]. 
+set airintakes to 0.
+set hasintakes to false. 
+
 local function findparts {
 	//check all parts
-	for pt in ship:parts { 
-		if pt:hasmodule("ModuleGPS") {
-			set biomesensor to pt. 
-		}
-	}
+	//for pt in ship:parts { 
+	//	if pt:hasmodule("ModuleGPS") {
+	//		set biomesensor to pt. 
+	//	}
+	//}
+
+	//find air intakes
+	set airintakes to ship:modulesnamed("ModuleResourceIntake").
+	if airintakes:length > 0 { set hasintakes to true. }
+	else { set hasintakes to false. }
+	
+
 } 
 findparts. 
+
+//time of the suicide burn estimate to start
+set sbtime to 0.
 
 //main loop 
 until done = true {
 
+	//refresh part list if the parts change
 	if lastpartcount <> ship:parts:length { findparts. }
 
 	//process button presses
@@ -441,7 +456,8 @@ until done = true {
 		//print an animated icon to show the script is running
 		set animstep to mfd_animicon(0,0+poff,animstep).
 
-		print apstep+":"+bpstep+":"+cpstep at(40,0+poff).
+		//print stepper debug info 
+		print apstep+":"+bpstep+":"+cpstep+":"+dpstep at(40,0+poff).
 		
 		//print the core data block that is on the first 4 pages
 		if curr_page <> 5 {
@@ -449,69 +465,154 @@ until done = true {
 				print (si_formating(ship:altitude,"m")):padright(10) at (15,2+poff). }
 			else if apstep = 1 { //velocity
 				print (si_formating(ship:velocity:orbit:mag,"m/s")):padright(10) at (15,3+poff). }
-			else if apstep = 2 { //acceleration
+			else if apstep = 2 { //engine acc
 				if ship:availablethrust > 0 {
 					set accel to throttle * ship:availablethrust / ship:mass.
-					print (si_formating(accel,"m/s")):padright(10) at (15,4+poff). 
-				}
+					print (si_formating(accel,"m/s")):padright(10) at (15,4+poff). }
 				else {
-					print " no engine":padright(10) at(15,4+poff).
-				}
-			}
+					print " no engine":padright(10) at(15,4+poff). } 	}
 			else if apstep = 3 { //total mass
 				print (si_formating(ship:mass*1000,"g")):padright(10) at(15,5+poff). }
 			else if apstep = 4 { //stage dv
-				print (" "+round(calcstagedeltav())+" m/s"):padright(10) at(15,6+poff).
-			}
+				print (" "+round(calcstagedeltav())+" m/s"):padright(10) at(15,6+poff). }
 			else if apstep = 5 { //node eta
 				if hasnode = true {
 					print (time_formating(nextnode:eta,5)):padright(10) at (15,7+poff). }
 				else { 
-					print " no node" at(15,7+poff). }
-			}
+					print " no node" at(15,7+poff). } 	}
 			else if apstep = 6 { //part count
 				print (" " + ship:parts:length):padright(10) at (15,8+poff). }
 			else if apstep = 7 { //status
 				print (" "+ship:status):padright(10) at (15,9+poff). }
 			else if apstep = 8 { //situation
-				// }
 				print " "+addons:biome:situation:padright(10) at (15,10+poff). }
 			else if apstep = 9 { //biome
-				print " "+addons:biome:current:padright(10) at (15,11+poff).
-				//if biomesensor:hasmodule("ModuleGPS") {
-				//	print (" "+biomesensor:getmodule("ModuleGPS"):getfield("Biome")):padright(10) at(15,11+poff). }
-				//else { 
-				//	print " no sensor":padright(10) at(15,11+poff). }
-			}
+				print " "+addons:biome:current:padright(10) at (15,11+poff). 	}
 			
 			set apstep to apstep + 1.
 			if apstep > 9 { set apstep to 0. }
 		}
-		//print the base data block for each page 
-		if curr_page = 1 {
-			//decide where to start printing based on page
-			set xpos to 0. 
-			set ypos to 0. 
-		
-		
-			print (dms_formating(ship:geoposition:lat,"lat")):padright(10) at (16,8+poff).
-			print (dms_formating(ship:geoposition:lng,"lng")):padright(10) at (16,9+poff).
-
-			print (si_formating(ship:apoapsis,"m")):padright(10) at (15,12+poff).
-			print (si_formating(ship:periapsis,"m")):padright(10) at (15,13+poff).
-			print (time_formating(eta:apoapsis,5)):padright(10) at (15,14+poff).
-			print (time_formating(eta:periapsis,5)):padright(10) at (15,15+poff).
-			print (padding(ship:orbit:inclination,1,2)+" °"):padright(10) at (15,16+poff).
-			print (padding(ship:orbit:eccentricity,1,4)):padright(10) at (15,17+poff).
-		
-			print (si_formating(alt:radar,"m")):padright(10) at (43,1+poff).
-			print (si_formating(ship:airspeed,"m/s")):padright(10) at (43,3+poff).
-			print (si_formating(ship:verticalspeed,"m/s")):padright(10) at (43,4+poff).
-			print (si_formating(ship:groundspeed,"m/s")):padright(10) at (43,5+poff).
-			print (padding(mod(360 - latlng(90,0):bearing,360),1,2)+" °"):padright(10) at (44,6+poff).
+		//print the orbit data block if on page 0 or 1 
+		if curr_page = 1 or curr_page = 0 {
+			if bpstep = 0 { //Ap
+				print (si_formating(ship:apoapsis,"m")):padright(10) at (15,13+poff). 	}
+			else if bpstep = 1 {  // Pe
+				print (si_formating(ship:periapsis,"m")):padright(10) at (15,14+poff). 	}
+			else if bpstep = 2 {  //time to ap
+				print (time_formating(eta:apoapsis,5)):padright(10) at (15,15+poff).  }
+			else if bpstep = 3 {  //time to pe
+				print (time_formating(eta:periapsis,5)):padright(10) at (15,16+poff). 	}
+			else if bpstep = 4 {  //incl
+				print (padding(ship:orbit:inclination,1,2)+" °"):padright(10) at (15,17+poff). 	}
+			else if bpstep = 5 {  //ecc
+				print (padding(ship:orbit:eccentricity,1,4)):padright(10) at (15,18+poff). 	}
+			else if bpstep = 6 {  //period
+				print (time_formating(ship:orbit:period,5)):padright(10) at (15,19+poff).  	}
+			else if bpstep = 7 { //time to soi
+				if ship:orbit:transition = "ENCOUNTER" or ship:orbit:transition = "ESCAPE" {
+					print (time_formating(ship:orbit:nextpatcheta,5)):padright(10) at (15,20+poff). }
+				else {
+					print " no patch":padright(10) at (15,20+poff).  } }
+			else if bpstep = 8 { 	}
+			else if bpstep = 9 { 	}
 			
-			print (padding(ship:body:atm:altitudepressure(ship:altitude),1,2)+" atm"):padright(10) at (44,15+poff).
-			print (padding(ship:dynamicpressure*constant:ATMtokPa,1,2)+" kPa"):padright(10) at (44,16+poff).
+			set bpstep to bpstep + 1.
+			if bpstep > 7 { set bpstep to 0. }
+		}
+		//print the flight status block if on page 0 or mage 2
+		if curr_page = 0 or curr_page = 2 {
+			//decide where to start printing based on page
+			local xpos to 0. 
+			local ypos to 0. 
+			if curr_page = 0 {
+				set xpos to 43. 
+				set ypos to 2. 
+			}
+			
+			if cpstep = 0 { //AGL alt
+				print (si_formating(alt:radar,"m")):padright(10) at (xpos,ypos+0+poff). }
+			else if cpstep = 1 {//Airspeed
+				print (si_formating(ship:airspeed,"m/s")):padright(10) at (xpos,ypos+1+poff). 	}
+			else if cpstep = 2 {//heading
+				print (padding(mod(360 - latlng(90,0):bearing,360),1,2)+" °"):padright(10) at (xpos,ypos+2+poff). 	}
+			else if cpstep = 3 {//mach number
+				print (" "+round(sqrt(2 / 1.4 * ship:dynamicpressure / body:atm:altitudepressure(ship:altitude)),1)):padright(10) at(xpos,ypos+3+poff). 	}
+			else if cpstep = 4 {//intake air
+				set flow to 0. 
+				for intake in airintakes {
+					set flow to flow + intake:getfield("flow"). 	}
+				print (" "+round(flow,2)+"U"):padright(10) at(xpos,ypos+4+poff).  }
+			else if cpstep = 5 {//air pressure
+				print (padding(ship:body:atm:altitudepressure(ship:altitude),1,2)+" atm"):padright(10) at(xpos,ypos+5+poff). 	}
+			else if cpstep = 6 {//dyn press
+				print (padding(ship:dynamicpressure*constant:ATMtokPa,1,2)+" kPa"):padright(10) at(xpos,ypos+6+poff).  	}
+			else if cpstep = 7 { 	}
+			else if cpstep = 8 { 	}
+			else if cpstep = 9 {		}
+
+			set cpstep to cpstep + 1.
+			if cpstep > 6 { set cpstep to 0. }
+		}
+		//print the landing status block 
+		if curr_page = 0 or curr_page = 3 {
+			//decide where to start printing based on page
+			local xpos to 0. 
+			local ypos to 0. 
+			if curr_page = 0 {
+				set xpos to 43. 
+				set ypos to 13. 
+			}
+
+			if dpstep = 0 { //lat
+				print (" "+dms_formating(ship:geoposition:lat,"lat")):padright(10) at (xpos,ypos+0+poff). }
+			else if dpstep = 1 { //lng
+				print (" "+dms_formating(ship:geoposition:lng,"lng")):padright(10) at (xpos,ypos+1+poff). }
+			else if dpstep = 2 { //impact eta
+				if addons:tr:available = true {
+					if addons:tr:hasimpact = true {
+						print (time_formating(addons:tr:timetillimpact,5)):padright(10) at (xpos,ypos+2+poff). 	}  	
+					else {
+						print " no impact" at (xpos,ypos+2+poff).  } }
+				else {
+					print " no support" at (xpos,ypos+2+poff).  } }
+			else if dpstep = 3 { //impact biome
+				if addons:tr:available = true {
+					if addons:tr:hasimpact = true {
+						print (" "+addons:biome:at(body,addons:tr:impactpos)):padright(10) at (xpos,ypos+3+poff). 	}  	
+					else {
+						print " no impact" at (xpos,ypos+3+poff).  } }
+				else {
+					print " no support" at (xpos,ypos+3+poff).  } }
+			else if dpstep = 4 { //vert speed
+				print (si_formating(ship:verticalspeed,"m/s")):padright(10) at (xpos,ypos+4+poff). }
+			else if dpstep = 5 { //ground speed
+				print (si_formating(ship:groundspeed,"m/s")):padright(10) at (xpos,ypos+5+poff). }
+			else if dpstep = 6 { //Suc Burn Eta
+				if ship:availablethrust = 0 {
+					print " no engine" at (xpos,ypos+6+poff). }
+				else if ship:verticalspeed < -1 { //descending
+					set g to constant:g * body:mass / body:radius^2.	
+					set maxdecel to ((ship:availablethrust*0.75) / ship:mass) - g.	
+					set stopdist to (ship:verticalspeed^2 / (2 * maxdecel)).
+					set ttb to (alt:radar-stopDist)/abs(ship:verticalspeed).
+					set sbtime to time + ttb.
+					print (time_formating(ttb,5)):padright(10) at (xpos,ypos+6+poff). 	}
+				else { //ascending
+					print " ascending" at (xpos,ypos+6+poff). 	}  	}
+			else if dpstep = 7 { // Suc Burn deltav 
+				if ship:availablethrust = 0 {
+					print " no engine" at (xpos,ypos+7+poff). }
+				else if sbtime - time < 10 { //close to burn 
+					print (si_formating(velocityat(ship,sbtime):surface:mag,"m/s")):padright(10) at (xpos,ypos+7+poff). }	
+				else { //too far in future
+					print " not aval" at (xpos,ypos+7+poff). 	}  	}
+			else if dpstep = 8 { 
+			}
+			else if dpstep = 9 { 
+			}
+			
+			set dpstep to dpstep + 1.
+			if dpstep > 7 { set dpstep to 0. }
 		}
 
 		//target selection page

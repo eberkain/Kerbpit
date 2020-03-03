@@ -29,7 +29,7 @@ function mfd_progress {
 function dms_formating {
 
 	//get the decimal value and the "lat" "lng" type
-	parameter xval, typ to "". 
+	parameter xval, typ. 
 
 	//create a flag for the sign 
 	set sign to 1.
@@ -364,7 +364,7 @@ function calcstagedeltav {
 		set stgdrymass to stgdrymass - (res:amount*res:density).
 	}
 	
-	print round(avgisp)+":"+round(stgdrymass) at(20,2).
+	//print round(avgisp)+":"+round(stgdrymass) at(20,2).
 	
 	//return the stage deltav
 	return (constant:g0 * (avgisp * (ln(ship:mass / stgdrymass)))).
