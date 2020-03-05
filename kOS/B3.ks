@@ -11,6 +11,7 @@
 run lib_mfd.
 run lib_formating.
 run lib_navigation.
+run lib_xeger.
 
 //collect passed params
 parameter mfdid, mfdtop.
@@ -175,6 +176,33 @@ until done {
 				print "Eta" at (2,16+poff).
 				print "Alt" at (2,17+poff).
 			} 
+
+			//hohman transfer
+			if selprog = 12 {
+				//must have a target
+				//ship orbit circular?
+				//target orbit circular? 
+				print "calculating..." at (2,19+poff).
+				
+				set node_T to hohmannDt().
+				if node_T = "Stranded" {
+					//unable to compute transfer
+					print "unable to compute node" at (2,20+poff).
+				}
+				else {
+					//calculate the node DV
+					set r1 to (positionat(ship,node_T)-body:position):mag.
+					set node_dv to hohmannDv(r1).
+					//create the node
+					set nd to node(node_T, 0, 0, node_dv).
+					add nd.
+
+					set r2 to (positionat(target,node_T+nd:orbit:period/2)-body:position):mag.
+					set node_dv to hohmannDv(r1,r2).
+					set nd:prograde to node_dv.
+				}
+			}
+
 		}
 	}
 	//now we are selecting a sub option like when to execute this action
@@ -218,6 +246,7 @@ until done {
 					print "circ node @ "+si_formating(ndvel-apvel,"m/s") at(2,20+poff).
 				}
 			}
+			
 		}
 	}
 	

@@ -77,7 +77,7 @@ local function print_page {
 		print "Velocity     :             │Airspeed     :            " at (0,3+poff).
 		print "Engine Accel.:             │Heading      :            " at (0,4+poff).
 		print "Total Mass   :             │Mach Number  :            " at (0,5+poff).
-		print "Stage Δv     :             │Intake Air   :            " at (0,6+poff).
+		print "Stage ΔV     :             │Intake Air   :            " at (0,6+poff).
 		print "Node ETA     :             │Air Press.   :            " at (0,7+poff).
 		print "Part Count   :             │Dyn. Press.  :            " at (0,8+poff).
 		print "Status       :             │             :            " at (0,9+poff).
@@ -90,8 +90,8 @@ local function print_page {
 		print "Time to Pe   :             │Impact Biome :            " at (0,16+poff).
 		print "Inclination  :             │Vert. Speed  :            " at (0,17+poff).
 		print "Eccentricity :             │Ground Speed :            " at (0,18+poff).
-		print "Peroid       :             │Suc Burn Eta :            " at (0,19+poff).
-		print "Time to SOI  :             │Suc Burn ΔV  :            " at (0,20+poff).
+		print "Peroid       :             │Hoverslam ETA:            " at (0,19+poff).
+		print "Time to SOI  :             │Hoverslam ΔV :            " at (0,20+poff).
 		print "             :             │             :            " at (0,21+poff).
 		print "             :             │             :          " at (0,22+poff).
 	}
@@ -108,12 +108,12 @@ local function print_page {
 		print "═══════════════════════════╤══════════════════════════" at (0,1+poff).
 		print "Altitude     :             │Ang to Prog  :            " at (0,2+poff).
 		print "Velocity     :             │Ang to Retro :            " at (0,3+poff).
-		print "Acceleration :             │Time to An   :            " at (0,4+poff).
-		print "Stage Δv     :             │Time to Dn   :            " at (0,5+poff).
-		print "Total Δv     :             │             :            " at (0,6+poff).
+		print "Engine Accel.:             │Time to An   :            " at (0,4+poff).
+		print "Total Mass   :             │Time to Dn   :            " at (0,5+poff).
+		print "Stage ΔV     :             │             :            " at (0,6+poff).
 		print "Node ETA     :             │             :            " at (0,7+poff).
-		print "Total Mass   :             │             :            " at (0,8+poff).
-		print "Part Count   :             │             :            " at (0,9+poff).
+		print "Part Count   :             │             :            " at (0,8+poff).
+		print "Status       :             │             :            " at (0,9+poff).
 		print "Situation    :             │             :            " at (0,10+poff).
 		print "Biome        :             │             :            " at (0,11+poff).
 		print "───────────────────────────┼──────────────────────────" at (0,12+poff).
@@ -141,25 +141,25 @@ local function print_page {
 		print "═══════════════════════════╤══════════════════════════" at (0,1+poff).
 		print "Altitude     :             │Thrust Offset:            " at (0,2+poff).
 		print "Velocity     :             │Thrust Torque:            " at (0,3+poff).
-		print "Acceleration :             │Aval. Thrust :            " at (0,4+poff).
-		print "Stage Δv     :             │Max Thrust   :            " at (0,5+poff).
-		print "Total Δv     :             │             :            " at (0,6+poff).
+		print "Engine Accel.:             │Aval. Thrust :            " at (0,4+poff).
+		print "Total Mass   :             │Max Thrust   :            " at (0,5+poff).
+		print "Stage ΔV     :             │             :            " at (0,6+poff).
 		print "Node ETA     :             │             :            " at (0,7+poff).
-		print "Total Mass   :             │             :            " at (0,8+poff).
-		print "Part Count   :             │             :            " at (0,9+poff).
+		print "Part Count   :             │             :            " at (0,8+poff).
+		print "Status       :             │             :            " at (0,9+poff).
 		print "Situation    :             │             :            " at (0,10+poff).
 		print "Biome        :             │             :            " at (0,11+poff).
 		print "───────────────────────────┼──────────────────────────" at (0,12+poff).
 		print "AGL Alt.     :             │                          " at (0,13+poff).
 		print "Airspeed     :             │                          " at (0,14+poff).
-		print "Vert. Speed  :             │                          " at (0,15+poff).
-		print "Ground Speed :             │                          " at (0,16+poff).
-		print "Heading      :             │                          " at (0,17+poff).
+		print "Heading      :             │                          " at (0,15+poff).
+		print "Mach Number  :             │                          " at (0,16+poff).
+		print "Intake Air   :             │                          " at (0,17+poff).
 		print "Air Press.   :             │                          " at (0,18+poff).
 		print "Dyn. Press.  :             │                          " at (0,19+poff).
-		print "Mach Number  :             │                          " at (0,20+poff).
-		print "Intake Air   :             │                          " at (0,21+poff).
-		print "xxx          :             │                        " at (0,22+poff).
+		print "             :             │                          " at (0,20+poff).
+		print "             :             │                          " at (0,21+poff).
+		print "             :             │                        " at (0,22+poff).
 	}
 	if pageid = 3 { //landing stats
 		//print the button labels at top or bottom
@@ -174,12 +174,12 @@ local function print_page {
 		print "═══════════════════════════╤══════════════════════════" at (0,1+poff).
 		print "Altitude     :             │Aval. Thrust :            " at (0,2+poff).
 		print "Velocity     :             │Max Thrust   :            " at (0,3+poff).
-		print "Acceleration :             │             :            " at (0,4+poff).
-		print "Stage Δv     :             │             :            " at (0,5+poff).
-		print "Total Δv     :             │             :            " at (0,6+poff).
+		print "Engine Accel.:             │             :            " at (0,4+poff).
+		print "Total Mass   :             │             :            " at (0,5+poff).
+		print "Stage ΔV     :             │             :            " at (0,6+poff).
 		print "Node ETA     :             │             :            " at (0,7+poff).
-		print "Total Mass   :             │             :            " at (0,8+poff).
-		print "Part Count   :             │             :            " at (0,9+poff).
+		print "Part Count   :             │             :            " at (0,8+poff).
+		print "Status       :             │             :            " at (0,9+poff).
 		print "Situation    :             │             :            " at (0,10+poff).
 		print "Biome        :             │             :            " at (0,11+poff).
 		print "───────────────────────────┼──────────────────────────" at (0,12+poff).
@@ -187,10 +187,10 @@ local function print_page {
 		print "Longitude    :             │                          " at (0,14+poff).
 		print "Impact Time  :             │                          " at (0,15+poff).
 		print "Impact Biome :             │                          " at (0,16+poff).
-		print "Suicide Burn :             │                          " at (0,17+poff).
-		print "SB ΔV        :             │                          " at (0,18+poff).
-		print "Aval. Thrust :             │                          " at (0,19+poff).
-		print "Max Thrust   :             │                          " at (0,20+poff).
+		print "Vert. Speed  :             │                          " at (0,17+poff).
+		print "Ground Speed :             │                          " at (0,18+poff).
+		print "Hoverslam ETA:             │                          " at (0,19+poff).
+		print "Hoverslam ΔV :             │                          " at (0,20+poff).
 		print "             :             │                          " at (0,21+poff).
 		print "             :             │                        " at (0,22+poff).
 	}
@@ -207,12 +207,12 @@ local function print_page {
 		print "═══════════════════════════╤══════════════════════════" at (0,1+poff).
 		print "Altitude     :             │             :            " at (0,2+poff).
 		print "Velocity     :             │             :            " at (0,3+poff).
-		print "Acceleration :             │             :            " at (0,4+poff).
-		print "Stage Δv     :             │             :            " at (0,5+poff).
-		print "Total Δv     :             │             :            " at (0,6+poff).
+		print "Engine Accel.:             │             :            " at (0,4+poff).
+		print "Total Mass   :             │             :            " at (0,5+poff).
+		print "Stage Δv     :             │             :            " at (0,6+poff).
 		print "Node ETA     :             │             :            " at (0,7+poff).
-		print "Total Mass   :             │             :            " at (0,8+poff).
-		print "Part Count   :             │             :            " at (0,9+poff).
+		print "Part Count   :             │             :            " at (0,8+poff).
+		print "Status       :             │             :            " at (0,9+poff).
 		print "Situation    :             │             :            " at (0,10+poff).
 		print "Biome        :             │             :            " at (0,11+poff).
 		print "───────────────────────────┼──────────────────────────" at (0,12+poff).
@@ -363,27 +363,38 @@ until done = true {
 		if btn1 = true {
 			set btn1 to false.
 			set curr_page to 1.
+			print_page(curr_page).
 		}
 		//switch to flight page
 		if btn2 = true {
 			set btn2 to false.
 			set curr_page to 2.
+			print_page(curr_page).
 		}
 		//switch to Landing page
 		if btn3 = true {
 			set btn3 to false.
 			set curr_page to 3.
+			print_page(curr_page).
 		}
 		//switch to target page
 		if btn4 = true {
 			set btn4 to false.
 			set curr_page to 4.
+			print_page(curr_page).
 		}
 		//switch to target select page
 		if btn5 = true {
 			set btn5 to false.
 			set curr_page to 5.
 			set targlistcreated to false.
+		}
+	}
+	else if curr_page = 1 or curr_page = 2 or curr_page = 3 or curr_page = 4 {
+		if btn1 = true {
+			set btn1 to false. 
+			set curr_page to 0. 
+			print_page(curr_page).
 		}
 	}
 	//on the target sel page use the buttons to make a selection
@@ -483,11 +494,11 @@ until done = true {
 			else if apstep = 6 { //part count
 				print (" " + ship:parts:length):padright(10) at (15,8+poff). }
 			else if apstep = 7 { //status
-				print (" "+ship:status):padright(10) at (15,9+poff). }
+				print (" "+ship:status):padright(11) at (15,9+poff). }
 			else if apstep = 8 { //situation
-				print " "+addons:biome:situation:padright(10) at (15,10+poff). }
+				print " "+addons:biome:situation:padright(11) at (15,10+poff). }
 			else if apstep = 9 { //biome
-				print " "+addons:biome:current:padright(10) at (15,11+poff). 	}
+				print " "+addons:biome:current:substring(0,min(addons:biome:current:length,11)):padright(10) at (15,11+poff). 	}
 			
 			set apstep to apstep + 1.
 			if apstep > 9 { set apstep to 0. }
@@ -522,8 +533,8 @@ until done = true {
 		//print the flight status block if on page 0 or mage 2
 		if curr_page = 0 or curr_page = 2 {
 			//decide where to start printing based on page
-			local xpos to 0. 
-			local ypos to 0. 
+			local xpos to 15. 
+			local ypos to 13. 
 			if curr_page = 0 {
 				set xpos to 43. 
 				set ypos to 2. 
@@ -536,7 +547,10 @@ until done = true {
 			else if cpstep = 2 {//heading
 				print (padding(mod(360 - latlng(90,0):bearing,360),1,2)+" °"):padright(10) at (xpos,ypos+2+poff). 	}
 			else if cpstep = 3 {//mach number
-				print (" "+round(sqrt(2 / 1.4 * ship:dynamicpressure / body:atm:altitudepressure(ship:altitude)),1)):padright(10) at(xpos,ypos+3+poff). 	}
+				if ship:dynamicpressure > 0 { 
+					print (" "+round(sqrt(2 / 1.4 * ship:dynamicpressure / body:atm:altitudepressure(ship:altitude)),1)):padright(10) at(xpos,ypos+3+poff). 	}
+				else {
+					print " no atmo":padright(10) at(xpos,ypos+3+poff). } }
 			else if cpstep = 4 {//intake air
 				set flow to 0. 
 				for intake in airintakes {
@@ -556,8 +570,8 @@ until done = true {
 		//print the landing status block 
 		if curr_page = 0 or curr_page = 3 {
 			//decide where to start printing based on page
-			local xpos to 0. 
-			local ypos to 0. 
+			local xpos to 15. 
+			local ypos to 13. 
 			if curr_page = 0 {
 				set xpos to 43. 
 				set ypos to 13. 
@@ -588,24 +602,23 @@ until done = true {
 			else if dpstep = 5 { //ground speed
 				print (si_formating(ship:groundspeed,"m/s")):padright(10) at (xpos,ypos+5+poff). }
 			else if dpstep = 6 { //Suc Burn Eta
-				if ship:availablethrust = 0 {
-					print " no engine" at (xpos,ypos+6+poff). }
-				else if ship:verticalspeed < -1 { //descending
-					set g to constant:g * body:mass / body:radius^2.	
-					set maxdecel to ((ship:availablethrust*0.75) / ship:mass) - g.	
-					set stopdist to (ship:verticalspeed^2 / (2 * maxdecel)).
-					set ttb to (alt:radar-stopDist)/abs(ship:verticalspeed).
-					set sbtime to time + ttb.
-					print (time_formating(ttb,5)):padright(10) at (xpos,ypos+6+poff). 	}
-				else { //ascending
-					print " ascending" at (xpos,ypos+6+poff). 	}  	}
+				if addons:tr:available = true {
+					if addons:tr:hasimpact = true {
+						set maxdecel to (ship:availablethrust / ship:mass) - (constant:g * body:mass / body:radius^2).	
+						print (time_formating(addons:tr:timetillimpact - (ship:velocity:surface:mag / maxdecel),5)):padright(10) at (xpos,ypos+6+poff). 	}  	
+					else {
+						print " no impact" at (xpos,ypos+6+poff).  } }
+				else {
+					print " no support" at (xpos,ypos+6+poff).  } }
 			else if dpstep = 7 { // Suc Burn deltav 
-				if ship:availablethrust = 0 {
-					print " no engine" at (xpos,ypos+7+poff). }
-				else if sbtime - time < 10 { //close to burn 
-					print (si_formating(velocityat(ship,sbtime):surface:mag,"m/s")):padright(10) at (xpos,ypos+7+poff). }	
-				else { //too far in future
-					print " not aval" at (xpos,ypos+7+poff). 	}  	}
+				if addons:tr:available = true {
+					if addons:tr:hasimpact = true {
+						set stopdv to ship:velocity:surface:mag + (constant:g * body:mass / body:radius^2).
+						print (" "+round(stopdv)+" m/s"):padright(10) at(xpos,ypos+7+poff). }
+					else {
+						print " no impact" at (xpos,ypos+7+poff).  } }
+				else {
+					print " no support" at (xpos,ypos+7+poff).  } }
 			else if dpstep = 8 { 
 			}
 			else if dpstep = 9 { 

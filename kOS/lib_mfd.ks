@@ -127,43 +127,6 @@ function mfd_numinput {
 	}	
 }
 
-//clamp the value into the range
-function mfd_clamp {
-	parameter val, minv, maxv.
-	
-	return max(min(val,maxv),minv).
-}
-
-//calcualte a launch direction to hit a desired inclination
-function mfd_calcazimuth {
-	parameter inc, lat.
-	//if not on the equator then we have to set bounds on the target incl. 
-	//you cannot have a final inclination lower than the starting latitude
-	//assume input is from -180 to 180
-	//three regions require adjustment 
-	return 90.
-}
-
-
-//limit the target inclination based on latitude
-function mfd_adjinc {
-	parameter inc, lat.
-	//if not on the equator then we have to set bounds on the target incl. 
-
-	//no adj near equator
-	if lat > -0.5 and lat < 0.5 { 
-		return inc.
-	}
-	//inc is lower than the lat
-	else if abs(inc) < abs(lat) {
-        return lat.
-    }
-	//everywhere else
-	else {
-		return inc.
-	}
-}
-
 //display an animated icon at the specificed location
 function mfd_animicon {
 
@@ -179,30 +142,6 @@ function mfd_animicon {
 		if st = 4 { set st to 0. }
 	
 		return st.
-}
-
-//print a grid of characters to display a 2d array
-function mfd_quadmap {
-	//top left start pos, size, data 
-	parameter gx,gy,gw,gh,gdata.
-
-	//single dots ▖▗▘▝
-	//double dots ▚▞▄▀▌▐
-	//tri dots ▙▟▛▜
-	//full dots █
-	//shade blocks ░▒▓
-	
-	//loop through the character range x/y
-	//comare the corrisponding data values 
-	//pick the character to print to match data
-
-//              ▄▄▄▀▀▀▀▀▀
-//          ▗▞▀
-//       ▗▞▘
-//     ▗▘
-//   ▗▘
-//  ▞
-// ▌
 }
 
 //create a 2d array of the size
@@ -222,7 +161,7 @@ function mfd_createarray {
 
 	return map. 
 }
-
+//faster
 function mfd_nugarray {
     parameter mw, mh, tx, ty.
     
@@ -242,28 +181,6 @@ function mfd_nugarray {
 
     return map. 
 }
-
-//print an image using half filled squares  ▄▀█
-function mfdmap_halfmapdraw {
-	parameter mx, my, mw, mh, map, print_empty to false. 
-	
-	//each character represents two pixels, 4 possible characters. 
-	//loop through character area
-	from {local i is 0.} until i = mw step {set i to i+1.} do {
-		from {local t is 0.} until t = mh/2 step {set t to t+1.} do {
-			//get the two pixels we are going to display with this character
-			set va to map[i][2*t].
-			set vb to map[i][2*t+1].
-
-			//pick the character display based on the data 
-			if va = 0 and vb = 0 and print_empty = true { print " " at(mx+i,my+t). }
-			if va = 0 and vb = 1 { print "▄" at(mx+i,my+t). }
-			if va = 1 and vb = 0 { print "▀" at(mx+i,my+t). }
-			if va = 1 and vb = 1 { print "█" at(mx+i,my+t). }
-		}
-	}
-}
-
 
 //character map for drawing
 set quad_char to " ▘▝▀▖▌▞▛▗▚▐▜▄▙▟█".
@@ -369,3 +286,4 @@ function calcstagedeltav {
 	//return the stage deltav
 	return (constant:g0 * (avgisp * (ln(ship:mass / stgdrymass)))).
 }
+
