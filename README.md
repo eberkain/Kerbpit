@@ -45,7 +45,7 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 * System Controller - activate/deactivate systems like fuel cells, isru, drills, 
 * Science Controller - activate/deactivate science systems
 		
-<img src="https://i.imgur.com/15DyPmC.png" alt="" width="200" height="200">
+<img src="https://i.imgur.com/15DyPmC.png" alt="launch prog" width="200" height="200">  <img src="https://i.imgur.com/loBOX44.png" alt="execute node" width="200" height="200">
 
 ### Autopilot Programs - MFD3
 * each program controls steering and throttle
