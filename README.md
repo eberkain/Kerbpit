@@ -121,11 +121,12 @@ the left side console and is used to manipulate autopilot, 2 boards
 * A-2 thumbstick-camera control (horiz, vert)
 * A-3 rotary pots-aircraft trim dials
 * A-2 slide pots-engine throttle axis with locking lever
-* D-1  toggle switch for backlight
+
 
 ### Overhead Panel
 * various controls for all onboard systems, see controls.txt
     - send commands to MFD0 to activate in-game action based on button pressed
+* backlight control switches
 
 # SETUP
 You will need a monospace font that supports line drawing, boxes and arrows.  I use [Unifont](http://www.unifoundry.com/unifont/index.html) in all screenshots.  
