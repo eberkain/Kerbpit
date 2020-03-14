@@ -5,7 +5,7 @@ All 3d Models and Artwork are licensed as follows.
 
 ## 3D Models for the project 
 
-![](https://i.imgur.com/59eWUcsb.png)
+![](https://i.imgur.com/QHe8gw2.jpg?1)
 
 ### MFD Buttons V2
 * 5 parts for easy printing
