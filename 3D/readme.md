@@ -4,7 +4,7 @@ All 3d Models and Artwork are licensed as follows.
 ![Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 
 ## 3D Models for the project 
-
+![](https://i.imgur.com/Ss4p17d.png)
 ![](https://i.imgur.com/QHe8gw2.jpg?1)
 
 ### MFD Buttons V2
