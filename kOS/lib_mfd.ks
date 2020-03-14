@@ -287,3 +287,57 @@ function calcstagedeltav {
 	return (constant:g0 * (avgisp * (ln(ship:mass / stgdrymass)))).
 }
 
+//limit the target inclination based on latitude
+function mfd_adjinc {
+	parameter inc, lat.
+	//if not on the equator then we have to set bounds on the target incl. 
+
+	//no adj near equator
+	if lat > -0.5 and lat < 0.5 { 
+		return inc.
+	}
+	//inc is lower than the lat
+	else if abs(inc) < abs(lat) {
+        return lat.
+    }
+	//everywhere else
+	else {
+		return inc.
+	}
+}
+
+//check if a processor exists
+function processorexists {
+	parameter n.
+
+	list processors in plist. 
+	
+	for p in plist {
+		if p:tag = n { return true. }
+	}
+	return false. 
+}
+
+//input processing 
+function checkinput {
+
+	//receive messages to process button presses
+	if core:messages:empty = false { 
+		set msg to core:messages:pop:content:tostring. 
+		if msg = "1" { set btn1 to true. }
+		if msg = "2" { set btn2 to true. }
+		if msg = "3" { set btn3 to true. }
+		if msg = "4" { set btn4 to true. }
+		if msg = "5" { set btn5 to true. }
+		if msg = "6" { set btn6 to true. }
+	}
+	
+	//let the master know another program is running with this name
+	if time:seconds > msgtime + 5 { 
+		if processorexists("master") {
+			processor("master"):connection:sendmessage(core:part:tag).
+		}
+		set msgtime to time:seconds.
+	}		
+
+}

@@ -16,43 +16,22 @@ run lib_xeger.
 //collect passed params
 parameter mfdid, mfdtop.
 
+//rename the core tag 
+set core:part:tag to "slave-"+mfdid+"-B3".
+
 //adjust print offset for the control bar
 set poff to 0.
 if mfdtop = true { set poff to 2. }
 
-//monitor reserved action groups for button activity
+//input processing message control 
+core:messages:clear().
 set btn1 to false. 
 set btn2 to false. 
 set btn3 to false. 
 set btn4 to false. 
 set btn5 to false. 
 set btn6 to false.
-
-//flag button press based on MFDID 
-on AG227 { if mfdid = 1 { set btn1 to true. } preserve. }
-on AG228 { if mfdid = 1 { set btn2 to true. } preserve. }
-on AG229 { if mfdid = 1 { set btn3 to true. } preserve. }
-on AG230 { if mfdid = 1 { set btn4 to true. } preserve. }
-on AG231 { if mfdid = 1 { set btn5 to true. } preserve. }
-on AG232 { if mfdid = 1 { set btn6 to true. } preserve. }
-on AG233 { if mfdid = 2 { set btn1 to true. } preserve. }
-on AG234 { if mfdid = 2 { set btn2 to true. } preserve. }
-on AG235 { if mfdid = 2 { set btn3 to true. } preserve. }
-on AG236 { if mfdid = 2 { set btn4 to true. } preserve. }
-on AG237 { if mfdid = 2 { set btn5 to true. } preserve. }
-on AG238 { if mfdid = 2 { set btn6 to true. } preserve. }
-on AG239 { if mfdid = 3 { set btn1 to true. } preserve. }
-on AG240 { if mfdid = 3 { set btn2 to true. } preserve. }
-on AG241 { if mfdid = 3 { set btn3 to true. } preserve. }
-on AG242 { if mfdid = 3 { set btn4 to true. } preserve. }
-on AG243 { if mfdid = 3 { set btn5 to true. } preserve. }
-on AG244 { if mfdid = 3 { set btn6 to true. } preserve. }
-on AG245 { if mfdid = 4 { set btn1 to true. } preserve. }
-on AG246 { if mfdid = 4 { set btn2 to true. } preserve. }
-on AG247 { if mfdid = 4 { set btn3 to true. } preserve. }
-on AG248 { if mfdid = 4 { set btn4 to true. } preserve. }
-on AG249 { if mfdid = 4 { set btn5 to true. } preserve. }
-on AG250 { if mfdid = 4 { set btn6 to true. } preserve. }
+set msgtime to 0. 
 
 //print the main display
 local function printmenu {
@@ -127,6 +106,10 @@ set animstep to 0.
 //start main loop 
 set done to false. 
 until done {
+
+	//check input messages for keypresses and update master this cpu is running
+	checkinput().
+
 	//if we are selecting which program to run
 	if selmode = 0 {
 		//selector left
@@ -237,13 +220,20 @@ until done {
 			//circulize
 			if selprog = 1 {
 				//at AP
-				if sel2 = 0 {
-					//create a node to circulize at the AP 
+				if sel2 = 0 { 	//create a node to circulize at the AP 
 					set ndvel to (SHIP:BODY:MU / (SHIP:BODY:RADIUS + SHIP:APOAPSIS))^0.5.
 					set apvel to VELOCITYAT(SHIP, time:seconds + eta:apoapsis):ORBIT:MAG.
 					set newnode to node(time:seconds + eta:apoapsis,0,0,ndvel-apvel).
 					add newnode.
-					print "circ node @ "+si_formating(ndvel-apvel,"m/s") at(2,20+poff).
+					print "circ node @ "+si_formating(abs(ndvel-apvel),"m/s") at(2,20+poff).
+				}
+				//at PE
+				if sel2 = 1 {
+					set ndvel to (SHIP:BODY:MU / (SHIP:BODY:RADIUS + SHIP:periapsis))^0.5.
+					set pevel to VELOCITYAT(SHIP, time:seconds + eta:periapsis):ORBIT:MAG.
+					set newnode to node(time:seconds + eta:periapsis,0,0,ndvel-pevel).
+					add newnode.
+					print "circ node @ "+si_formating(abs(ndvel-pevel),"m/s") at(2,20+poff).
 				}
 			}
 			

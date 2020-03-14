@@ -17,6 +17,9 @@ run lib_navigation.
 //collect passed params
 parameter mfdid, mfdtop.
 
+//rename the core tag 
+set core:part:tag to "slave-"+mfdid+"-A2".
+
 //adjust print offset for the control bar
 set poff to 0.
 if mfdtop = true { set poff to 2. }
@@ -37,32 +40,6 @@ set btn3 to false.
 set btn4 to false. 
 set btn5 to false. 
 set btn6 to false.
-
-//flag button press based on MFDID 
-on AG227 { if mfdid = 1 { set btn1 to true. } preserve. }
-on AG228 { if mfdid = 1 { set btn2 to true. } preserve. }
-on AG229 { if mfdid = 1 { set btn3 to true. } preserve. }
-on AG230 { if mfdid = 1 { set btn4 to true. } preserve. }
-on AG231 { if mfdid = 1 { set btn5 to true. } preserve. }
-on AG232 { if mfdid = 1 { set btn6 to true. } preserve. }
-on AG233 { if mfdid = 2 { set btn1 to true. } preserve. }
-on AG234 { if mfdid = 2 { set btn2 to true. } preserve. }
-on AG235 { if mfdid = 2 { set btn3 to true. } preserve. }
-on AG236 { if mfdid = 2 { set btn4 to true. } preserve. }
-on AG237 { if mfdid = 2 { set btn5 to true. } preserve. }
-on AG238 { if mfdid = 2 { set btn6 to true. } preserve. }
-on AG239 { if mfdid = 3 { set btn1 to true. } preserve. }
-on AG240 { if mfdid = 3 { set btn2 to true. } preserve. }
-on AG241 { if mfdid = 3 { set btn3 to true. } preserve. }
-on AG242 { if mfdid = 3 { set btn4 to true. } preserve. }
-on AG243 { if mfdid = 3 { set btn5 to true. } preserve. }
-on AG244 { if mfdid = 3 { set btn6 to true. } preserve. }
-on AG245 { if mfdid = 4 { set btn1 to true. } preserve. }
-on AG246 { if mfdid = 4 { set btn2 to true. } preserve. }
-on AG247 { if mfdid = 4 { set btn3 to true. } preserve. }
-on AG248 { if mfdid = 4 { set btn4 to true. } preserve. }
-on AG249 { if mfdid = 4 { set btn5 to true. } preserve. }
-on AG250 { if mfdid = 4 { set btn6 to true. } preserve. }
 
 //get the node
 set nd to nextnode.
@@ -140,7 +117,7 @@ if comthr > 0 {
 	wait until nd:eta <= (burndur/2 + 59).
 
 	//lock the steering to the node, enable rcs and rot rcs
-	set np to nd:deltav. //points to node, don't care about the roll direction.
+	set np to lookdirup(nd:deltav, ship:facing:topvector). //points to node, don't care about the roll direction.
 	lock steering to np.
 	RCS ON.
 	SAS OFF.
@@ -150,7 +127,7 @@ if comthr > 0 {
 	//adjust the maxstoptime on the fly relative to how far the steering needs to travel
 	set aligned to false.
 	until aligned {
-		set fdif to vang(np, ship:facing:vector).
+		set fdif to vang(np:forevector, ship:facing:vector).
 		set mst to (fdif*0.1)+4.
 		set steeringmanager:maxstoppingtime to mst.
 		set rotr to ship:angularvel:mag * (180/constant:pi).

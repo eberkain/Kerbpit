@@ -11,6 +11,9 @@ run lib_navigation.
 //collect passed params
 parameter mfdid, mfdtop.
 
+//rename the core tag 
+set core:part:tag to "slave-"+mfdid+"-A4".
+
 //adjust print offset for the control bar
 set poff to 0.
 if mfdtop = true { set poff to 2. }

@@ -12,7 +12,7 @@ run lib_formating.
 run lib_navigation.
 
 //collect passed params
-parameter mfdid, mfdtop.
+parameter mfdid is 0, mfdtop is 0.
 
 //monitor reserved action groups for button activity
 set btn1 to false. 

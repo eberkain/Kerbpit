@@ -16,45 +16,24 @@ run lib_navigation.
 //collect passed params
 parameter mfdid, mfdtop.
 
+//rename the core tag 
+set core:part:tag to "slave-"+mfdid+"-B1".
+
 //adjust print offset for the control bar
 set poff to 0.
 if mfdtop = true { set poff to 2. }
 
 clearscreen.
 
-//monitor reserved action groups for button activity
+//input processing message control 
+core:messages:clear().
 set btn1 to false. 
 set btn2 to false. 
 set btn3 to false. 
 set btn4 to false. 
 set btn5 to false. 
 set btn6 to false.
-
-//flag button press based on MFDID 
-on AG227 { if mfdid = 1 { set btn1 to true. } preserve. }
-on AG228 { if mfdid = 1 { set btn2 to true. } preserve. }
-on AG229 { if mfdid = 1 { set btn3 to true. } preserve. }
-on AG230 { if mfdid = 1 { set btn4 to true. } preserve. }
-on AG231 { if mfdid = 1 { set btn5 to true. } preserve. }
-on AG232 { if mfdid = 1 { set btn6 to true. } preserve. }
-on AG233 { if mfdid = 2 { set btn1 to true. } preserve. }
-on AG234 { if mfdid = 2 { set btn2 to true. } preserve. }
-on AG235 { if mfdid = 2 { set btn3 to true. } preserve. }
-on AG236 { if mfdid = 2 { set btn4 to true. } preserve. }
-on AG237 { if mfdid = 2 { set btn5 to true. } preserve. }
-on AG238 { if mfdid = 2 { set btn6 to true. } preserve. }
-on AG239 { if mfdid = 3 { set btn1 to true. } preserve. }
-on AG240 { if mfdid = 3 { set btn2 to true. } preserve. }
-on AG241 { if mfdid = 3 { set btn3 to true. } preserve. }
-on AG242 { if mfdid = 3 { set btn4 to true. } preserve. }
-on AG243 { if mfdid = 3 { set btn5 to true. } preserve. }
-on AG244 { if mfdid = 3 { set btn6 to true. } preserve. }
-on AG245 { if mfdid = 4 { set btn1 to true. } preserve. }
-on AG246 { if mfdid = 4 { set btn2 to true. } preserve. }
-on AG247 { if mfdid = 4 { set btn3 to true. } preserve. }
-on AG248 { if mfdid = 4 { set btn4 to true. } preserve. }
-on AG249 { if mfdid = 4 { set btn5 to true. } preserve. }
-on AG250 { if mfdid = 4 { set btn6 to true. } preserve. }
+set msgtime to 0. 
 
 //current active page
 set curr_page to 0. 
@@ -352,7 +331,10 @@ set sbtime to 0.
 
 //main loop 
 until done = true {
-
+	
+	//check input messages for keypresses and update master this cpu is running
+	checkinput().
+	
 	//refresh part list if the parts change
 	if lastpartcount <> ship:parts:length { findparts. }
 
@@ -603,9 +585,13 @@ until done = true {
 				print (si_formating(ship:groundspeed,"m/s")):padright(10) at (xpos,ypos+5+poff). }
 			else if dpstep = 6 { //Suc Burn Eta
 				if addons:tr:available = true {
-					if addons:tr:hasimpact = true {
-						set maxdecel to (ship:availablethrust / ship:mass) - (constant:g * body:mass / body:radius^2).	
-						print (time_formating(addons:tr:timetillimpact - (ship:velocity:surface:mag / maxdecel),5)):padright(10) at (xpos,ypos+6+poff). 	}  	
+					if addons:tr:hasimpact = true {  //how long does it take to stop at impactvel
+						if ship:availablethrust > 0  {
+							set impactvel to velocityat(ship,time:seconds+addons:tr:timetillimpact):surface:mag.
+							set burntime to impactvel / (ship:availablethrust / ship:mass).	
+							print (time_formating(addons:tr:timetillimpact-burntime,5)):padright(10) at (xpos,ypos+6+poff). }
+						else { 
+							print " no engines" at (xpos,ypos+6+poff).  } }
 					else {
 						print " no impact" at (xpos,ypos+6+poff).  } }
 				else {
@@ -613,8 +599,14 @@ until done = true {
 			else if dpstep = 7 { // Suc Burn deltav 
 				if addons:tr:available = true {
 					if addons:tr:hasimpact = true {
-						set stopdv to ship:velocity:surface:mag + (constant:g * body:mass / body:radius^2).
-						print (" "+round(stopdv)+" m/s"):padright(10) at(xpos,ypos+7+poff). }
+						if body:atm:exists { //use a calculation based on immediate dv needs in atmo
+							set stopdv to ship:velocity:surface:mag*1.1.
+							print (" "+round(stopdv)+" m/s"):padright(10) at(xpos,ypos+7+poff). }
+						else { //in vac use vel at impact to make a rough estimate
+							set impactvel to velocityat(ship,time:seconds+addons:tr:timetillimpact):surface:mag.
+							set burntime to impactvel / (ship:availablethrust / ship:mass).	
+							set gravacel to (body:mu / body:radius^2) * burntime.
+							print (si_formating(impactvel+gravacel,"m/s")):padright(10) at(xpos,ypos+7+poff). } }
 					else {
 						print " no impact" at (xpos,ypos+7+poff).  } }
 				else {

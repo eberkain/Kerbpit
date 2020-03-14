@@ -28,6 +28,9 @@ run lib_navigation.
 //collect passed params
 parameter mfdid, mfdtop, passed_alt is 9999, passed_inc is 9999.
 
+//rename the core tag 
+set core:part:tag to "slave-"+mfdid+"-A1".
+
 //adjust print offset for the control bar
 set poff to 0.
 if mfdtop = true { set poff to 2. }
@@ -41,39 +44,16 @@ else {
 	print "─────────┬────────┬────────┼────────┬────────┬─────────" at(0,23).
 	print "  FC-TRAN│ FC-MAXQ│ THR-OVR│CTRL-OVR│   F5   │   F6   " at(0,24). }
 
-//monitor reserved action groups for button activity
+//input processing message control 
+core:messages:clear().
 set btn1 to false. 
 set btn2 to false. 
 set btn3 to false. 
 set btn4 to false. 
 set btn5 to false. 
 set btn6 to false.
+set msgtime to 0. 
 
-//flag button press based on MFDID 
-on AG227 { if mfdid = 1 { set btn1 to true. } preserve. }
-on AG228 { if mfdid = 1 { set btn2 to true. } preserve. }
-on AG229 { if mfdid = 1 { set btn3 to true. } preserve. }
-on AG230 { if mfdid = 1 { set btn4 to true. } preserve. }
-on AG231 { if mfdid = 1 { set btn5 to true. } preserve. }
-on AG232 { if mfdid = 1 { set btn6 to true. } preserve. }
-on AG233 { if mfdid = 2 { set btn1 to true. } preserve. }
-on AG234 { if mfdid = 2 { set btn2 to true. } preserve. }
-on AG235 { if mfdid = 2 { set btn3 to true. } preserve. }
-on AG236 { if mfdid = 2 { set btn4 to true. } preserve. }
-on AG237 { if mfdid = 2 { set btn5 to true. } preserve. }
-on AG238 { if mfdid = 2 { set btn6 to true. } preserve. }
-on AG239 { if mfdid = 3 { set btn1 to true. } preserve. }
-on AG240 { if mfdid = 3 { set btn2 to true. } preserve. }
-on AG241 { if mfdid = 3 { set btn3 to true. } preserve. }
-on AG242 { if mfdid = 3 { set btn4 to true. } preserve. }
-on AG243 { if mfdid = 3 { set btn5 to true. } preserve. }
-on AG244 { if mfdid = 3 { set btn6 to true. } preserve. }
-on AG245 { if mfdid = 4 { set btn1 to true. } preserve. }
-on AG246 { if mfdid = 4 { set btn2 to true. } preserve. }
-on AG247 { if mfdid = 4 { set btn3 to true. } preserve. }
-on AG248 { if mfdid = 4 { set btn4 to true. } preserve. }
-on AG249 { if mfdid = 4 { set btn5 to true. } preserve. }
-on AG250 { if mfdid = 4 { set btn6 to true. } preserve. }
 //main input vars
 set taralt to 9999.
 set hasalt to false.
@@ -182,7 +162,8 @@ set curaoa to 0. //the current aoa, calc in loop for transition swap
 set maxaoa to 5. //the max number of degrees to steer off prograde marker
 
 //take over control of steering
-lock steering to up. //heading(tarhdg,limpit).
+lock steering to lookdirup(up:forevector, ship:facing:topvector).
+//lock steering to up. //heading(tarhdg,limpit).
 set steerhead to false.  //is steering locked to heading
 print "ctrl-lock:up  " at(28,4+poff).
 
@@ -233,9 +214,18 @@ lock drange to (ship:geoposition:position-lgpos:position):mag.
 set mx to 0.
 set my to 0.
 
+//engine gimbal release
+set s1englist to list().
+set gimballock to false. 
+set towerclear to false. 
+set gimbalrelease to false. 
+
 //control steering and throttle until the AP reaches the taralt
 until launchdone {
 	
+	//check input messages for keypresses and update master this cpu is running
+	checkinput().
+
 	//print "Z" at (2,0).
 	//force navball transition
 	if btn1 = true {
@@ -398,11 +388,17 @@ until launchdone {
 	//must be withing the maxaoa range of the current prograde reference
 	if ship:verticalspeed < 100 and ship:altitude < 1000 {
 		set limpit to 90.
+		
+		//manage first stage gimbals to prevent unnecessary roll
+		if ship:verticalspeed > 1 {
+			
+		}
 	}
 	else if protrans = false { //compare vs surface
 		if steerhead = false {
 			set steerhead to true.
-			lock steering to heading(tarhdg,limpit).
+			lock steering to lookdirup(heading(tarhdg,limpit):vector, ship:facing:topvector).
+			//lock steering to heading(tarhdg,limpit).
 			print "ctrl-lock:hd" at(28,4+poff).
 		}
 		
