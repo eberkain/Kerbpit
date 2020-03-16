@@ -128,6 +128,44 @@ the left side console and is used to manipulate autopilot, 2 boards
 * various controls for all onboard systems
     - send commands to MFD0 to activate in-game action based on button pressed
 * backlight control switches
+* 2 ea, momentary on-off-on toggle switches
+    - landing gear up/down
+    - airbrakes extend/retract
+    - flaps extend/retract
+    - props extend/retract
+    - intakes open/close
+    - thrust forward/reverse
+    - ladders extend/retract
+    - landing legs extend/retract
+    - docking shield open/close
+    - docking extender extend/retract
+    - crossfeed enable/disable
+    - omni antenna deploy/retract
+    - relay antenna deploy/retract
+    - solar panel deploy/retract
+    - radiatiors extend/retract
+    - dump fuel on/off
+    - wheel lights
+    - flood lights
+    - landing lights
+    - cargo bay open/close
+    - service bay open/close
+    - grappler arm/disarm
+* 1 ea, momnentary on-off toggle switch
+    - deploy chutes
+    - deploy drogue
+    - inflate heat shield
+    - deploy fairing
+    - grapple release
+* 1 ea, momentary on-off covered toggle switch 
+    - cut chutes
+    - cut drogue
+    - jettison heat shield
+* 1 ea, momentary led pushbutton
+    - Ignition
+    - Jettison
+* 8 selector switch engine action
+    - booster, 1, 2, 3, main, land, asct, circ
 
 # SETUP
 You will need a monospace font that supports line drawing, boxes and arrows.  I use [Unifont](http://www.unifoundry.com/unifont/index.html) in all screenshots.  
