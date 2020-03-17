@@ -67,7 +67,7 @@ kOS is used to operate 4 simultanious MFD screens on side monitors
 Each control board can support 32 buttons and 8 analog axis.
 Suggested control board is [Leo Bodnar BU0836A 12-Bit Joystick Controller](http://www.leobodnar.com/shop/index.php?main_page=product_info&cPath=94&products_id=204).
 
-![](https://i.imgur.com/cEmENOM.png)
+![](https://i.imgur.com/QHBbFVK.png)
 ### Flight Computer 
 the right side console and used to operate mfds, 2 boards
 * 6 keyswitch-Select button allows you to choose what MFD to send commands to (#, master, input for 5)
@@ -96,7 +96,7 @@ the right side console and used to operate mfds, 2 boards
 * A-4 slide pot robotics controls, single axis. 
 * A-2 potientiometer dial for robotics control axis. 
     
-![](https://i.imgur.com/QHBbFVK.png)
+![](https://i.imgur.com/cEmENOM.png)
 ### Navigation Controller 
 the left side console and is used to manipulate autopilot, 2 boards
 * 6 pushbutton-trim buttons +/- for HDG, ALT, SPD
